@@ -1,7 +1,7 @@
 {
   "name": "ember-redux",
-  "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "version": "0.0.1",
+  "description": "Official Ember bindings for Redux",
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -11,11 +11,18 @@
     "start": "ember server",
     "test": "ember try:testall"
   },
-  "repository": "",
+  "homepage": "https://github.com/toranb/ember-redux",
+  "bugs": {
+      "url": "https://github.com/toranb/ember-redux/issues"
+  },
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/toranb/ember-redux"
+  },
   "engines": {
     "node": ">= 0.10.0"
   },
-  "author": "",
+  "author": "Toran Billups toranb@gmail.com",
   "license": "MIT",
   "devDependencies": {
     "broccoli-asset-rev": "^2.2.0",
@@ -38,7 +45,11 @@
     "ember-try": "~0.0.8"
   },
   "keywords": [
-    "ember-addon"
+    "ember-addon",
+    "data",
+    "ember-cli",
+    "ember",
+    "redux"
   ],
   "dependencies": {
     "ember-cli-babel": "^5.1.5"

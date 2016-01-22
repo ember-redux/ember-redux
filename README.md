@@ -1,26 +1,16 @@
-# Ember-redux
+# Ember Redux
 
-This README outlines the details of collaborating on this Ember addon.
-
-## Installation
-
-* `git clone` this repository
-* `npm install`
-* `bower install`
-
-## Running
-
-* `ember server`
-* Visit your app at http://localhost:4200.
+Official Ember bindings for [Redux][]
 
 ## Running Tests
 
-* `npm test` (Runs `ember try:testall` to test your addon against multiple Ember versions)
-* `ember test`
-* `ember test --server`
+    npm install
+    ember test
 
-## Building
+## License
 
-* `ember build`
+Copyright © 2016 Toran Billups http://toranbillups.com
 
-For more information on using ember-cli, visit [http://www.ember-cli.com/](http://www.ember-cli.com/).
+Licensed under the MIT License
+
+[Redux]: https://github.com/rackt/redux/
