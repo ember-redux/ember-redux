@@ -1,12 +1,21 @@
 import {uniq} from 'dummy/utilities/array';
 
 const initialState = {
-    all: []
+    all: [],
+    selected: null
 };
 
 export default ((state=initialState, action) => { // jshint ignore:line
     if (action.type === 'DESERIALIZE_USERS') {
-        return {all: uniq(state.all, action.response)};
+        return Object.assign({}, state, {
+            all: uniq(state.all, action.response)
+        });
+    }
+    if (action.type === 'DESERIALIZE_USER') {
+        return Object.assign({}, state, {
+            all: uniq(state.all, action.response),
+            selected: action.response
+        });
     }
     return state;
 });
