@@ -5,9 +5,9 @@ const initialState = {
 };
 
 export default ((state=initialState, action) => { // jshint ignore:line
-    if (action.type === 'ADD_ROLE') {
+    if (action.type === 'ADD_ROLES') {
         return Object.assign({}, state, {
-            all: uniq(state.all, action.response)
+            all: uniq(state.all, action.roles)
         });
     }
     return state;
