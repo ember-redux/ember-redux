@@ -12,4 +12,4 @@ var UsersRoute = Ember.Route.extend({
     }
 });
 
-export default route(model)(UsersRoute);
+export default route({model})(UsersRoute);

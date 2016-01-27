@@ -1,14 +1,13 @@
 import Ember from 'ember';
+import route from 'ember-redux/route';
 
-var ApplicationRoute = Ember.Route.extend({
-    store: Ember.inject.service('redux'),
-    beforeModel() {
-        let store = this.get('store');
-        let roles = Ember.$('[preload-roles]').data('configuration');
-        roles.forEach((model) => {
-            store.dispatch({type: 'ADD_ROLE', response: model});
-        });
-    }
-});
+var beforeModel = (dispatch) => {
+    let roles = Ember.$('[preload-roles]').data('configuration');
+    roles.forEach((model) => {
+        dispatch({type: 'ADD_ROLE', response: model});
+    });
+};
 
-export default ApplicationRoute;
+var ApplicationRoute = Ember.Route.extend();
+
+export default route({beforeModel})(ApplicationRoute);

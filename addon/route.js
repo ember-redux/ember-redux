@@ -1,13 +1,17 @@
 import Ember from 'ember';
 
-var route = function(model) {
-    var finalModel = model || function() {return {};};
+var route = function(funcs) {
     return function wrapWithRoute(WrappedRoute) {
         return WrappedRoute.extend({
             store: Ember.inject.service('redux'),
-            model(...args) {
+            init() {
                 var store = this.get('store');
-                return finalModel.apply(this, [store.dispatch].concat(args));
+                var route = this;
+                Object.keys(funcs).forEach(function(func) {
+                    route[func] = function(args) {
+                        return funcs[func](store.dispatch, args);
+                    };
+                });
             }
         });
     };

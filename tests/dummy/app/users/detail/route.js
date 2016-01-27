@@ -9,4 +9,4 @@ var model = (dispatch, params) => {
 
 var UsersDetailRoute = Ember.Route.extend();
 
-export default route(model)(UsersDetailRoute);
+export default route({model})(UsersDetailRoute);
