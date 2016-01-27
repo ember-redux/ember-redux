@@ -1,5 +1,0 @@
-{{#each users as |user|}}
-  <div class="user-name">{{user.name}}</div>
-  {{#link-to 'users.detail' user.id class='user-detail-link'}}details{{/link-to}}
-{{/each}}
-{{outlet}}
