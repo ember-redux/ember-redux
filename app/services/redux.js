@@ -1,13 +1,11 @@
 import Ember from 'ember';
 import redux from 'npm:redux';
-import thunk from 'npm:redux-thunk';
 import reducers from '../reducers/combined';
+import middleware from '../middleware/index';
 
 var { createStore, applyMiddleware, combineReducers } = redux;
 
-var createStoreWithMiddleware = applyMiddleware(
-    thunk
-)(createStore);
+var createStoreWithMiddleware = applyMiddleware(...middleware)(createStore);
 
 var store = createStoreWithMiddleware(combineReducers(reducers));
 
