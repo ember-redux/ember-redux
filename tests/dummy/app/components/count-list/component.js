@@ -22,9 +22,13 @@ var CountListComponent = Ember.Component.extend({
     <button class="btn-up" onclick={{action "up"}}>up</button>
     {{count-detail high=high down=(action "down")}}
     <button class="btn-random" onclick={{action "random"}}>random</button>
+    <button class="btn-alter" onclick={{action "alter"}}>alter</button>
     <span class="random-state">{{color}}</span>
   `,
   actions: {
+    alter() {
+        this.set('low', '999');
+    },
     random() {
       this.set('color', 'blue');
       //only used in test code to verify actions worked

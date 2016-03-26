@@ -22,23 +22,23 @@ var connect = function(mapStateToComputed, mapDispatchToActions) {
             return actions;
         };
         return WrappedComponent.extend({
-            store: Ember.inject.service('redux'),
+            redux: Ember.inject.service('redux'),
             init() {
                 var component = this;
                 component['actions'] = Ember.$.extend({}, component['actions']);
-                var store = this.get('store');
-                var props = mapState(store.getState());
-                var dispatch = mapDispatch(store.dispatch);
+                var redux = this.get('redux');
+                var props = mapState(redux.getState());
+                var dispatch = mapDispatch(redux.dispatch);
                 props.forEach(function(name) {
                     defineProperty(component, name, computed(function() {
-                        return finalMapStateToComputed(store.getState())[name];
-                    }).property());
+                        return finalMapStateToComputed(redux.getState())[name];
+                    }).property().readOnly());
                 });
                 dispatch.forEach(function(action) {
-                    component['actions'][action] = finalMapDispatchToActions(store.dispatch)[action];
+                    component['actions'][action] = finalMapDispatchToActions(redux.dispatch)[action];
                 });
                 if (shouldSubscribe && !this.unsubscribe) {
-                    this.unsubscribe = store.subscribe(() => {
+                    this.unsubscribe = redux.subscribe(() => {
                         props.forEach(function(name) {
                             component.notifyPropertyChange(name);
                         });
