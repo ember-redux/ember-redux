@@ -9,7 +9,8 @@
 ## Installation
 
 ```
-ember install ember-redux
+npm install ember-browserify -D
+npm install ember-redux -D
 ```
 
 ## Running Tests
