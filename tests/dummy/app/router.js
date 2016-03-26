@@ -13,6 +13,7 @@ Router.map(function() {
       this.route('detail', {path: '/:user_id'});
   });
   this.route('fetch', { path: '/fetch' });
+  this.route('super', { path: '/super' });
 });
 
 export default Router;

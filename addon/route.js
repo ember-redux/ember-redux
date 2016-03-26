@@ -12,6 +12,7 @@ var route = function(funcs) {
                         return funcs[func](redux.dispatch, args);
                     };
                 });
+                this._super(...arguments);
             }
         });
     };

@@ -90,3 +90,12 @@ test('should fetch async data and display after xhr has resolved (super is calle
         assert.equal(find('.user-name').length, 3);
     });
 });
+
+test('route connect function should call super in the init', function(assert) {
+    visit('/super');
+    andThen(() => {
+        assert.equal(currentURL(), '/super');
+        var route = application.__container__.lookup('route:super');
+        assert.equal(route.get('invoked'), true);
+    });
+});
