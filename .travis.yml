@@ -6,6 +6,7 @@ node_js:
 sudo: false
 
 addons:
+  firefox: "44.0"
   apt:
     sources:
     - google-chrome
