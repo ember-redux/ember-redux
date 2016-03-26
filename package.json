@@ -25,10 +25,11 @@
   "author": "Toran Billups toranb@gmail.com",
   "license": "MIT",
   "devDependencies": {
-    "broccoli-asset-rev": "^2.2.0",
     "ember-cli": "2.4.2",
+    "ember-resolver": "^2.0.3",
+    "loader.js": "^4.0.0",
+    "broccoli-asset-rev": "^2.2.0",
     "ember-cli-app-version": "^1.0.0",
-    "ember-cli-babel": "^5.1.5",
     "ember-cli-dependency-checker": "^1.2.0",
     "ember-cli-htmlbars": "^1.0.1",
     "ember-cli-htmlbars-inline-precompile": "^0.3.1",
@@ -40,12 +41,7 @@
     "ember-disable-proxy-controllers": "^1.0.1",
     "ember-export-application-global": "^1.0.4",
     "ember-load-initializers": "^0.5.0",
-    "ember-resolver": "^2.0.3",
-    "loader.js": "^4.0.0",
-    "ember-try": "~0.1.2",
-    "redux": "^3.3.1",
-    "redux-thunk": "^1.0.2",
-    "ember-browserify": "^1.0.2"
+    "ember-try": "~0.1.2"
   },
   "keywords": [
     "ember-addon",
@@ -55,7 +51,10 @@
     "redux"
   ],
   "dependencies": {
-    "ember-cli-babel": "^5.1.5"
+    "ember-cli-babel": "^5.1.5",
+    "redux": "^3.3.1",
+    "redux-thunk": "^1.0.2",
+    "ember-browserify": "^1.0.2"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
