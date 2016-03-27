@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import redux from 'npm:redux';
 import reducers from '../reducers/index';
+import optional from '../reducers/optional';
 import middleware from '../middleware/index';
 
 var { createStore, applyMiddleware, combineReducers } = redux;
@@ -8,7 +9,7 @@ var createStoreWithMiddleware = applyMiddleware(...middleware)(createStore);
 
 export default Ember.Service.extend({
     init() {
-        this.store = createStoreWithMiddleware(combineReducers(reducers));
+        this.store = createStoreWithMiddleware(optional(combineReducers(reducers)));
         this._super(...arguments);
     },
     getState() {
