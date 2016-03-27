@@ -13,17 +13,6 @@ module('Acceptance | async dispatch test', {
     }
 });
 
-test('deep linking directly will work as you would expect in ember', function(assert) {
-    ajax('/api/users', 'GET', 200, [{id: 1, name: 'one'}, {id: 2, name: 'two'}]);
-    ajax('/api/users/2', 'GET', 200, {id: 2, name: 'two'});
-    visit('/users/2');
-    andThen(() => {
-        assert.equal(currentURL(), '/users/2');
-        assert.equal(find('.user-name').length, 2);
-        assert.equal(find('.user-detail-name').text().trim(), 'two');
-    });
-});
-
 test('route will fetch async data and dispatch to deserialize with the response', function(assert) {
     visit('/');
     andThen(() => {
@@ -97,5 +86,16 @@ test('route connect function should call super in the init', function(assert) {
         assert.equal(currentURL(), '/super');
         var route = application.__container__.lookup('route:super');
         assert.equal(route.get('invoked'), true);
+    });
+});
+
+test('deep linking directly will work as you would expect in ember', function(assert) {
+    ajax('/api/users', 'GET', 200, [{id: 1, name: 'one'}, {id: 2, name: 'two'}]);
+    ajax('/api/users/2', 'GET', 200, {id: 2, name: 'two'});
+    visit('/users/2');
+    andThen(() => {
+        assert.equal(currentURL(), '/users/2');
+        assert.equal(find('.user-name').length, 2);
+        assert.equal(find('.user-detail-name').text().trim(), 'two');
     });
 });
