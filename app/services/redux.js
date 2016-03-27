@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import redux from 'npm:redux';
-import reducers from '../reducers/combined';
+import reducers from '../reducers/index';
 import middleware from '../middleware/index';
 
 var { createStore, applyMiddleware, combineReducers } = redux;
