@@ -28,14 +28,14 @@ var connect = function(mapStateToComputed, mapDispatchToActions) {
                 component['actions'] = Ember.$.extend({}, component['actions']);
                 var redux = this.get('redux');
                 var props = mapState(redux.getState());
-                var dispatch = mapDispatch(redux.dispatch);
+                var dispatch = mapDispatch(redux.dispatch.bind(redux));
                 props.forEach(function(name) {
                     defineProperty(component, name, computed(function() {
                         return finalMapStateToComputed(redux.getState())[name];
                     }).property().readOnly());
                 });
                 dispatch.forEach(function(action) {
-                    component['actions'][action] = finalMapDispatchToActions(redux.dispatch)[action];
+                    component['actions'][action] = finalMapDispatchToActions(redux.dispatch.bind(redux))[action];
                 });
                 if (shouldSubscribe && !this.unsubscribe) {
                     this.unsubscribe = redux.subscribe(() => {
