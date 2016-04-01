@@ -99,3 +99,59 @@ test('deep linking directly will work as you would expect in ember', function(as
         assert.equal(find('.user-detail-name').text().trim(), 'two');
     });
 });
+
+test('parent and child templates render and re-render correctly when edits occur in the child component', function(assert) {
+    ajax('/api/items', 'GET', 200, [{id: 1, name: 'first'}, {id: 2, name: 'second'}]);
+    visit('/items');
+    andThen(() => {
+        assert.equal(currentURL(), '/items');
+        assert.equal(find('.item-name').length, 2);
+        assert.equal(find('.item-name:eq(0)').text().trim(), 'first');
+        assert.equal(find('.item-name:eq(1)').text().trim(), 'second');
+    });
+    ajax('/api/items/2', 'GET', 200, {id: 2, name: 'updated'});
+    click('.item-detail-link:eq(1)');
+    andThen(() => {
+        assert.equal(currentURL(), '/items/2');
+        assert.equal(find('.item-detail-name').length, 1);
+        assert.equal(find('.item-detail-name').val(), 'updated');
+        assert.equal(find('.item-name').length, 2);
+        assert.equal(find('.item-name:eq(0)').text().trim(), 'first');
+        assert.equal(find('.item-name:eq(1)').text().trim(), 'updated');
+    });
+    ajax('/api/users', 'GET', 200, [{id: 1, name: 'one'}, {id: 2, name: 'two'}]);
+    click('.fetch-link');
+    andThen(() => {
+        assert.equal(currentURL(), '/fetch');
+    });
+    ajax('/api/items', 'GET', 200, [{id: 1, name: 'zap'}, {id: 2, name: 'updated'}, {id: 3, name: 'more'}]);
+    click('.items-link');
+    andThen(() => {
+        assert.equal(currentURL(), '/items');
+        assert.equal(find('.item-name').length, 3);
+        assert.equal(find('.item-name:eq(0)').text().trim(), 'zap');
+        assert.equal(find('.item-name:eq(1)').text().trim(), 'updated');
+        assert.equal(find('.item-name:eq(2)').text().trim(), 'more');
+    });
+    ajax('/api/items/1', 'GET', 200, {id: 1, name: 'zap'});
+    click('.item-detail-link:eq(0)');
+    andThen(() => {
+        assert.equal(currentURL(), '/items/1');
+        assert.equal(find('.item-detail-name').length, 1);
+        assert.equal(find('.item-detail-name').val(), 'zap');
+        assert.equal(find('.item-name').length, 3);
+        assert.equal(find('.item-name:eq(0)').text().trim(), 'zap');
+        assert.equal(find('.item-name:eq(1)').text().trim(), 'updated');
+        assert.equal(find('.item-name:eq(2)').text().trim(), 'more');
+    });
+    fillIn('.item-detail-name', 'x');
+    andThen(() => {
+        assert.equal(currentURL(), '/items/1');
+        assert.equal(find('.item-detail-name').length, 1);
+        assert.equal(find('.item-detail-name').val(), 'x');
+        assert.equal(find('.item-name').length, 3);
+        assert.equal(find('.item-name:eq(0)').text().trim(), 'x');
+        assert.equal(find('.item-name:eq(1)').text().trim(), 'updated');
+        assert.equal(find('.item-name:eq(2)').text().trim(), 'more');
+    });
+});

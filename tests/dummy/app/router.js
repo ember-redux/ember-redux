@@ -12,6 +12,9 @@ Router.map(function() {
   this.route('users', function() {
       this.route('detail', {path: '/:user_id'});
   });
+  this.route('items', function() {
+      this.route('detail', {path: '/:item_id'});
+  });
   this.route('fetch', { path: '/fetch' });
   this.route('super', { path: '/super' });
 });
