@@ -1,0 +1,57 @@
+---
+layout: page
+title: Quick Start
+permalink: /quickstart/
+---
+
+Now that you have the hang of this redux thing lets take a look at what building that same component would look like using the `ember-redux` addon!
+
+The first step is to remove the redux import and all the `createStore` code that is declared outside of the component. We won't need this anymore because the addon does the heavy lifting for us.
+
+Next we need to move the reducer itself by creating a new folder called `reducers`. Inside this folder we need a single file with the name `index.js` (as it's the only reducer by default at the moment). Notice I'm also exporting this out with an object because in a real application we won't just have one reducer function.
+
+```js
+//app/reducers/index.js
+
+var number = ((state, action) => {
+    if(action.type === 'ADD') {
+        return state + 1;
+    }
+    return state || 0;
+});
+
+export default {
+    number
+}
+```
+
+After we've got our reducer setup we need to remove the computed and action we created manually and replace them with function(s) that will be given state/dispatch directly.
+
+```js
+import Ember from 'ember';
+import hbs from 'htmlbars-inline-precompile';
+import connect from 'ember-redux/components/connect';
+
+var stateToComputed = (state) => {
+  return {
+    number: state.number
+  };
+};
+
+var dispatchToActions = (dispatch) => {
+  return {
+    add: () => dispatch({type: 'ADD'})
+  };
+};
+
+var NumbersComponent = Ember.Component.extend({
+    layout: hbs`
+      {\{number}}
+      <button onclick={{action "add"}}>add</button>
+    `
+});
+
+export default connect(stateToComputed, dispatchToActions)(NumbersComponent);
+```
+
+And finally you will notice we use a new helper called `connect` to return a new component given the 2 functions that map the computed and actions.
