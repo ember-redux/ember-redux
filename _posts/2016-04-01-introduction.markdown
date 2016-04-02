@@ -36,7 +36,7 @@ In the code sample above you can see the function takes 2 arguments. The first i
 
 The action represents some intent of the program to help us know what operation or transformation we should perform. If you were to `console.log` the action during the first pass you would see a custom INIT action that redux will pass if we provide no other action. During the second pass, if we provided an action with type `ADD` we will increment the value and return it as the next state.
 
-We can now update the `createStore` function above to take this new reducer function as it's the required argument we are missing earlier.
+We can now update the `createStore` function above to take this new reducer function as it's the required argument we were missing earlier.
 
 ```js
 import Redux from 'npm:redux';
@@ -115,9 +115,9 @@ export default Ember.Component.extend({
 });
 ```
 
-If you run this in the browser you will notice one last problem ... the number never gets updated. If you `console.log` in the reducer function you would see the action is getting passed in and we are returning a new state. The problem is that our computed is cached and we never informed the component about a new value.
+If you run this in the browser you will notice one last problem ... the number never gets updated. If you `console.log` in the reducer function you would see the action is getting passed in and we are returning a new state. The problem is that our computed property is cached and we never informed the component about a new value.
 
-To break the cache on the computed property we need to notify the property that it has changed. This brings about the last redux method we need to learn about called `subscribe`. This method will be fired when the store returns the next state of our application. We can wire it up in the `init` function so it will break the cache correctly allowing us to re-render the number.
+To break the cache on the computed property we need to notify the component that it has changed. This brings about the last redux method we need to learn about called `subscribe`. This method will be fired when the store returns the next state of our application. We can wire it up in the `init` function so it will break the cache correctly allowing us to re-render the number.
 
 ```js
 import Ember from 'ember';
