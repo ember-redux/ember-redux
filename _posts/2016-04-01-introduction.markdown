@@ -11,7 +11,7 @@ npm install ember-browserify -D
 npm install ember-redux -D
 ```
 
-To better understand ember-redux we first need to break down the essential concepts in redux itself. Because redux revolves around a central store we first need to create that using the `createStore` function.
+To better understand ember-redux we first need to break down the essential concepts in redux itself. Because redux revolves around a central store we first need to create it using the `createStore` function.
 
 ```js
 import Redux from 'npm:redux';
@@ -21,7 +21,7 @@ var { createStore } = Redux;
 var store = createStore();
 ```
 
-If you ran the code above you would notice a runtime error in redux. This error occurs because I failed to pass `createStore` a required argument. The argument is a function that takes the current state of the application plus an action and returns the next state of the application. If that sounded a little dense let me explain with an example.
+If you ran the code above you likely hit a runtime error in redux. This error occurs because I failed to pass `createStore` a required argument. The argument is a function that takes the current state of the application plus an action and returns the next state of the application. If that description sounded a bit terse let me explain with an example.
 
 ```js
 var reducer = ((state, action) => {
@@ -32,11 +32,11 @@ var reducer = ((state, action) => {
 });
 ```
 
-In the example my function takes 2 arguments. The first is simply the state that we will later render in a web component. Notice this will start as `undefined` so we will begin with a default value of `0`.
+In the code sample above you can see the function takes 2 arguments. The first is the current state of the application. In the first pass this value will be `undefined` and at the very end you will notice the function returns a value of `0` (acting as our default state). This return value now represents the next state of the application and we will render it using our web component a bit later. It's important to note that the second time this reducer function is called we start with a state value of `0`.
 
-The action represents some intent of the program to help us know what operation should occur. If you were to `console.log` the action during the first pass you would see a custom INIT action that redux will pass if we provide no other action is present. This means we will simply return the value of `0` and exit the function.
+The action represents some intent of the program to help us know what operation or transformation we should perform. If you were to `console.log` the action during the first pass you would see a custom INIT action that redux will pass if we provide no other action. During the second pass, if we provided an action with type `ADD` we will increment the value and return it as the next state.
 
-We can now update the `createStore` function above to take this new reducer function as it's the required argument we are missing.
+We can now update the `createStore` function above to take this new reducer function as it's the required argument we are missing earlier.
 
 ```js
 import Redux from 'npm:redux';
@@ -53,7 +53,7 @@ var reducer = ((state, action) => {
 var store = createStore(reducer);
 ```
 
-Now that we have the store itself, we can use it to get the state and send actions. First up lets create a simple computed property to wrap the state returned from the store. In the example below we can get the state of the function by invoking `getState` directly on the store.
+Now that we have the store itself, we can use it to get the state and send actions. First we will create a computed property to wrap the state returned from the store. In the example below we can get the state of the function by invoking `getState` directly on the store.
 
 ```js
 import Ember from 'ember';
@@ -81,7 +81,7 @@ export default Ember.Component.extend({
 });
 ```
 
-The initial render now shows the default state of `0` as we expect. To modify that number (and fire that reducer function above with an action) we need to wire up a button in this component that can `dispatch` to the store with the action type.
+The initial render now shows the default state of `0` as we expect. To modify that number (and fire that reducer function above with an action) we need to wire up a button in this component that can `dispatch` to the store. We are required to give this dispatch function at minimum one argument of type object with a `type` attribute that describes the intent so the reducer function knows what it should do.
 
 ```js
 import Ember from 'ember';
@@ -110,14 +110,14 @@ export default Ember.Component.extend({
     },
     layout: hbs`
       {\{number}}
-      <button onclick={{action "add"}}>add</button>
+      <button onclick={\{action "add"}}>add</button>
     `
 });
 ```
 
-If you run this in the browser you will notice on big problem ... the number never gets updated. If you `console.log` in the reducer function you would see the action is getting passed in and we are returning a new state. The problem is that our computed is cached and we never informed the component about a new value.
+If you run this in the browser you will notice one last problem ... the number never gets updated. If you `console.log` in the reducer function you would see the action is getting passed in and we are returning a new state. The problem is that our computed is cached and we never informed the component about a new value.
 
-To break the cache on the computed property we need to notify the property that it has changed. This brings about the last redux method we need to learn about called `subscribe`. This method will be fired when the store returns the next state of our application. We can wire it up in the `init` below so it breaks the cache and we truly re-render the number.
+To break the cache on the computed property we need to notify the property that it has changed. This brings about the last redux method we need to learn about called `subscribe`. This method will be fired when the store returns the next state of our application. We can wire it up in the `init` function so it will break the cache correctly allowing us to re-render the number.
 
 ```js
 import Ember from 'ember';
@@ -152,7 +152,7 @@ export default Ember.Component.extend({
     },
     layout: hbs`
       {\{number}}
-      <button onclick={{action "add"}}>add</button>
+      <button onclick={\{action "add"}}>add</button>
     `
 });
 ```
