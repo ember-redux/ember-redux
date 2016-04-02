@@ -13,6 +13,10 @@ npm install ember-browserify -D
 npm install ember-redux -D
 ```
 
+## Documentation
+
+http://www.ember-redux.com/
+
 ## Running Tests
 
     npm install
