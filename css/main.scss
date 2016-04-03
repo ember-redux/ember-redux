@@ -43,7 +43,22 @@ $on-laptop:        800px;
     }
 }
 
+.undertbl {
+    padding-top: 1rem;
+}
 
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+th, td {
+  padding: 0.25rem;
+  text-align: left;
+  border: 1px solid #ccc;
+}
+tbody tr:nth-child(odd) {
+  background: #eee;
+}
 
 // Import partials from `sass_dir` (defaults to `_sass`)
 @import
