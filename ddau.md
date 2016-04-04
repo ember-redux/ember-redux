@@ -44,7 +44,7 @@ Router.map(function() {
 export default Router;
 ```
 
-With the route in place we now need to fire an async network request to fetch the list of user data. In classic ember we would use the identity map or "store" abstraction (ember-data/ember-model/ember-cli-simple-store) but in this example we are using redux and want to send an action up with the request upon success so the reducer can do it's work. I'm using a very simple [ajax][] helper but you can use anything you like here so long as it's "than-able".
+With the route in place we now need to fire an async network request to fetch the list of user data. In classic ember we would use the identity map or "store" abstraction (ember-data/ember-model/ember-cli-simple-store) but in this example we are using redux and want to send an action up with the response upon success so the reducer can do it's work. I'm using a very simple [ajax][] helper but you can use anything you like here so long as it's "then-able".
 
 ```js
 //app/users/route.js
@@ -63,7 +63,7 @@ export default route({model})(UsersRoute);
 
 The end result is the same as anything you've done in ember previously but you no doubt noticed that the model hook is now a function we pass into the `route` function from ember-redux. This pattern isn't a hard requirement so if you prefer [idiomatic][] ember you can always inject the redux service and use dispatch directly.
 
-When the ajax request has resolved we dispatch and action to the redux store with the type of `DESERIALIZE_USERS` and we send along the http response so we can deserialize it and return the data as the new state of our application.
+When the ajax request has resolved we dispatch an action to the redux store with a type of `DESERIALIZE_USERS` and the http response. We later deserialize that response and return the data as part of the next state of our application using the reducer function (shown below).
 
 ```js
 //app/reducers/users.js
@@ -88,9 +88,9 @@ export default ((state, action) => {
 });
 ```
 
-The reducuer has a code path for storing each user in the object literal using the key `all`. Inside the conditional we use a simple [array][] helper to ensure we get a basic merge of the current state and json response. One of the key ideas in redux is that we shouldn't mutate the current state so we also use `Object.assign` here to avoid any side effects. The returned value here is a new state of the world with all the user data returned from the ajax request. The second code path for delete uses the [array][] helper function called `remove` to ensure we don't side effect the current state.
+The reducer has a code path for storing each user in the object literal using the key `all`. Inside the conditional we use a simple [array][] helper to ensure we get a basic merge of the current state and json response. One of the key ideas in redux is that we shouldn't mutate the current state so we also use `Object.assign` here to avoid any side effects. The returned value from the reducer function represents the next state. It's important to note that this new state will live independent from the previous. In similar fashion the code path for removing a user will avoid side effects with help from the [array][] helper function `remove`.
 
-This reducer is fine but without an entry in the index.js file (found in the reducers directory) we won't ever execute it. Simply import the users reducer function and export it with a key of `users`.
+This reducer is fine but without an entry in the index.js file (found in the reducers directory) it will never be executed. Simply import the users reducer function and export it with a key of `users`.
 
 ```js
 //app/reducers/index.js
@@ -101,14 +101,14 @@ export default {
 };
 ```
 
-Before we can start building the component tree we need to add the top level users template and define the `users-list` component.
+Before we can start building the component tree we need to add the template file for the users route and define the `users-list` component.
 
 ```js
 //app/users/template.hbs
 {\{users-list}}
 ```
 
-Now that we have fetched the data we can declare the `Container Component` that will be redux aware.
+Now that we have fetched the data we declare the `Container Component` that will be redux aware.
 
 ```js
 //app/components/users-list/component.js
@@ -138,7 +138,7 @@ var UserListComponent = Ember.Component.extend({
 export default connect(stateToComputed, dispatchToActions)(UserListComponent);
 ```
 
-The component itself just maps the state of redux to a computed called `users` but notice we don't use that array directly. Instead we pass that data down to a `Presentational Component` that will be responsible for rendering the html.
+The component itself maps the state of redux to a computed called `users` and the remove function to an action. Notice we don't use that array or action directly in this component. Instead we pass the data and closure action down to a `Presentational Component` that will be responsible for rendering the html.
 
 ```js
 //app/components/users-table/component.js
@@ -157,7 +157,7 @@ var UserTableComponent = Ember.Component.extend({
 export default UserTableComponent;
 ```
 
-The big difference between this component and the `users-list` component is that we know nothing about redux here. The blessing of this constraint is that we don't know or care about how we got `users`. This components entire role is to transform an array of plain javascript objects into the html representation.
+The big difference between this component and the `users-list` component is that we know nothing about redux here. The blessing of this constraint is that we don't need to be concerned with how we got the `users` array or the `remove` action. This components entire role is to transform an array of plain javascript objects into the html representation.
 
 **Maximum reuse!**
 
