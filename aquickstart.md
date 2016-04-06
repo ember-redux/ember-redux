@@ -28,6 +28,7 @@ export default {
 After we've got our reducer setup we need to remove the computed and action we created manually and replace them with a function that will be given state/dispatch directly.
 
 ```js
+{% raw %}
 import Ember from 'ember';
 import hbs from 'htmlbars-inline-precompile';
 import connect from 'ember-redux/components/connect';
@@ -46,12 +47,13 @@ var dispatchToActions = (dispatch) => {
 
 var NumbersComponent = Ember.Component.extend({
     layout: hbs`
-      {\{number}}
-      <button onclick={\{action "add"}}>add</button>
+      {{number}}
+      <button onclick={{action "add"}}>add</button>
     `
 });
 
 export default connect(stateToComputed, dispatchToActions)(NumbersComponent);
+{% endraw %}
 ```
 
 And finally you will notice we use a new helper called `connect` to return a new component given the 2 functions that map the computed and actions.

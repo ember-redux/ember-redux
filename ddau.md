@@ -105,12 +105,15 @@ Before we can start building the component tree we need to add the template file
 
 ```js
 //app/users/template.hbs
-{\{users-list}}
+{% raw %}
+{{users-list}}
+{% endraw %}
 ```
 
 Now that we have fetched the data we declare the `Container Component` that will be redux aware.
 
 ```js
+{% raw %}
 //app/components/users-list/component.js
 import Ember from 'ember';
 import hbs from 'htmlbars-inline-precompile';
@@ -131,30 +134,33 @@ var dispatchToActions = (dispatch) => {
 
 var UserListComponent = Ember.Component.extend({
   layout: hbs`
-    {\{users-table users=users remove=(action "remove")}}
+    {{users-table users=users remove=(action "remove")}}
   `
 });
 
 export default connect(stateToComputed, dispatchToActions)(UserListComponent);
+{% endraw %}
 ```
 
 The component itself maps the state of redux to a computed called `users` and the remove function to an action. Notice we don't use that array or action directly in this component. Instead we pass the data and closure action down to a `Presentational Component` that will be responsible for rendering the html.
 
 ```js
+{% raw %}
 //app/components/users-table/component.js
 import Ember from 'ember';
 import hbs from 'htmlbars-inline-precompile';
 
 var UserTableComponent = Ember.Component.extend({
   layout: hbs`
-    {\{#each users as |user|}}
-      <div>{\{user.name}}</div>
-      <button onclick={\{action remove user.id}}>remove</button>
-    {\{/each}}
+    {{#each users as |user|}}
+      <div>{{user.name}}</div>
+      <button onclick={{action remove user.id}}>remove</button>
+    {{/each}}
   `
 });
 
 export default UserTableComponent;
+{% endraw %}
 ```
 
 The big difference between this component and the `users-list` component is that we know nothing about redux here. The blessing of this constraint is that we don't need to be concerned with how we got the `users` array or the `remove` action. This components entire role is to transform an array of plain javascript objects into the html representation.
@@ -166,21 +172,25 @@ Now that we have the basics down we can iterate once more to enable maximum reus
 First remove the hard coded `users-table` component from the layout of `users-list`. Next add a yield statement passing out both the users and the remove action.
 
 ```js
+{% raw %}
 //app/components/users-list/component.js
 var UserListComponent = Ember.Component.extend({
   layout: hbs`
-    {\{yield users (action "remove")}}
+    {{yield users (action "remove")}}
   `
 });
+{% endraw %}
 ```
 
 Finally in the users template itself we declare the `Presentational Component` inside the `Container Component` and use anything we yielded out.
 
 ```js
 //app/users/template.hbs
-{\{#users-list as |users remove|}}
-  {\{users-table users=users remove=remove}}
-{\{/users-list}}
+{% raw %}
+{{#users-list as |users remove|}}
+  {{users-table users=users remove=remove}}
+{{/users-list}}
+{% endraw %}
 ```
 
 This pattern has greatly improved reuse and simplicity in my ember applications. Even if you don't use ember-redux this example should serve as a good reminder of the advantages behind "data down actions up".
