@@ -1,11 +1,12 @@
 import Ember from 'ember';
 import redux from 'npm:redux';
 import reducers from '../reducers/index';
+import enhancers from '../enhancers/index';
 import optional from '../reducers/optional';
 import middleware from '../middleware/index';
 
-var { createStore, applyMiddleware, combineReducers } = redux;
-var createStoreWithMiddleware = applyMiddleware(...middleware)(createStore);
+var { createStore, applyMiddleware, combineReducers, compose } = redux;
+var createStoreWithMiddleware = compose(applyMiddleware(...middleware), enhancers)(createStore);
 
 export default Ember.Service.extend({
     init() {
