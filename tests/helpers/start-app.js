@@ -2,7 +2,7 @@ import Ember from 'ember';
 import Application from '../../app';
 import config from '../../config/environment';
 
-function ajax(app, url, method, status, response, data) {
+function ajax(app, url, method, status, response, data, options = {}) {
   Ember.run(function() {
     Ember.$.fauxjax.removeExisting(url, method);
     var request = { url: url , method: method };
@@ -14,7 +14,8 @@ function ajax(app, url, method, status, response, data) {
       request: request,
       response: {
         status: status,
-        content: response
+        content: response,
+        responseTime: options.responseTime
       }
     });
   });
