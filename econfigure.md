@@ -6,7 +6,7 @@ permalink: /configure/
 
 If you have a solid understanding of redux basics and what the ember bindings offer, this section will help you unlock the potential of ember-redux by showing all the extension points!
 
-##Enhancers
+**Enhancers**
 
 In redux [enhancers][] allow you to write a function that produces a "new and improved" store creator. The most well known enhancer is one that enables [time travel debugging][]. To write a custom enhancer that enables time travel debugging (with help from the [chrome dev tools][]) just add a new directory named `enhancers` and inside it a single file `index.js`
 
@@ -19,7 +19,7 @@ var devtools = window.devToolsExtension ? window.devToolsExtension() : f => f;
 export default redux.compose(devtools);
 ```
 
-##Middleware
+**Middleware**
 
 In redux [middleware][] allows you to write a function that produces a "new and improved" dispatch. By default we include [redux-thunk][] to enable async actions. If you want to override this just add a new directory named `middleware` and inside it a single file `index.js`
 
@@ -43,7 +43,7 @@ var warnz = function thunkMiddleware({ dispatch, getState }) {
 export default [resolved, warnz];
 ```
 
-##Reducers
+**Reducers**
 
 In redux [reducers][] take the current state along with some action and return a new state. One reducer that is special to `ember-redux` is named `optional.js` and it allows you to audit any/all events that flow through dispatch. One example of this might be to write each event to a special audit list.
 
