@@ -70,3 +70,4 @@ export default function(combine) {
 [enhancers]: https://github.com/reactjs/redux/blob/master/docs/Glossary.md#store-enhancer
 [middleware]: https://github.com/reactjs/redux/blob/master/docs/Glossary.md#middleware
 [reducers]: https://github.com/reactjs/redux/blob/master/docs/Glossary.md#reducer
+[redux-thunk]: https://github.com/gaearon/redux-thunk
