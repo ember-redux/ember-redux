@@ -1,6 +1,13 @@
 ember-redux Changelog
 ==============================
 
+1.2.0
+-----
+
+* [FEATURE]: added support for both redux-thunk 1.x and 2.x
+  ([commit](https://github.com/toranb/ember-redux/commit/2a70e1481b6759e1a88fcbea9adbbd7f3f72d55a))
+
+
 1.1.0
 -----
 
