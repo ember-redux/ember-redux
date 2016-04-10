@@ -8,6 +8,8 @@ To install ember-redux
 
 ```
 npm install ember-browserify -D
+npm install redux@3 -D
+npm install redux-thunk@2 -D
 npm install ember-redux -D
 ```
 
