@@ -10,12 +10,61 @@
 
 ```
 npm install ember-browserify -D
+npm install redux@3 -D
+npm install redux-thunk@2 -D
 npm install ember-redux -D
 ```
 
 ## Documentation
 
 http://www.ember-redux.com/
+
+## Example Container Component
+
+```js
+import Ember from 'ember';
+import hbs from 'htmlbars-inline-precompile';
+import connect from 'ember-redux/components/connect';
+import ajax from 'example/utilities/ajax';
+
+var stateToComputed = (state) => {
+  return {
+    users: state.users.all
+  };
+};
+
+var dispatchToActions = (dispatch) => {
+  return {
+    remove: (id) => ajax(`/api/users/${id}`, 'DELETE').then(() => dispatch({type: 'REMOVE_USER', id: id}))
+  };
+};
+
+var UserListComponent = Ember.Component.extend({
+  layout: hbs`
+    {{yield users (action "remove")}}
+  `
+});
+
+export default connect(stateToComputed, dispatchToActions)(UserListComponent);
+```
+
+## Example Presentation Component
+
+```js
+import Ember from 'ember';
+import hbs from 'htmlbars-inline-precompile';
+
+var UserTableComponent = Ember.Component.extend({
+  layout: hbs`
+    {{#each users as |user|}}
+      <div>{{user.name}}</div>
+      <button onclick={{action remove user.id}}>remove</button>
+    {{/each}}
+  `
+});
+
+export default UserTableComponent;
+```
 
 ## Running Tests
 

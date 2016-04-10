@@ -1,3 +1,5 @@
 import thunk from 'npm:redux-thunk';
 
-export default [thunk];
+var resolved = thunk.default ? thunk.default : thunk;
+
+export default [resolved];
