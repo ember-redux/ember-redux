@@ -17,7 +17,7 @@ export default Ember.Service.extend({
         return this.store.getState();
     },
     dispatch(action) {
-        this.store.dispatch(action);
+        return this.store.dispatch(action);
     },
     subscribe(func) {
         return this.store.subscribe(func);
