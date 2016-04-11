@@ -1,6 +1,16 @@
 ember-redux Changelog
 ==============================
 
+1.3.0
+-----
+
+* [FEATURE]: return dispatch value to allow model hook to wait for thunk promises
+  ([#7](https://github.com/toranb/ember-redux/pull/7))
+
+* [DEPENDENCY]: updated node version of ember-browserify
+  ([commit](https://github.com/toranb/ember-redux/commit/321a1f2f5773ffb1e6784844d9f97da1294d4f71))
+
+
 1.2.0
 -----
 
