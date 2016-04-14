@@ -1,6 +1,6 @@
 # Ember Redux
 
-[![Travis][build-badge]][build] [![npm package][npm-badge]][npm]
+[![Travis][build-badge]][build] [![Code Climate](https://codeclimate.com/github/toranb/ember-redux/badges/gpa.svg)](https://codeclimate.com/github/toranb/ember-redux) [![Score](http://emberobserver.com/badges/ember-redux.svg)](http://emberobserver.com/addons/ember-redux) [![npm package][npm-badge]][npm]
 
 ## Description
 
@@ -64,6 +64,13 @@ var UserTableComponent = Ember.Component.extend({
 });
 
 export default UserTableComponent;
+```
+
+## Example Composition
+```js
+{{#user-list as |users remove|}}
+  {{user-table users=users remove=remove}}
+{{/user-list}}
 ```
 
 ## Running Tests
