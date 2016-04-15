@@ -45,7 +45,7 @@ export default [resolved, warnz];
 
 **Reducers**
 
-In redux [reducers][] take the current state along with some action and return a new state. One reducer that is special to `ember-redux` is named `optional.js` and it allows you to audit any/all events that flow through dispatch. One example of this might be to write each event to a special audit list.
+In redux [reducers][] take the current state along with some action and return a new state. One reducer unique to `ember-redux` is named `optional.js` and it only exists because at the time I wanted a reducer that could run before any other. The original reason I wrote this was that I didn't know enhancers existed and I didn't truly understand how middleware worked. It may not be as useful to some people but here is one example where I used it to audit my actions (like you might do with middleware).
 
 ```js
 //app/reducers/optional.js
