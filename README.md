@@ -1,6 +1,6 @@
 # Ember Redux
 
-[![Travis][build-badge]][build] [![Code Climate](https://codeclimate.com/github/toranb/ember-redux/badges/gpa.svg)](https://codeclimate.com/github/toranb/ember-redux) [![Score](http://emberobserver.com/badges/ember-redux.svg)](http://emberobserver.com/addons/ember-redux) [![npm package][npm-badge]][npm]
+[![Travis][build-badge]][build] [![Code Climate][climate-badge]][climate] [![Score][score-badge]][score] [![npm package][npm-badge]][npm]
 
 ## Description
 
@@ -90,6 +90,12 @@ Licensed under the MIT License
 
 [npm-badge]: https://img.shields.io/npm/v/ember-redux.svg?style=flat-square
 [npm]: https://www.npmjs.org/package/ember-redux
+
+[climate-badge]: https://codeclimate.com/github/toranb/ember-redux/badges/gpa.svg
+[climate]: https://codeclimate.com/github/toranb/ember-redux
+
+[score-badge]: http://emberobserver.com/badges/ember-redux.svg
+[score]: http://emberobserver.com/addons/ember-redux
 
 [ember-cli]: http://www.ember-cli.com/
 [ember.js]: http://emberjs.com/

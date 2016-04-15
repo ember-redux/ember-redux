@@ -4,6 +4,7 @@ node_js:
   - "stable"
 
 sudo: false
+dist: trusty
 
 addons:
   firefox: "44.0"
