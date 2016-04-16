@@ -85,7 +85,7 @@ Copyright © 2016 Toran Billups http://toranbillups.com
 
 Licensed under the MIT License
 
-[build-badge]: https://img.shields.io/travis/toranb/ember-redux/master.svg?style=flat-square
+[build-badge]: https://travis-ci.org/toranb/ember-redux.svg?branch=master
 [build]: https://travis-ci.org/toranb/ember-redux
 
 [npm-badge]: https://img.shields.io/npm/v/ember-redux.svg?style=flat-square
