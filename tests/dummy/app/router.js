@@ -18,6 +18,7 @@ Router.map(function() {
   this.route('fetch', { path: '/fetch' });
   this.route('super', { path: '/super' });
   this.route('thunk', { path: '/thunk' });
+  this.route('simple', { path: '/simple' });
 });
 
 export default Router;

@@ -155,3 +155,12 @@ test('parent and child templates render and re-render correctly when edits occur
         assert.equal(find('.item-name:eq(2)').text().trim(), 'more');
     });
 });
+
+test('connected routes provide an ember route for you by default', function(assert) {
+    ajax('/api/users', 'GET', 200, [{id: 1, name: 'one'}, {id: 2, name: 'two'}]);
+    visit('/simple');
+    andThen(() => {
+        assert.equal(currentURL(), '/simple');
+        assert.equal(find('.user-name').length, 2);
+    });
+});
