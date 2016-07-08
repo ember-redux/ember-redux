@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import {uniq} from 'dummy/utilities/array';
 
 const initialState = {
@@ -6,7 +7,7 @@ const initialState = {
 
 export default ((state=initialState, action) => { // jshint ignore:line
     if (action.type === 'ADD_ROLES') {
-        return Object.assign({}, state, {
+        return Ember.assign({}, state, {
             all: uniq(state.all, action.roles)
         });
     }
