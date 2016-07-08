@@ -9,7 +9,7 @@
   "scripts": {
     "build": "ember build",
     "start": "ember server",
-    "test": "ember test"
+    "test": "ember try:testall"
   },
   "homepage": "https://github.com/toranb/ember-redux",
   "bugs": {
@@ -41,7 +41,7 @@
     "ember-disable-proxy-controllers": "^1.0.1",
     "ember-export-application-global": "^1.0.4",
     "ember-load-initializers": "^0.5.0",
-    "ember-try": "0.1.2",
+    "ember-try": "^0.2.2",
     "ember-browserify": "^1.1.8"
   },
   "keywords": [

@@ -1,7 +1,7 @@
 ---
 language: node_js
 node_js:
-  - "4.4"
+  - "4"
 
 sudo: false
 dist: trusty
@@ -28,4 +28,4 @@ install:
   - bower install
 
 script:
-  - ember try ember-release test
+  - ember try $EMBER_TRY_SCENARIO test --skip-cleanup
