@@ -1,7 +1,7 @@
 ---
 language: node_js
 node_js:
-  - "stable"
+  - "4.4"
 
 sudo: false
 dist: trusty
@@ -14,8 +14,8 @@ cache:
     - node_modules
 
 env:
-  - EMBER_TRY_SCENARIO=ember-2.5.X
-  - EMBER_TRY_SCENARIO=ember-2.6.X
+  - EMBER_TRY_SCENARIO=ember-2.5.1
+  - EMBER_TRY_SCENARIO=ember-2.6.1
 
 before_install:
   - "export DISPLAY=:99.0"
