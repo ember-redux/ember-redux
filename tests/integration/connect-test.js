@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import hbs from 'htmlbars-inline-precompile';
 import { moduleForComponent, test } from 'ember-qunit';
 
@@ -14,16 +15,24 @@ test('should render parent component with one state and child component with ano
     let $child = this.$('.child-state');
     assert.equal($parent.text(), 0);
     assert.equal($child.text(), 9);
-    this.$('.btn-up').trigger('click');
+    Ember.run(() => {
+        this.$('.btn-up').trigger('click');
+    });
     assert.equal($parent.text(), 1);
     assert.equal($child.text(), 9);
-    this.$('.btn-up').trigger('click');
+    Ember.run(() => {
+        this.$('.btn-up').trigger('click');
+    });
     assert.equal($parent.text(), 2);
     assert.equal($child.text(), 9);
-    this.$('.btn-down').trigger('click');
+    Ember.run(() => {
+        this.$('.btn-down').trigger('click');
+    });
     assert.equal($parent.text(), 2);
     assert.equal($child.text(), 8);
-    this.$('.btn-down').trigger('click');
+    Ember.run(() => {
+        this.$('.btn-down').trigger('click');
+    });
     assert.equal($parent.text(), 2);
     assert.equal($child.text(), 7);
 });
@@ -32,7 +41,9 @@ test('the component should truly be extended meaning actions map over as you wou
     this.render(hbs`{{count-list}}`);
     let $random = this.$('.random-state');
     assert.equal($random.text(), '');
-    this.$('.btn-random').trigger('click');
+    Ember.run(() => {
+        this.$('.btn-random').trigger('click');
+    });
     assert.equal($random.text(), 'blue');
 });
 
