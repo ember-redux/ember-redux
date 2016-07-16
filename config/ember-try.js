@@ -2,6 +2,36 @@
 module.exports = {
   scenarios: [
     {
+      name: 'ember-2.0.X',
+      dependencies: {
+        'ember': '~2.0.0'
+      }
+    },
+    {
+      name: 'ember-2.1.X',
+      dependencies: {
+        'ember': '~2.1.0'
+      }
+    },
+    {
+      name: 'ember-2.2.X',
+      dependencies: {
+        'ember': '~2.2.0'
+      }
+    },
+    {
+      name: 'ember-2.3.X',
+      dependencies: {
+        'ember': '~2.3.0'
+      }
+    },
+    {
+      name: 'ember-2.4.X',
+      dependencies: {
+        'ember': '~2.4.0'
+      }
+    },
+    {
       name: 'ember-2.5.X',
       dependencies: {
         'ember': '~2.5.0'
