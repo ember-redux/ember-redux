@@ -9,10 +9,7 @@
 ## Installation
 
 ```
-npm install ember-browserify -D
-npm install redux@3 -D
-npm install redux-thunk@2 -D
-npm install ember-redux -D
+ember install ember-redux
 ```
 
 ## Documentation
