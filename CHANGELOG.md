@@ -1,6 +1,20 @@
 ember-redux Changelog
 ==============================
 
+1.5.0
+-----
+
+* [FEATURE]: Create default blueprint
+  ([#15](https://github.com/toranb/ember-redux/pull/15))
+
+
+1.4.0
+-----
+
+* [FEATURE]: Ember.Route is provided by default for connected routes
+  ([commit](https://github.com/toranb/ember-redux/commit/7219ed7dd1de42b89184f3ccb77fa3d1df4abcb9))
+
+
 1.3.0
 -----
 
