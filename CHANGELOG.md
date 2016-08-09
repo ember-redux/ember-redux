@@ -1,6 +1,13 @@
 ember-redux Changelog
 ==============================
 
+1.5.1
+-----
+
+* [DOCS]: added "how to time travel" to the readme
+  ([commit](https://github.com/toranb/ember-redux/commit/fdd35041fb3c9be8f3b663ba36ac87705d45ad8d))
+
+
 1.5.0
 -----
 
