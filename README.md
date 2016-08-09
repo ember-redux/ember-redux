@@ -70,6 +70,19 @@ export default UserTableComponent;
 {{/user-list}}
 ```
 
+## How do I enable time travel debugging?
+
+    1) install the redux chrome dev tools plugin
+    2) add a folder named enhancers with one file named index.js
+    3) in that file add 3 lines of code
+
+```js
+//app/enhancers/index.js
+import redux from 'npm:redux';
+var devtools = window.devToolsExtension ? window.devToolsExtension() : f => f;
+export default redux.compose(devtools);
+```
+
 ## Running Tests
 
     npm install
