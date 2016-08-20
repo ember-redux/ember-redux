@@ -4,12 +4,14 @@ import connect from 'ember-redux/components/connect';
 
 var stateToComputed = (state) => {
   return {
-    items: state.items.all
+    items: state.items.all,
+    transitionMsg: state.models.transition
   };
 };
 
 var ItemListComponent = Ember.Component.extend({
   layout: hbs`
+    <div id="after-model-transition">{{transitionMsg}}</div>
     {{#each items as |item|}}
       <div class="item-name">{{item.name}}</div>
       {{#link-to 'items.detail' item.id class='item-detail-link'}}details{{/link-to}}

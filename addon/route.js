@@ -9,8 +9,9 @@ var route = function(funcs) {
                 var redux = this.get('redux');
                 var route = this;
                 Object.keys(funcs).forEach(function(func) {
-                    route[func] = function(args) {
-                        return funcs[func](redux.dispatch.bind(redux), args);
+                    route[func] = function(...args) {
+                        args.unshift(redux.dispatch.bind(redux));
+                        return funcs[func].apply(route, args);
                     };
                 });
                 this._super(...arguments);
