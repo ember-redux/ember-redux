@@ -1,6 +1,13 @@
 ember-redux Changelog
 ==============================
 
+1.5.2
+-----
+
+* [BUG]: properly explode args for route function
+  ([#18](https://github.com/toranb/ember-redux/pull/18))
+
+
 1.5.1
 -----
 
