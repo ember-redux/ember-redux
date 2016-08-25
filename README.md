@@ -16,6 +16,10 @@ ember install ember-redux
 
 http://www.ember-redux.com/
 
+## Demo
+
+https://ember-twiddle.com/7ce3446b14f166f04064eba663c0a350
+
 ## Example Container Component
 
 ```js
