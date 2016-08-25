@@ -1,6 +1,13 @@
 ember-redux Changelog
 ==============================
 
+1.5.3
+-----
+
+* [DOCS]: added twiddle link to the README
+  ([commit](https://github.com/toranb/ember-redux/commit/84b8c0fb6402e39f681e763e63f95acc8e1978db))
+
+
 1.5.2
 -----
 
