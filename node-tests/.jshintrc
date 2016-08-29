@@ -1,0 +1,9 @@
+{
+  "predef": [
+    "describe",
+    "it"
+  ],
+  "strict": true,
+  "node": true,
+  "esnext": true
+}
