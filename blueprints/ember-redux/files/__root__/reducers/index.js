@@ -5,7 +5,7 @@ import { combineReducers } from 'npm:redux';
  * one or more other reducers which take on responsibility for
  * a discrete part of the state tree.
  *
- * Use the "ember generate reducer" command to create additional
+ * Use the "ember generate reducer [name]" command to create additional
  * reducers. Alternatively, if you have a very simple state model,
  * you can remove references to combineReducers and just have all
  * reducer types be handled here.
