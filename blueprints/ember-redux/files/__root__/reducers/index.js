@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux';
+import { combineReducers } from 'npm:redux';
 
 /**
  * This is the master reducer, it partitions the jobs amounts
