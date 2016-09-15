@@ -1,11 +1,13 @@
-// __name__ REDUCER
 import Ember from 'ember';
 
 /**
  * This reducer takes in the localised state which
  * is owned by this reducer; it's job is create a
- * new (non0-mutated) state object for this branch of
+ * new (non-mutated) state object for this branch of
  * the overall state tree.
+ *
+ * The "action" is expected to be an Object who's only
+ * required property is "type"
  *
  * Note: as best practice you should always assign
  * a default value for state and handle all unknown
