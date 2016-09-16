@@ -36,8 +36,9 @@ function updateStateInitializers(action, options) {
   const fileContents = loadFile(findFile(options));
   const verb = action === 'add' ? 'adding ' : 'removing ';
   const color = action === 'add' ? 'green' : 'red';
+  const direction = action === 'add' ? 'to' : 'from';
   const modules = getModules(findDirectory(options));
-  this.ui.writeLine( '  ' + chalk[color](verb) + '"' + chalk.bold(name) + '" to master state initializer file [' + chalk.grey('state-initializers/index.js') + ']');
+  this.ui.writeLine( `  ${chalk[color](verb)} "${chalk.bold(name)}" ${direction} master state initializer file [${chalk.grey('state-initializers/index.js')}]`);
   saveFile( findFile(options), fileContents.aboveFold + generateImports(modules) + generateExports(modules) );
 }
 
@@ -50,8 +51,7 @@ function findDirectory(options) {
 }
 
 function saveFile(fileName, content) {
-  console.log('FILE: ', fileName);
-  console.log('FILE CONTENT\n', content);
+  fs.writeFileSync(fileName, content, { encoding: 'utf8'});
 }
 
 function getPathParts(options) {
@@ -68,9 +68,16 @@ function getPathParts(options) {
 
 function loadFile(fileName) {
   const contents = fs.readFileSync(fileName, 'utf-8');
-  return {
-    aboveFold: contents.split(' */')[0] + ' */',
-    belowFold: contents.split(' */')[1]
+  if(contents.indexOf(' */') === -1) {
+    return {
+      aboveFold: '',
+      belowFold: contents
+    }
+  } else {
+    return {
+      aboveFold: contents.split(' */')[0] + ' */',
+      belowFold: contents.split(' */')[1]
+    }
   }
 }
 
@@ -80,16 +87,16 @@ function getModules(directory) {
 
 function generateImports(modules) {
   return '\n\n' + modules.map(m => {
-    return `import ${m} as './${m}';\n`
-  }).join();
+    return `import ${m} from './${m}';\n`
+  }).join('');
 }
 
 function generateExports(modules) {
-  const prolog = '\n\nexport default (context) => {\n';
-  const epilog = '}';
+  const prolog = '\n\nexport default (context) => {\n  return {\n';
+  const epilog = '\n  }\n}';
   const content = modules.map(m => {
-    return '  ' + m + ': ' + m +'(context),\n'
-  });
+    return '    ' + m + ': ' + m +'(context)'
+  }).join(',\n');
 
   return prolog + content + epilog;
 }
