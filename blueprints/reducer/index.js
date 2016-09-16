@@ -38,8 +38,10 @@ function updateReducers(action, options) {
   const color = action === 'add' ? 'green' : 'red';
   const direction = action === 'add' ? 'to' : 'from';
   const modules = getModules(findDirectory(options));
+  const combineReducers = fileContents.aboveFold.indexOf('import redux from') === -1 ? `import redux from 'npm:redux';\nconst { combineReducers } = redux;\n\n` : '';
+
   this.ui.writeLine( `  ${chalk[color](verb)} "${chalk.bold(name)}" ${direction} master reducer file [${chalk.grey('reducers/index.js')}]`);
-  saveFile( findFile(options), fileContents.aboveFold + generateImports(modules) + generateExports(modules) );
+  saveFile( findFile(options), combineReducers + fileContents.aboveFold + generateImports(modules) + generateExports(modules) );
 }
 
 function findFile(options) {

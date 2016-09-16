@@ -7,15 +7,14 @@
  * the overall state machine is broken down into discrete parts. Then each part of the
  * state tree is delegated to a separate file for processing.
  *
- * In the commented-out example we have "foo" and "bar" being initialized
- * in their own separate files.
+ * You can of course, address intialisation across all state here as a singular
+ * file but typically you'll actually want to initialize state by sections in which case you'll
+ * want to use the following ember-cli commands:
+ *
+ * ember generate state-initializer [name]
+ * ember destroy state-initializer [name]
+ *
+ * Using these two commands will ensure that this file is managed for you.
  */
 
-// import foo from './foo';
-// import bar from './bar';
-// export default {
-//   foo,
-//   bar
-// };
-
-export default {};
+export default () => {};
