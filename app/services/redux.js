@@ -16,7 +16,7 @@ export default Ember.Service.extend({
       if(!defaultFunction) {
         Ember.debug('Please note that the "optional.js" file is a deprecated feature of ember-redux. Please use either middleware or the state-initializer functionality');
       }
-      this.store = createStoreWithMiddleware(optional(reducers));
+      this.store = createStoreWithMiddleware(optional(reducers), initialState);
     },
     getState() {
         return this.store.getState();
