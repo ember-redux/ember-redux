@@ -6,17 +6,15 @@ import optional from '../reducers/optional';
 import { defaultFunction } from '../reducers/optional';
 import initialState from '../state-initializers/index';
 import middleware from '../middleware/index';
+import config from '../config/environment';
 
-var { createStore, applyMiddleware, combineReducers, compose } = redux;
-var createStoreWithMiddleware = compose(applyMiddleware(...middleware), enhancers)(createStore);
+const { createStore, applyMiddleware, combineReducers, compose } = redux;
+const createStoreWithMiddleware = compose(applyMiddleware(...middleware), enhancers)(createStore);
 
 export default Ember.Service.extend({
     init() {
       this._super(...arguments);
-      if(!defaultFunction) {
-        Ember.debug('Please note that the "optional.js" file is a deprecated feature of ember-redux. Please use either middleware or the state-initializer functionality');
-      }
-      this.store = createStoreWithMiddleware(optional(reducers), initialState);
+      this.store = createStoreWithMiddleware(reducers, initialState(config));
     },
     getState() {
         return this.store.getState();
