@@ -14,7 +14,7 @@ const createStoreWithMiddleware = compose(applyMiddleware(...middleware), enhanc
 export default Ember.Service.extend({
     init() {
       this._super(...arguments);
-      this.store = createStoreWithMiddleware(reducers, initialState(config));
+      this.store = createStoreWithMiddleware(optional(reducers), initialState(config));
     },
     getState() {
         return this.store.getState();
