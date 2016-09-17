@@ -3,15 +3,18 @@ import redux from 'npm:redux';
 import reducers from '../reducers/index';
 import enhancers from '../enhancers/index';
 import optional from '../reducers/optional';
+import { defaultFunction } from '../reducers/optional';
+import initialState from '../state-initializers/index';
 import middleware from '../middleware/index';
+import config from '../config/environment';
 
-var { createStore, applyMiddleware, combineReducers, compose } = redux;
-var createStoreWithMiddleware = compose(applyMiddleware(...middleware), enhancers)(createStore);
+const { createStore, applyMiddleware, combineReducers, compose } = redux;
+const createStoreWithMiddleware = compose(applyMiddleware(...middleware), enhancers)(createStore);
 
 export default Ember.Service.extend({
     init() {
-        this.store = createStoreWithMiddleware(optional(combineReducers(reducers)));
-        this._super(...arguments);
+      this._super(...arguments);
+      this.store = createStoreWithMiddleware(optional(reducers), initialState(config));
     },
     getState() {
         return this.store.getState();
