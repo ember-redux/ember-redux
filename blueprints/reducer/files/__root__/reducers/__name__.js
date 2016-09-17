@@ -13,7 +13,8 @@ import Ember from 'ember';
  * a default value for state and handle all unknown
  * actions by returning the state back unchanged.
  */
-var reducer = (state = {}, action) => {
+const defaultState = {};
+const reducer = (state, action) => {
 
   switch(action.type) {
 
@@ -32,7 +33,7 @@ var reducer = (state = {}, action) => {
       });
 
     default:
-      return state;
+      return state || defaultState;
   } // end switch
 
 };
