@@ -15,6 +15,7 @@ Router.map(function() {
   this.route('items', function() {
       this.route('detail', {path: '/:item_id'});
   });
+  this.route('lists', { path: '/lists' });
   this.route('fetch', { path: '/fetch' });
   this.route('super', { path: '/super' });
   this.route('thunk', { path: '/thunk' });

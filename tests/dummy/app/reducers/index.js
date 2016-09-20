@@ -4,6 +4,7 @@ import all from 'dummy/reducers/all';
 import users from 'dummy/reducers/users';
 import roles from 'dummy/reducers/roles';
 import items from 'dummy/reducers/items';
+import list from 'dummy/reducers/list';
 import models from 'dummy/reducers/models';
 
 export default {
@@ -13,5 +14,6 @@ export default {
     users: users,
     roles: roles,
     models: models,
-    items: items
+    items: items,
+    list: list
 };
