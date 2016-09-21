@@ -1,0 +1,34 @@
+<div class="list-item-one">
+  {{#list-one as |items filter|}}
+    {{filter-list filter=filter value="5"}}
+    {{list-html items=items}}
+  {{/list-one}}
+</div>
+
+<div class="list-item-two">
+  {{#list-two as |items filter|}}
+    {{filter-list filter=filter value=""}}
+    {{list-html items=items}}
+  {{/list-two}}
+</div>
+
+<div class="list-item-three">
+  {{#list-one as |items filter refresh update random|}}
+    {{refresh-list refresh=refresh}}
+    {{unrelated-change update=update}}
+    {{random-change random=random}}
+    {{list-html items=items}}
+  {{/list-one}}
+</div>
+
+<div class="unrelated">
+  {{#unrelated-one as |unrelated|}}
+    <span class="unrelated-one">{{unrelated}}</span>
+  {{/unrelated-one}}
+</div>
+
+<div class="random">
+  {{#random-one as |random|}}
+    <span class="random-one">{{random}}</span>
+  {{/random-one}}
+</div>

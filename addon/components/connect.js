@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import shallowEqual from '../-private/equal';
 
 const { computed, defineProperty } = Ember;
 
@@ -38,13 +39,30 @@ var connect = function(mapStateToComputed, mapDispatchToActions) {
                     component['actions'][action] = finalMapDispatchToActions(redux.dispatch.bind(redux))[action];
                 });
                 if (shouldSubscribe && !this.unsubscribe) {
-                    this.unsubscribe = redux.subscribe(() => {
-                        props.forEach(function(name) {
-                            component.notifyPropertyChange(name);
-                        });
-                    });
+                    this.unsubscribe = redux.subscribe(this.handleChange.bind(this));
                 }
                 this._super(...arguments);
+            },
+            handleChange() {
+                var redux = this.get('redux');
+                var props = mapState(redux.getState());
+                var componentState = this.getComponentState(props);
+                var reduxState = finalMapStateToComputed(redux.getState());
+                if (!shallowEqual(componentState, reduxState)) {
+                    this.updateProps(props);
+                }
+            },
+            getComponentState(props) {
+                var componentState = {};
+                props.forEach((name) => {
+                    componentState[name] = this.get(name);
+                });
+                return componentState;
+            },
+            updateProps(props) {
+                props.forEach((name) => {
+                    this.notifyPropertyChange(name);
+                });
             },
             willDestroy() {
                 if (this.unsubscribe) {
