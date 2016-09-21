@@ -1,6 +1,13 @@
 ember-redux Changelog
 ==============================
 
+1.6.0
+-----
+
+* [PERFORMANCE]: only notifyPropertyChange when a value is diff between redux and component
+  ([#23](https://github.com/toranb/ember-redux/pull/23))
+
+
 1.5.3
 -----
 
