@@ -15,13 +15,8 @@ cache:
 
 env:
   - EMBER_TRY_SCENARIO=ember-2.0.X
-  - EMBER_TRY_SCENARIO=ember-2.1.X
-  - EMBER_TRY_SCENARIO=ember-2.2.X
-  - EMBER_TRY_SCENARIO=ember-2.3.X
   - EMBER_TRY_SCENARIO=ember-2.4.X
-  - EMBER_TRY_SCENARIO=ember-2.5.X
-  - EMBER_TRY_SCENARIO=ember-2.6.X
-  - EMBER_TRY_SCENARIO=ember-2.7.X
+  - EMBER_TRY_SCENARIO=ember-2.8.X
   - EMBER_TRY_SCENARIO=ember-beta
 
 before_install:
