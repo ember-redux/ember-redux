@@ -5,12 +5,18 @@ import enhancers from '../enhancers/index';
 import optional from '../reducers/optional';
 import middlewareConfig from '../middleware/index';
 
+const { assert, isArray } = Ember;
+
 // Util for handling the case where no setup thunk was created in middleware
 const noOp = () => {};
 
 // Handle "classic" middleware exports (i.e. an array), as well as the hash option
 const extractMiddlewareConfig = (mc) => {
-  return Ember.isArray(mc) ? { middleware: mc } : mc;
+  assert(
+    'Middleware must either be an array, or a hash containing a `middleware` property',
+    isArray(mc) || mc.middleware
+  );
+  return isArray(mc) ? { middleware: mc } : mc;
 }
 
 // Destructure the middleware array and the setup thunk into two different variables
