@@ -5,10 +5,7 @@ import enhancers from '../enhancers/index';
 import optional from '../reducers/optional';
 import middlewareConfig from '../middleware/index';
 
-const { assert, isArray } = Ember;
-
-// Util for handling the case where no setup thunk was created in middleware
-const noOp = () => {};
+const { assert, isArray, K } = Ember;
 
 // Handle "classic" middleware exports (i.e. an array), as well as the hash option
 const extractMiddlewareConfig = (mc) => {
@@ -20,7 +17,7 @@ const extractMiddlewareConfig = (mc) => {
 }
 
 // Destructure the middleware array and the setup thunk into two different variables
-const { middleware, setup = noOp } = extractMiddlewareConfig(middlewareConfig);
+const { middleware, setup = K } = extractMiddlewareConfig(middlewareConfig);
 
 var { createStore, applyMiddleware, combineReducers, compose } = redux;
 var createStoreWithMiddleware = compose(applyMiddleware(...middleware), enhancers)(createStore);
