@@ -2,12 +2,9 @@ import Ember from 'ember';
 import ajax from 'dummy/utilities/ajax';
 import route from 'ember-redux/route';
 
-// A redux-thunk action creator to load users.
-function loadUsers() {
-    return (dispatch) => ajax('/api/users', 'GET').then(
-        response => dispatch({type: 'DESERIALIZE_USERS', response: response})
-    );
-}
+var model = (dispatch) => {
+    return ajax('/api/users', 'GET').then(response => dispatch({type: 'DESERIALIZE_USERS', response: response}));
+};
 
 const ThunkRoute = Ember.Route.extend({
     actions: {
@@ -20,6 +17,4 @@ const ThunkRoute = Ember.Route.extend({
     }
 });
 
-export default route({
-    model: (dispatch) => dispatch(loadUsers())
-})(ThunkRoute);
+export default route({model})(ThunkRoute);
