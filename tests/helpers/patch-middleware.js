@@ -3,7 +3,8 @@ define('dummy/middleware/index', ['exports', 'ember', 'npm:redux-saga', 'dummy/s
 
   var sagaMiddleware = createSaga();
 
-  const setup = () => {
+  const setup = (...args) => {
+    window.middlewareArgs = args;
     sagaMiddleware.run(_dummySagasCounter['default']);
   };
 
