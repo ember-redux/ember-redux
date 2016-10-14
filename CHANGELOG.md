@@ -1,6 +1,19 @@
 ember-redux Changelog
 ==============================
 
+1.7.0
+-----
+
+* [FEATURE]: add option for middleware setup
+  ([#25](https://github.com/toranb/ember-redux/pull/25))
+
+* [TESTS]: wrote a full redux-saga example w/ middleware
+  ([#26](https://github.com/toranb/ember-redux/pull/26))
+
+* [DEPENDENCY]: upgraded to ember-cli@2.8.0
+  ([#24](https://github.com/toranb/ember-redux/pull/24))
+
+
 1.6.0
 -----
 
