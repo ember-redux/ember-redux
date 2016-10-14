@@ -8,6 +8,7 @@ const Router = Ember.Router.extend({
 
 Router.map(function() {
   this.route('counts', { path: '/' });
+  this.route('saga', { path: '/saga' });
   this.route('dashboard', { path: '/dashboard' });
   this.route('empty', { path: '/empty' });
   this.route('users', function() {
