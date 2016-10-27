@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import connect from 'ember-redux/components/connect';
 import hbs from 'htmlbars-inline-precompile';
 import { moduleForComponent, test } from 'ember-qunit';
 
@@ -55,4 +56,21 @@ test('each computed is truly readonly', function(assert) {
     } catch (e) {
         assert.ok(e.message.indexOf('Cannot set read-only property') > -1);
     }
+});
+
+test('lifecycle hooks are still invoked', function(assert) {
+    assert.expect(2);
+    this.register('component:test-component', connect()(Ember.Component.extend({
+        init() {
+            assert.ok(true, 'init is invoked');
+            this._super(...arguments);
+        },
+
+        willDestroy() {
+            assert.ok(true, 'willDestroy is invoked');
+            this._super(...arguments);
+        }
+    })));
+
+    this.render(hbs`{{test-component}}`);
 });

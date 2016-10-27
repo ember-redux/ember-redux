@@ -65,6 +65,7 @@ var connect = function(mapStateToComputed, mapDispatchToActions) {
                 });
             },
             willDestroy() {
+                this._super(...arguments);
                 if (this.unsubscribe) {
                     this.unsubscribe();
                     this.unsubscribe = null;
