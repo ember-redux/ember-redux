@@ -18,7 +18,11 @@ http://www.ember-redux.com/
 
 ## Demo
 
+Counting Example (simple)
 https://ember-twiddle.com/7ce3446b14f166f04064eba663c0a350
+
+Yelp Clone (complex)
+https://ember-twiddle.com/64b18c23223fbc1f3a7da8171c6d8881
 
 ## Example Container Component
 
