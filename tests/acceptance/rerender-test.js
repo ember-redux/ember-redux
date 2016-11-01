@@ -13,7 +13,7 @@ module('Acceptance | rerender test', {
     }
 });
 
-test('should only rerender when connected component is listening for each state used to compute', function(assert) {
+test('toran should only rerender when connected component is listening for each state used to compute', function(assert) {
     ajax('/api/lists', 'GET', 200, [{id: 1, name: 'one', reviews: [{rating: 5}, {rating: 5}]}, {id: 2, name: 'two', reviews: [{rating: 3}, {rating: 1}]}]);
     visit('/lists');
     andThen(() => {
@@ -127,8 +127,12 @@ test('should only rerender when connected component is listening for each state 
         assert.notEqual(find('.unrelated-one').text(), '');
         assert.notEqual(find('.random-one').text(), '');
         //each component would render 6x prior
-        assert.equal(oneUpdated, 3);
-        assert.equal(twoUpdated, 3);
+        // assert.equal(oneUpdated, 6); //was 3
+        // assert.equal(twoUpdated, 6); //was 3
+        // assert.equal(fourUpdated, 6);
+        // assert.equal(fiveUpdated, 6);
+        assert.equal(oneUpdated, 4); //was 3
+        assert.equal(twoUpdated, 4); //was 3
         assert.equal(fourUpdated, 1);
         assert.equal(fiveUpdated, 1);
     });
