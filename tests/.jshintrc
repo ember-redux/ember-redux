@@ -1,5 +1,6 @@
 {
   "predef": [
+    "dispatchh",
     "ajax",
     "document",
     "window",

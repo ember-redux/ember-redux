@@ -24,6 +24,16 @@ function ajax(app, url, method, status, response, data, options = {}) {
 
 Ember.Test.registerAsyncHelper('ajax', ajax);
 
+function dispatchh(app, action) {
+  const redux = app.__container__.lookup('service:redux');
+  Ember.run(function() {
+    redux.dispatch({type: action, response: [{id: 1, name: 'bob', reviews: [{rating: 5}]}]});
+  });
+  return app.testHelpers.wait();
+}
+
+Ember.Test.registerAsyncHelper('dispatchh', dispatchh);
+
 export default function startApp(attrs) {
   let application;
 

@@ -133,3 +133,19 @@ test('should only rerender when connected component is listening for each state 
         assert.equal(fiveUpdated, 1);
     });
 });
+
+test('toran should rerender when state is changed by other redux consumers', function(assert) {
+  ajax('/api/lists', 'GET', 200, []);
+
+  visit('/lists');
+
+  andThen(() => {
+    assert.equal(find('.list-item-one .item-name').length, 0, "No items initially");
+  });
+
+  dispatchh('TRANSFORM_LIST');
+
+  andThen(() => {
+    assert.equal(find('.list-item-one .item-name').length, 1, "One item after redux dispatch");
+  });
+});
