@@ -4,6 +4,14 @@ import startApp from '../helpers/start-app';
 
 var application, oneUpdated = 0, twoUpdated = 0, fourUpdated = 0, fiveUpdated = 0;
 
+function findComponentsByName(name) {
+    const componentMap = application.__container__.lookup('-view-registry:main');
+    const components = Object.keys(componentMap).map(key => componentMap[key]);
+    return components.filter(component =>
+        component.constructor.toString().includes(`component:${name}`)
+    );
+}
+
 module('Acceptance | rerender test', {
     beforeEach() {
         application = startApp();
@@ -28,27 +36,15 @@ test('should only rerender when connected component is listening for each state 
         assert.equal(find('.random-one').text(), '');
     });
     andThen(() => {
-        var componentOne = application.__container__.lookup('component:list-one');
-        var componentTwo = application.__container__.lookup('component:list-two');
-        var componentFour = application.__container__.lookup('component:unrelated-one');
-        var componentFive = application.__container__.lookup('component:random-one');
-        var original = componentOne.updateProps;
-        componentOne.updateProps = function() {
-            oneUpdated = oneUpdated + 1;
-            return original.apply(this, arguments);
-        };
-        componentTwo.updateProps = function() {
-            twoUpdated = twoUpdated + 1;
-            return original.apply(this, arguments);
-        };
-        componentFour.updateProps = function() {
-            fourUpdated = fourUpdated + 1;
-            return original.apply(this, arguments);
-        };
-        componentFive.updateProps = function() {
-            fiveUpdated = fiveUpdated + 1;
-            return original.apply(this, arguments);
-        };
+        var componentOne = findComponentsByName('list-one');
+        var componentTwo = findComponentsByName('list-two');
+        var componentFour = findComponentsByName('unrelated-one');
+        var componentFive = findComponentsByName('random-one');
+
+        componentOne.forEach(c => c.on('didRender', () => oneUpdated++));
+        componentTwo.forEach(c => c.on('didRender', () => twoUpdated++));
+        componentFour.forEach(c => c.on('didRender', () => fourUpdated++));
+        componentFive.forEach(c => c.on('didRender', () => fiveUpdated++));
     });
     click('.filter-list:eq(0)');
     andThen(() => {
@@ -127,8 +123,8 @@ test('should only rerender when connected component is listening for each state 
         assert.notEqual(find('.unrelated-one').text(), '');
         assert.notEqual(find('.random-one').text(), '');
         //each component would render 6x prior
-        assert.equal(oneUpdated, 3);
-        assert.equal(twoUpdated, 3);
+        assert.equal(oneUpdated, 8);
+        assert.equal(twoUpdated, 4);
         assert.equal(fourUpdated, 1);
         assert.equal(fiveUpdated, 1);
     });
