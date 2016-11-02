@@ -50,20 +50,15 @@ var connect = function(mapStateToComputed, mapDispatchToActions) {
                 const oldState = this._localState;
                 const newState = finalMapStateToComputed(redux.getState());
 
-                // if (oldState === newState) { return; }
                 if (!shallowEqual(oldState, newState)) {
                   this.updateProps(newState);
+                  this._localState = newState;
                 }
             },
 
             updateProps(newState) {
-                this._localState = newState;
-                // Mark changed properties.
                 Object.keys(newState).forEach(key => {
-                    const cachedValue = this.cacheFor(key);
-                    if (cachedValue !== undefined && cachedValue !== newState[key]) {
-                        this.notifyPropertyChange(key);
-                    }
+                    this.notifyPropertyChange(key);
                 });
             },
 
