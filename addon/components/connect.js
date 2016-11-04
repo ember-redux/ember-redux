@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import shallowEqual from '../-private/equal';
 
-const { computed, defineProperty } = Ember;
+const { computed, defineProperty, run } = Ember;
 
 var connect = function(mapStateToComputed, mapDispatchToActions) {
     var shouldSubscribe = Boolean(mapStateToComputed);
@@ -44,13 +44,15 @@ var connect = function(mapStateToComputed, mapDispatchToActions) {
                 this._super(...arguments);
             },
             handleChange() {
-                var redux = this.get('redux');
-                var props = mapState(redux.getState());
-                var componentState = this.getComponentState(props);
-                var reduxState = finalMapStateToComputed(redux.getState());
-                if (!shallowEqual(componentState, reduxState)) {
-                    this.updateProps(props);
-                }
+                run(() => {
+                    var redux = this.get('redux');
+                    var props = mapState(redux.getState());
+                    var componentState = this.getComponentState(props);
+                    var reduxState = finalMapStateToComputed(redux.getState());
+                    if (!shallowEqual(componentState, reduxState)) {
+                        this.updateProps(props);
+                    }
+                });
             },
             getComponentState(props) {
                 var componentState = {};
