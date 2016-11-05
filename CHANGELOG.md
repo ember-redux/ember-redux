@@ -1,6 +1,22 @@
 ember-redux Changelog
 ==============================
 
+1.8.0
+-----
+
+* [PERFORMANCE]: Avoid unnecessary notifyPropertyChange work
+  ([#38](https://github.com/toranb/ember-redux/pull/38))
+
+* [BUG]: wrap handleChange callback with Ember.run
+  ([#35](https://github.com/toranb/ember-redux/pull/35))
+
+* [BUG]: Call super in component willDestroy
+  ([#31](https://github.com/toranb/ember-redux/pull/31))
+
+* [DOCS]: added yelp clone ember-twiddle example
+  ([commit](https://github.com/toranb/ember-redux/commit/4f0160fde1a09f076fd89b7af6e6c8a017e450ed))
+
+
 1.7.0
 -----
 
