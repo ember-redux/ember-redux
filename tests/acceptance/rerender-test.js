@@ -37,6 +37,7 @@ test('should only rerender when connected component is listening for each state 
         assert.equal(currentURL(), '/lists');
         assert.equal(find('.list-item-one .item-name').length, 2);
         assert.equal(find('.list-item-one .item-rating').length, 4);
+        assert.equal(find('.list-item-one .fake-value').text(), 1);
         assert.equal(find('.list-item-two .item-name').length, 2);
         assert.equal(find('.list-item-two .item-rating').length, 4);
         assert.equal(find('.list-item-three .item-name').length, 2);
@@ -72,6 +73,7 @@ test('should only rerender when connected component is listening for each state 
         assert.equal(currentURL(), '/lists');
         assert.equal(find('.list-item-one .item-name').length, 1);
         assert.equal(find('.list-item-one .item-rating').length, 2);
+        assert.equal(find('.list-item-one .fake-value').text(), 1);
         assert.equal(find('.list-item-two .item-name').length, 1);
         assert.equal(find('.list-item-two .item-rating').length, 2);
         assert.equal(find('.list-item-three .item-name').length, 1);
@@ -84,6 +86,7 @@ test('should only rerender when connected component is listening for each state 
     andThen(() => {
         assert.equal(currentURL(), '/lists');
         assert.equal(find('.list-item-one .item-name').length, 0);
+        assert.equal(find('.list-item-one .fake-value').text(), 1);
         assert.equal(find('.list-item-two .item-name').length, 0);
         assert.equal(find('.list-item-three .item-name').length, 0);
         assert.equal(find('.unrelated-one').text(), '');
@@ -94,12 +97,14 @@ test('should only rerender when connected component is listening for each state 
         assert.equal(currentURL(), '/lists');
         assert.equal(find('.list-item-one .item-name').length, 2);
         assert.equal(find('.list-item-one .item-rating').length, 5);
+        assert.equal(find('.list-item-one .fake-value').text(), 1);
         assert.equal(find('.list-item-one .item-rating:eq(2)').text(), '1');
         assert.equal(find('.list-item-two .item-name').length, 2);
         assert.equal(find('.list-item-two .item-rating').length, 5);
         assert.equal(find('.list-item-two .item-rating:eq(2)').text(), '1');
         assert.equal(find('.list-item-three .item-name').length, 2);
         assert.equal(find('.list-item-three .item-rating').length, 5);
+        assert.equal(find('.list-item-three .fake-value').text(), 1);
         assert.equal(find('.unrelated-one').text(), '');
         assert.equal(find('.random-one').text(), '');
     });
@@ -108,12 +113,14 @@ test('should only rerender when connected component is listening for each state 
         assert.equal(currentURL(), '/lists');
         assert.equal(find('.list-item-one .item-name').length, 2);
         assert.equal(find('.list-item-one .item-rating').length, 5);
+        assert.equal(find('.list-item-one .fake-value').text(), 1);
         assert.equal(find('.list-item-one .item-rating:eq(2)').text(), '1');
         assert.equal(find('.list-item-two .item-name').length, 2);
         assert.equal(find('.list-item-two .item-rating').length, 5);
         assert.equal(find('.list-item-two .item-rating:eq(2)').text(), '1');
         assert.equal(find('.list-item-three .item-name').length, 2);
         assert.equal(find('.list-item-three .item-rating').length, 5);
+        assert.equal(find('.list-item-three .fake-value').text(), 1);
         assert.notEqual(find('.unrelated-one').text(), '');
         assert.equal(find('.random-one').text(), '');
     });
@@ -123,12 +130,14 @@ test('should only rerender when connected component is listening for each state 
         assert.equal(currentURL(), '/lists');
         assert.equal(find('.list-item-one .item-name').length, 2);
         assert.equal(find('.list-item-one .item-rating').length, 5);
+        assert.equal(find('.list-item-one .fake-value').text(), 1);
         assert.equal(find('.list-item-one .item-rating:eq(2)').text(), '5');
         assert.equal(find('.list-item-two .item-name').length, 2);
         assert.equal(find('.list-item-two .item-rating').length, 5);
         assert.equal(find('.list-item-two .item-rating:eq(2)').text(), '5');
         assert.equal(find('.list-item-three .item-name').length, 2);
         assert.equal(find('.list-item-three .item-rating').length, 5);
+        assert.equal(find('.list-item-three .fake-value').text(), 1);
         assert.notEqual(find('.unrelated-one').text(), '');
         assert.equal(find('.random-one').text(), '');
     });
@@ -137,15 +146,37 @@ test('should only rerender when connected component is listening for each state 
         assert.equal(currentURL(), '/lists');
         assert.equal(find('.list-item-one .item-name').length, 2);
         assert.equal(find('.list-item-one .item-rating').length, 5);
+        assert.equal(find('.list-item-one .fake-value').text(), 1);
         assert.equal(find('.list-item-two .item-name').length, 2);
         assert.equal(find('.list-item-two .item-rating').length, 5);
         assert.equal(find('.list-item-three .item-name').length, 2);
         assert.equal(find('.list-item-three .item-rating').length, 5);
+        assert.equal(find('.list-item-three .fake-value').text(), 1);
         assert.notEqual(find('.unrelated-one').text(), '');
         assert.notEqual(find('.random-one').text(), '');
-        //each component would render 6x prior
         assert.equal(oneUpdated, 3);
-        assert.equal(twoUpdated, 3);
+        assert.equal(twoUpdated, 4);
+        assert.equal(fourUpdated, 1);
+        assert.equal(fiveUpdated, 1);
+    });
+    click('.fake-change:eq(0)');
+    click('.fake-change:eq(0)');
+    click('.fake-change:eq(0)');
+    click('.fake-change:eq(0)');
+    andThen(() => {
+        assert.equal(currentURL(), '/lists');
+        assert.equal(find('.list-item-one .item-name').length, 2);
+        assert.equal(find('.list-item-one .item-rating').length, 5);
+        assert.equal(find('.list-item-one .fake-value').text(), 5);
+        assert.equal(find('.list-item-two .item-name').length, 2);
+        assert.equal(find('.list-item-two .item-rating').length, 5);
+        assert.equal(find('.list-item-three .item-name').length, 2);
+        assert.equal(find('.list-item-three .item-rating').length, 5);
+        assert.equal(find('.list-item-three .fake-value').text(), 5);
+        assert.notEqual(find('.unrelated-one').text(), '');
+        assert.notEqual(find('.random-one').text(), '');
+        assert.equal(oneUpdated, 5);
+        assert.equal(twoUpdated, 4);
         assert.equal(fourUpdated, 1);
         assert.equal(fiveUpdated, 1);
     });

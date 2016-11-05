@@ -1,7 +1,7 @@
 <div class="list-item-one">
-  {{#list-one as |items filter|}}
+  {{#list-one as |items fake filter|}}
     {{filter-list filter=filter value="5"}}
-    {{list-html items=items}}
+    {{list-html items=items fake=fake}}
   {{/list-one}}
 </div>
 
@@ -13,11 +13,12 @@
 </div>
 
 <div class="list-item-three">
-  {{#list-one as |items filter refresh update random|}}
+  {{#list-one as |items fake filter refresh update random faked|}}
     {{refresh-list refresh=refresh}}
     {{unrelated-change update=update}}
     {{random-change random=random}}
-    {{list-html items=items}}
+    {{list-html items=items fake=fake}}
+    <button class="fake-change" onclick={{action faked}}>update fake</button>
   {{/list-one}}
 </div>
 

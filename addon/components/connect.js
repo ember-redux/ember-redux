@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import shallowEqual from '../-private/equal';
 
 const { computed, defineProperty, run } = Ember;
 
@@ -49,9 +48,11 @@ var connect = function(mapStateToComputed, mapDispatchToActions) {
                     var props = mapState(redux.getState());
                     var componentState = this.getComponentState(props);
                     var reduxState = finalMapStateToComputed(redux.getState());
-                    if (!shallowEqual(componentState, reduxState)) {
-                        this.updateProps(props);
-                    }
+                    props.forEach((name) => {
+                        if (componentState[name] !== reduxState[name]) {
+                            this.updateProps(name);
+                        }
+                    });
                 });
             },
             getComponentState(props) {
@@ -61,10 +62,8 @@ var connect = function(mapStateToComputed, mapDispatchToActions) {
                 });
                 return componentState;
             },
-            updateProps(props) {
-                props.forEach((name) => {
-                    this.notifyPropertyChange(name);
-                });
+            updateProps(name) {
+                this.notifyPropertyChange(name);
             },
             willDestroy() {
                 this._super(...arguments);

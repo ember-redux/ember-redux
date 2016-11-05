@@ -9,5 +9,6 @@ export default Ember.Component.extend({
         <span class="item-rating">{{review.rating}}</span>
       {{/each}}
     {{/each}}
+    <span class="fake-value">{{fake}}</span>
   `
 });
