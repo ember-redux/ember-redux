@@ -50,7 +50,9 @@ var connect = function(mapStateToComputed, mapDispatchToActions) {
                     var componentState = this.getComponentState(props);
                     var reduxState = finalMapStateToComputed(redux.getState());
                     if (!shallowEqual(componentState, reduxState)) {
-                        this.updateProps(props);
+                        props.forEach((name) => {
+                            this.updateProps(name);
+                        });
                     }
                 });
             },
@@ -61,10 +63,8 @@ var connect = function(mapStateToComputed, mapDispatchToActions) {
                 });
                 return componentState;
             },
-            updateProps(props) {
-                props.forEach((name) => {
-                    this.notifyPropertyChange(name);
-                });
+            updateProps(name) {
+                this.notifyPropertyChange(name);
             },
             willDestroy() {
                 this._super(...arguments);
