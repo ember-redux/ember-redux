@@ -154,8 +154,8 @@ test('should only rerender when connected component is listening for each state 
         assert.equal(find('.list-item-three .fake-value').text(), 1);
         assert.notEqual(find('.unrelated-one').text(), '');
         assert.notEqual(find('.random-one').text(), '');
-        assert.equal(oneUpdated, 6);
-        assert.equal(twoUpdated, 6);
+        assert.equal(oneUpdated, 3);
+        assert.equal(twoUpdated, 4);
         assert.equal(fourUpdated, 1);
         assert.equal(fiveUpdated, 1);
     });
@@ -175,8 +175,8 @@ test('should only rerender when connected component is listening for each state 
         assert.equal(find('.list-item-three .fake-value').text(), 5);
         assert.notEqual(find('.unrelated-one').text(), '');
         assert.notEqual(find('.random-one').text(), '');
-        assert.equal(oneUpdated, 10);
-        assert.equal(twoUpdated, 6);
+        assert.equal(oneUpdated, 5);
+        assert.equal(twoUpdated, 4);
         assert.equal(fourUpdated, 1);
         assert.equal(fiveUpdated, 1);
     });
