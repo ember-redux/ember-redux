@@ -2,7 +2,7 @@ import Ember from 'ember';
 import { test, module } from 'qunit';
 import startApp from '../helpers/start-app';
 
-var application, oneUpdated = 0, twoUpdated = 0, fourUpdated = 0, fiveUpdated = 0;
+var application, oneUpdated = 0, oneFakeUpdated = 0, twoUpdated = 0, fourUpdated = 0, fiveUpdated = 0;
 
 module('Acceptance | rerender test', {
     beforeEach() {
@@ -50,23 +50,11 @@ test('should only rerender when connected component is listening for each state 
         var componentTwo = application.__container__.lookup('component:list-two');
         var componentFour = application.__container__.lookup('component:unrelated-one');
         var componentFive = application.__container__.lookup('component:random-one');
-        var original = componentOne.updateProps;
-        componentOne.updateProps = function() {
-            oneUpdated = oneUpdated + 1;
-            return original.apply(this, arguments);
-        };
-        componentTwo.updateProps = function() {
-            twoUpdated = twoUpdated + 1;
-            return original.apply(this, arguments);
-        };
-        componentFour.updateProps = function() {
-            fourUpdated = fourUpdated + 1;
-            return original.apply(this, arguments);
-        };
-        componentFive.updateProps = function() {
-            fiveUpdated = fiveUpdated + 1;
-            return original.apply(this, arguments);
-        };
+        componentOne.addObserver('items', () => oneUpdated++);
+        componentOne.addObserver('fake', () => oneFakeUpdated++);
+        componentTwo.addObserver('items', () => twoUpdated++);
+        componentFour.addObserver('unrelated', () => fourUpdated++);
+        componentFive.addObserver('random', () => fiveUpdated++);
     });
     click('.filter-list:eq(0)');
     andThen(() => {
@@ -155,7 +143,8 @@ test('should only rerender when connected component is listening for each state 
         assert.notEqual(find('.unrelated-one').text(), '');
         assert.notEqual(find('.random-one').text(), '');
         assert.equal(oneUpdated, 3);
-        assert.equal(twoUpdated, 4);
+        assert.equal(oneFakeUpdated, 0);
+        assert.equal(twoUpdated, 3);
         assert.equal(fourUpdated, 1);
         assert.equal(fiveUpdated, 1);
     });
@@ -175,8 +164,9 @@ test('should only rerender when connected component is listening for each state 
         assert.equal(find('.list-item-three .fake-value').text(), 5);
         assert.notEqual(find('.unrelated-one').text(), '');
         assert.notEqual(find('.random-one').text(), '');
-        assert.equal(oneUpdated, 5);
-        assert.equal(twoUpdated, 4);
+        assert.equal(oneUpdated, 3);
+        assert.equal(oneFakeUpdated, 2);
+        assert.equal(twoUpdated, 3);
         assert.equal(fourUpdated, 1);
         assert.equal(fiveUpdated, 1);
     });

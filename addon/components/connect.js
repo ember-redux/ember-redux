@@ -50,7 +50,7 @@ var connect = function(mapStateToComputed, mapDispatchToActions) {
                     var reduxState = finalMapStateToComputed(redux.getState());
                     props.forEach((name) => {
                         if (componentState[name] !== reduxState[name]) {
-                            this.updateProps(name);
+                            this.notifyPropertyChange(name);
                         }
                     });
                 });
@@ -61,9 +61,6 @@ var connect = function(mapStateToComputed, mapDispatchToActions) {
                     componentState[name] = this.get(name);
                 });
                 return componentState;
-            },
-            updateProps(name) {
-                this.notifyPropertyChange(name);
             },
             willDestroy() {
                 this._super(...arguments);
