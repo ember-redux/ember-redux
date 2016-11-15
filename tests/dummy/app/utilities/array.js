@@ -6,7 +6,7 @@ export function uniq(first, second) {
         if (found === -1) {
             ret.push(k);
         }else{
-            ret.replace(found, 1, k);
+            ret.splice(found, 1, k);
         }
     });
     return ret;
