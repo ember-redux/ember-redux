@@ -50,11 +50,11 @@ test('should only rerender when connected component is listening for each state 
         var componentTwo = application.__container__.lookup('component:list-two');
         var componentFour = application.__container__.lookup('component:unrelated-one');
         var componentFive = application.__container__.lookup('component:random-one');
-        componentOne.addObserver('items', () => oneUpdated++);
-        componentOne.addObserver('fake', () => oneFakeUpdated++);
-        componentTwo.addObserver('items', () => twoUpdated++);
-        componentFour.addObserver('unrelated', () => fourUpdated++);
-        componentFive.addObserver('random', () => fiveUpdated++);
+        componentOne.addObserver('items', function() { this.get('items'); oneUpdated++; });
+        componentOne.addObserver('fake', function() { this.get('fake'); oneFakeUpdated++; });
+        componentTwo.addObserver('items', function() { this.get('items'); twoUpdated++; });
+        componentFour.addObserver('unrelated', function() { this.get('unrelated'); fourUpdated++; });
+        componentFive.addObserver('random', function() { this.get('random'); fiveUpdated++; });
     });
     click('.filter-list:eq(0)');
     andThen(() => {
@@ -142,9 +142,9 @@ test('should only rerender when connected component is listening for each state 
         assert.equal(find('.list-item-three .fake-value').text(), 1);
         assert.notEqual(find('.unrelated-one').text(), '');
         assert.notEqual(find('.random-one').text(), '');
-        assert.equal(oneUpdated, 3);
+        assert.equal(oneUpdated, 4);
         assert.equal(oneFakeUpdated, 0);
-        assert.equal(twoUpdated, 3);
+        assert.equal(twoUpdated, 4);
         assert.equal(fourUpdated, 1);
         assert.equal(fiveUpdated, 1);
     });
@@ -164,9 +164,9 @@ test('should only rerender when connected component is listening for each state 
         assert.equal(find('.list-item-three .fake-value').text(), 5);
         assert.notEqual(find('.unrelated-one').text(), '');
         assert.notEqual(find('.random-one').text(), '');
-        assert.equal(oneUpdated, 3);
-        assert.equal(oneFakeUpdated, 2);
-        assert.equal(twoUpdated, 3);
+        assert.equal(oneUpdated, 4);
+        assert.equal(oneFakeUpdated, 4);
+        assert.equal(twoUpdated, 4);
         assert.equal(fourUpdated, 1);
         assert.equal(fiveUpdated, 1);
     });
