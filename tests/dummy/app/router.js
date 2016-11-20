@@ -12,10 +12,10 @@ Router.map(function() {
   this.route('dashboard', { path: '/dashboard' });
   this.route('empty', { path: '/empty' });
   this.route('users', function() {
-      this.route('detail', {path: '/:user_id'});
+    this.route('detail', {path: '/:user_id'});
   });
   this.route('items', function() {
-      this.route('detail', {path: '/:item_id'});
+    this.route('detail', {path: '/:item_id'});
   });
   this.route('lists', { path: '/lists' });
   this.route('fetch', { path: '/fetch' });

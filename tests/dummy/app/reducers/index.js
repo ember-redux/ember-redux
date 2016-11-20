@@ -8,12 +8,12 @@ import list from 'dummy/reducers/list';
 import models from 'dummy/reducers/models';
 
 export default {
-    low: low,
-    high: high,
-    all: all,
-    users: users,
-    roles: roles,
-    models: models,
-    items: items,
-    list: list
+  low: low,
+  high: high,
+  all: all,
+  users: users,
+  roles: roles,
+  models: models,
+  items: items,
+  list: list
 };

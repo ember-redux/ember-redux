@@ -17,8 +17,8 @@ var dispatchToActions = (dispatch) => {
 
 var UserListComponent = Ember.Component.extend({
   init() {
-      this._super(...arguments);
-      this.triggerAction({action: 'fetch', target: this});
+    this._super(...arguments);
+    this.triggerAction({action: 'fetch', target: this});
   },
   layout: hbs`
     {{#each users as |user|}}
