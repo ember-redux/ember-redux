@@ -27,7 +27,7 @@ var CountListComponent = Ember.Component.extend({
   `,
   actions: {
     alter() {
-        this.set('low', '999');
+      this.set('low', '999');
     },
     random() {
       this.set('color', 'blue');

@@ -22,9 +22,9 @@ var dispatchToActions = (dispatch) => {
 };
 
 var ListOneComponent = Ember.Component.extend({
-    layout: hbs`
-        {{yield items fake (action "filter") (action "refresh") (action "update") (action "random") (action "faked")}}
-    `
+  layout: hbs`
+    {{yield items fake (action "filter") (action "refresh") (action "update") (action "random") (action "faked")}}
+  `
 });
 
 export default connect(stateToComputed, dispatchToActions)(ListOneComponent);

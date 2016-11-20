@@ -17,9 +17,9 @@ var dispatchToActions = (dispatch) => {
 };
 
 var ListTwoComponent = Ember.Component.extend({
-    layout: hbs`
-        {{yield items (action "filter")}}
-    ` 
+  layout: hbs`
+    {{yield items (action "filter")}}
+  `
 });
 
 export default connect(stateToComputed, dispatchToActions)(ListTwoComponent);

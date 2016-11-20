@@ -7,8 +7,8 @@ function ajax(app, url, method, status, response, data, options = {}) {
     Ember.$.fauxjax.removeExisting(url, method);
     var request = { url: url , method: method };
     if (data) {
-        request.data = data;
-        request.contentType = 'application/json';
+      request.data = data;
+      request.contentType = 'application/json';
     }
     Ember.$.fauxjax.new({
       request: request,
