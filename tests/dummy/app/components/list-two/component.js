@@ -22,4 +22,4 @@ var ListTwoComponent = Ember.Component.extend({
   `
 });
 
-export default connect(stateToComputed, dispatchToActions)(ListTwoComponent);
+export default connect(ListTwoComponent, stateToComputed, dispatchToActions);

@@ -27,4 +27,4 @@ var UserListComponent = Ember.Component.extend({
   `
 });
 
-export default connect(stateToComputed, dispatchToActions)(UserListComponent);
+export default connect(UserListComponent, stateToComputed, dispatchToActions);

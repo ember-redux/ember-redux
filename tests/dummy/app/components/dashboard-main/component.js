@@ -20,4 +20,4 @@ var DashboardMainComponent = Ember.Component.extend({
   `
 });
 
-export default connect(stateToComputed, dispatchToActions)(DashboardMainComponent);
+export default connect(DashboardMainComponent, stateToComputed, dispatchToActions);

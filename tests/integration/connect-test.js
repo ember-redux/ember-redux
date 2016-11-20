@@ -60,7 +60,7 @@ test('each computed is truly readonly', function(assert) {
 
 test('lifecycle hooks are still invoked', function(assert) {
   assert.expect(2);
-  this.register('component:test-component', connect()(Ember.Component.extend({
+  this.register('component:test-component', connect(Ember.Component.extend({
     init() {
       assert.ok(true, 'init is invoked');
       this._super(...arguments);

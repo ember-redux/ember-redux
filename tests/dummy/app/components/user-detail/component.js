@@ -14,4 +14,4 @@ var UserDetailComponent = Ember.Component.extend({
   `
 });
 
-export default connect(stateToComputed)(UserDetailComponent);
+export default connect(UserDetailComponent, stateToComputed);

@@ -36,4 +36,4 @@ var CountListComponent = Ember.Component.extend({
   }
 });
 
-export default connect(stateToComputed, dispatchToActions)(CountListComponent);
+export default connect(CountListComponent, stateToComputed, dispatchToActions);

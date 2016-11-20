@@ -20,4 +20,4 @@ var ItemListComponent = Ember.Component.extend({
   `
 });
 
-export default connect(stateToComputed)(ItemListComponent);
+export default connect(ItemListComponent, stateToComputed);
