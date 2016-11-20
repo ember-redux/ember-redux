@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const { computed, defineProperty, run } = Ember;
+const { computed: { readOnly }, defineProperty, run } = Ember;
 
 var connect = function(mapStateToComputed, mapDispatchToActions) {
     var shouldSubscribe = Boolean(mapStateToComputed);
@@ -14,6 +14,7 @@ var connect = function(mapStateToComputed, mapDispatchToActions) {
             });
             return props;
         };
+
         var mapDispatch= function(dispatch) {
             var actions = [];
             Object.keys(finalMapDispatchToActions(dispatch)).forEach(function(key) {
@@ -21,6 +22,7 @@ var connect = function(mapStateToComputed, mapDispatchToActions) {
             });
             return actions;
         };
+
         return WrappedComponent.extend({
             redux: Ember.inject.service('redux'),
             init() {
@@ -29,38 +31,29 @@ var connect = function(mapStateToComputed, mapDispatchToActions) {
                 var redux = this.get('redux');
                 var props = mapState(redux.getState());
                 var dispatch = mapDispatch(redux.dispatch.bind(redux));
+                // Create a private object to hold private properties
+                this.set('_props', Ember.Object.create());
+                // Compute and set private properties based on current state
+                this.updateProps(redux.getState());
+                // Set public read-only aliases to the private properties
                 props.forEach(function(name) {
-                    defineProperty(component, name, computed(function() {
-                        return finalMapStateToComputed(redux.getState())[name];
-                    }).property().readOnly());
+                    defineProperty(component, name, readOnly(`_props.${name}`));
                 });
                 dispatch.forEach(function(action) {
                     component['actions'][action] = finalMapDispatchToActions(redux.dispatch.bind(redux))[action];
                 });
                 if (shouldSubscribe && !this.unsubscribe) {
-                    this.unsubscribe = redux.subscribe(this.handleChange.bind(this));
+                    this.unsubscribe = redux.subscribe(() => {
+                        run(() => {
+                            this.updateProps(redux.getState());
+                        });
+                    });
                 }
                 this._super(...arguments);
             },
-            handleChange() {
-                run(() => {
-                    var redux = this.get('redux');
-                    var props = mapState(redux.getState());
-                    var componentState = this.getComponentState(props);
-                    var reduxState = finalMapStateToComputed(redux.getState());
-                    props.forEach((name) => {
-                        if (componentState[name] !== reduxState[name]) {
-                            this.notifyPropertyChange(name);
-                        }
-                    });
-                });
-            },
-            getComponentState(props) {
-                var componentState = {};
-                props.forEach((name) => {
-                    componentState[name] = this.get(name);
-                });
-                return componentState;
+            updateProps(state) {
+                var props = finalMapStateToComputed(state);
+                this.get('_props').setProperties(props);
             },
             willDestroy() {
                 this._super(...arguments);
