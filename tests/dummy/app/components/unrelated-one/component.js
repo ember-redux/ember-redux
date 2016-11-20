@@ -14,4 +14,4 @@ var UnrelatedComponent = Ember.Component.extend({
   `
 });
 
-export default connect(stateToComputed)(UnrelatedComponent);
+export default connect(UnrelatedComponent, stateToComputed);

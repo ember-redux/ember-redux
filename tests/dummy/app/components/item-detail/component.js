@@ -20,4 +20,4 @@ var ItemDetailComponent = Ember.Component.extend({
   `
 });
 
-export default connect(stateToComputed, dispatchToActions)(ItemDetailComponent);
+export default connect(ItemDetailComponent, stateToComputed, dispatchToActions);

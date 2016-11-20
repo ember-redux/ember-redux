@@ -21,4 +21,4 @@ var SagaComponent = Ember.Component.extend({
     `
 });
 
-export default connect(stateToComputed, dispatchToActions)(SagaComponent);
+export default connect(SagaComponent, stateToComputed, dispatchToActions);

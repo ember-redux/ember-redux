@@ -14,4 +14,4 @@ var RandomComponent = Ember.Component.extend({
   `
 });
 
-export default connect(stateToComputed)(RandomComponent);
+export default connect(RandomComponent, stateToComputed);

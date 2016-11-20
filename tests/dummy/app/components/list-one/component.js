@@ -27,4 +27,4 @@ var ListOneComponent = Ember.Component.extend({
   `
 });
 
-export default connect(stateToComputed, dispatchToActions)(ListOneComponent);
+export default connect(ListOneComponent, stateToComputed, dispatchToActions);

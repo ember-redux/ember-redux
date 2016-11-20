@@ -8,4 +8,4 @@ var EmptyThingComponent = Ember.Component.extend({
   `
 });
 
-export default connect()(EmptyThingComponent);
+export default connect(EmptyThingComponent);
