@@ -1,6 +1,19 @@
 ember-redux Changelog
 ==============================
 
+1.9.0
+-----
+
+* [REFACTOR]: Use Ember.Object.setProperties to update props
+  ([#41](https://github.com/toranb/ember-redux/pull/41))
+
+* [TESTS]: updated rerender test to track notify via observer
+  ([#42](https://github.com/toranb/ember-redux/pull/42))
+
+* [DEPENDENCY]: upgraded to ember-cli@2.9.1
+  ([#44](https://github.com/toranb/ember-redux/pull/44))
+
+
 1.8.0
 -----
 
