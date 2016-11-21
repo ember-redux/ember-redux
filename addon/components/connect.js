@@ -2,6 +2,8 @@ import Ember from 'ember';
 
 const { computed: { readOnly }, defineProperty, run } = Ember;
 
+const PRIVATE_CONTAINER = '_reduxProps';
+
 var connect = function(mapStateToComputed, mapDispatchToActions) {
   var shouldSubscribe = Boolean(mapStateToComputed);
   var finalMapStateToComputed = mapStateToComputed || function() {return {};};
@@ -32,12 +34,12 @@ var connect = function(mapStateToComputed, mapDispatchToActions) {
         var props = mapState(redux.getState());
         var dispatch = mapDispatch(redux.dispatch.bind(redux));
         // Create a private object to hold private properties
-        this.set('_props', Ember.Object.create());
+        this.set(PRIVATE_CONTAINER, Ember.Object.create());
         // Compute and set private properties based on current state
         this.updateProps(redux.getState());
         // Set public read-only aliases to the private properties
         props.forEach(function(name) {
-          defineProperty(component, name, readOnly(`_props.${name}`));
+          defineProperty(component, name, readOnly(`${PRIVATE_CONTAINER}.${name}`));
         });
         dispatch.forEach(function(action) {
           component['actions'][action] = finalMapDispatchToActions(redux.dispatch.bind(redux))[action];
@@ -53,7 +55,7 @@ var connect = function(mapStateToComputed, mapDispatchToActions) {
       },
       updateProps(state) {
         var props = finalMapStateToComputed(state);
-        this.get('_props').setProperties(props);
+        this.get(PRIVATE_CONTAINER).setProperties(props);
       },
       willDestroy() {
         this._super(...arguments);
