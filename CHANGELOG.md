@@ -1,6 +1,13 @@
 ember-redux Changelog
 ==============================
 
+1.9.1
+-----
+
+* [REVERT]: undo the setProperties update (from PR #41)
+  ([#50](https://github.com/toranb/ember-redux/pull/50))
+
+
 1.9.0
 -----
 
