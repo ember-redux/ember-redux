@@ -45,22 +45,13 @@ var connect = function(mapStateToComputed, mapDispatchToActions) {
       handleChange() {
         run(() => {
           var redux = this.get('redux');
-          var props = mapState(redux.getState());
-          var componentState = this.getComponentState(props);
           var reduxState = finalMapStateToComputed(redux.getState());
-          props.forEach((name) => {
-            if (componentState[name] !== reduxState[name]) {
+          Object.keys(reduxState).forEach((name) => {
+            if (this.get(name) !== reduxState[name]) {
               this.notifyPropertyChange(name);
             }
           });
         });
-      },
-      getComponentState(props) {
-        var componentState = {};
-        props.forEach((name) => {
-          componentState[name] = this.get(name);
-        });
-        return componentState;
       },
       willDestroy() {
         this._super(...arguments);
