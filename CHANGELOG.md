@@ -1,6 +1,19 @@
 ember-redux Changelog
 ==============================
 
+1.9.2
+-----
+
+* [REFACTOR]: ES6ify connect
+  ([#52](https://github.com/toranb/ember-redux/pull/52))
+
+* [REFACTOR]: remove Ember.K in favor of () => {}
+  ([#53](https://github.com/toranb/ember-redux/pull/53))
+
+* [PERFORMANCE]: avoid multiple redux.getState() calls in connect
+  ([#51](https://github.com/toranb/ember-redux/pull/51))
+
+
 1.9.1
 -----
 
