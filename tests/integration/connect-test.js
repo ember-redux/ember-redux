@@ -38,6 +38,18 @@ test('should render parent component with one state and child component with ano
   assert.equal($child.text(), 7);
 });
 
+test('should render attrs', function(assert) {
+  assert.expect(2);
+  this.set('myName', 'Dustin');
+  this.render(hbs`{{count-list name=myName}}`);
+
+  assert.equal(this.$('.greeting').text(), 'Welcome back, Dustin!', 'should render attrs provided to component');
+
+  this.set('myName', 'Toran');
+
+  assert.equal(this.$('.greeting').text(), 'Welcome back, Toran!', 'should rerender component if attrs change');
+});
+
 test('the component should truly be extended meaning actions map over as you would expect', function(assert) {
   this.render(hbs`{{count-list}}`);
   let $random = this.$('.random-state');
@@ -59,10 +71,15 @@ test('each computed is truly readonly', function(assert) {
 });
 
 test('lifecycle hooks are still invoked', function(assert) {
-  assert.expect(2);
+  assert.expect(3);
   this.register('component:test-component', connect()(Ember.Component.extend({
     init() {
       assert.ok(true, 'init is invoked');
+      this._super(...arguments);
+    },
+
+    didUpdateAttrs() {
+      assert.ok(true, 'didUpdateAttrs should be invoked');
       this._super(...arguments);
     },
 
@@ -72,5 +89,7 @@ test('lifecycle hooks are still invoked', function(assert) {
     }
   })));
 
-  this.render(hbs`{{test-component}}`);
+  this.render(hbs`{{test-component name=name}}`);
+
+  this.set('name', 'Dustin');
 });
