@@ -6,6 +6,7 @@ import roles from 'dummy/reducers/roles';
 import items from 'dummy/reducers/items';
 import list from 'dummy/reducers/list';
 import models from 'dummy/reducers/models';
+import project from 'dummy/reducers/project';
 
 export default {
   low: low,
@@ -15,5 +16,6 @@ export default {
   roles: roles,
   models: models,
   items: items,
-  list: list
+  list: list,
+  project: project
 };

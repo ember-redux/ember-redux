@@ -22,6 +22,7 @@ Router.map(function() {
   this.route('super', { path: '/super' });
   this.route('thunk', { path: '/thunk' });
   this.route('simple', { path: '/simple' });
+  this.route('project', { path: '/project' });
 });
 
 export default Router;
