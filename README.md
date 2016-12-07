@@ -31,10 +31,11 @@ import Ember from 'ember';
 import hbs from 'htmlbars-inline-precompile';
 import connect from 'ember-redux/components/connect';
 import ajax from 'example/utilities/ajax';
+import getUsersByAccountId from '../reducers';
 
-var stateToComputed = (state) => {
+var stateToComputed = (state, attrs) => {
   return {
-    users: state.users.all
+    users: getUsersByAccountId(state, attrs.accountId)
   };
 };
 
@@ -73,7 +74,7 @@ export default UserTableComponent;
 
 ## Example Composition
 ```js
-{{#user-list as |users remove|}}
+{{#user-list accountId=accountId as |users remove|}}
   {{user-table users=users remove=remove}}
 {{/user-list}}
 ```

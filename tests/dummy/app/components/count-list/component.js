@@ -2,10 +2,11 @@ import Ember from 'ember';
 import hbs from 'htmlbars-inline-precompile';
 import connect from 'ember-redux/components/connect';
 
-var stateToComputed = (state) => {
+var stateToComputed = (state, attrs) => {
   return {
     low: state.low,
-    high: state.high
+    high: state.high,
+    greeting: `Welcome back, ${attrs.name}!`
   };
 };
 
@@ -24,6 +25,7 @@ var CountListComponent = Ember.Component.extend({
     <button class="btn-random" onclick={{action "random"}}>random</button>
     <button class="btn-alter" onclick={{action "alter"}}>alter</button>
     <span class="random-state">{{color}}</span>
+    <span class="greeting">{{greeting}}</span>
   `,
   actions: {
     alter() {
