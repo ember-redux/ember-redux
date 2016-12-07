@@ -5,7 +5,9 @@ const {
   defineProperty,
   inject: { service },
   isEmpty,
-  run
+  run,
+  beginPropertyChanges,
+  endPropertyChanges
 } = Ember;
 
 export default (stateToComputed=() => ({}), dispatchToActions=() => ({})) => {
@@ -45,11 +47,13 @@ export default (stateToComputed=() => ({}), dispatchToActions=() => ({})) => {
 
         let props = stateToComputed(redux.getState(), this.getAttrs());
 
+        beginPropertyChanges();
         Object.keys(props).forEach(name => {
           if (this.get(name) !== props[name]) {
             this.notifyPropertyChange(name);
           }
         });
+        endPropertyChanges();
       },
 
       /**
