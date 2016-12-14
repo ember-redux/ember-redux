@@ -8,7 +8,11 @@ const {
   run
 } = Ember;
 
-export default (stateToComputed=() => ({}), dispatchToActions=() => ({})) => {
+export default (stateToComputed, dispatchToActions=() => ({})) => {
+
+  if (!stateToComputed) {
+    stateToComputed = () => ({});
+  }
 
   return Component => {
 

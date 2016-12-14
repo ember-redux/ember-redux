@@ -93,3 +93,25 @@ test('lifecycle hooks are still invoked', function(assert) {
 
   this.set('name', 'Dustin');
 });
+
+test('connecting dispatchToActions only', function(assert) {
+  assert.expect(2);
+  const dispatchToActions = () => {};
+
+  this.register('component:test-component-1', connect(null, dispatchToActions)(Ember.Component.extend({
+    init() {
+      this._super(...arguments);
+      assert.ok(true, 'should be able to connect components passing `null` to stateToComputed');
+    }
+  })));
+
+  this.register('component:test-component-2', connect(undefined, dispatchToActions)(Ember.Component.extend({
+    init() {
+      this._super(...arguments);
+      assert.ok(true, 'should be able to connect components passing `undefined` to stateToComputed');
+    }
+  })));
+
+  this.render(hbs`{{test-component-1}}`);
+  this.render(hbs`{{test-component-2}}`);
+});
