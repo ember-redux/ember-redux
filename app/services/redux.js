@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import redux from 'npm:redux';
+import redux from 'redux';
 import reducers from '../reducers/index';
 import enhancers from '../enhancers/index';
 import optional from '../reducers/optional';
