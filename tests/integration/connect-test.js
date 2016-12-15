@@ -50,6 +50,14 @@ test('should render attrs', function(assert) {
   assert.equal(this.$('.greeting').text(), 'Welcome back, Toran!', 'should rerender component if attrs change');
 });
 
+test('stateToComputed will provide `this` context that is the component instance (when not using [phat]Arrow function)', function(assert) {
+  assert.expect(1);
+
+  this.render(hbs`{{count-list}}`);
+
+  assert.equal(this.$('.serviced').text(), 'true', 'should render the prop provided by component instance');
+});
+
 test('the component should truly be extended meaning actions map over as you would expect', function(assert) {
   this.render(hbs`{{count-list}}`);
   let $random = this.$('.random-state');

@@ -23,11 +23,11 @@ export default (stateToComputed, dispatchToActions=() => ({})) => {
       init() {
         const redux = this.get('redux');
 
-        let props = stateToComputed(redux.getState(), this.getAttrs());
+        let props = stateToComputed.call(this, redux.getState(), this.getAttrs());
 
         Object.keys(props).forEach(name => {
           defineProperty(this, name, computed(() =>
-            stateToComputed(redux.getState(), this.getAttrs())[name]
+            stateToComputed.call(this, redux.getState(), this.getAttrs())[name]
           ).property().readOnly());
         });
 
@@ -38,7 +38,7 @@ export default (stateToComputed, dispatchToActions=() => ({})) => {
         }
 
         this.actions = Object.assign({},
-          this.actions, dispatchToActions(redux.dispatch.bind(redux))
+          this.actions, dispatchToActions.call(this, redux.dispatch.bind(redux))
         );
 
         this._super(...arguments);
@@ -47,7 +47,7 @@ export default (stateToComputed, dispatchToActions=() => ({})) => {
       handleChange() {
         const redux = this.get('redux');
 
-        const props = stateToComputed(redux.getState(), this.getAttrs());
+        const props = stateToComputed.call(this, redux.getState(), this.getAttrs());
 
         const notifyProperties = Object.keys(props).filter(name => {
           return this.get(name) !== props[name];

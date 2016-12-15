@@ -13,6 +13,20 @@ module('Acceptance | rerender test', {
   }
 });
 
+test('dispatchToActions will provide `this` context that is the component instance (when not using [phat]Arrow function)', function(assert) {
+  ajax('/api/lists', 'GET', 200, [{id: 1, name: 'one', reviews: [{rating: 5}, {rating: 5}]}, {id: 2, name: 'two', reviews: [{rating: 3}, {rating: 1}]}]);
+  visit('/lists');
+  andThen(() => {
+    assert.equal(currentURL(), '/lists');
+    assert.equal(find('.fake-contextt').text(), '');
+  });
+  click('.btn-contextt');
+  andThen(() => {
+    assert.equal(currentURL(), '/lists');
+    assert.equal(find('.fake-contextt').text(), 'contextt ... abc123');
+  });
+});
+
 test('should only rerender when connected component is listening for each state used to compute', function(assert) {
   ajax('/api/lists', 'GET', 200, [{id: 1, name: 'one', reviews: [{rating: 5}, {rating: 5}]}, {id: 2, name: 'two', reviews: [{rating: 3}, {rating: 1}]}]);
   visit('/lists');

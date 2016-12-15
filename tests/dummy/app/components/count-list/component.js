@@ -2,11 +2,13 @@ import Ember from 'ember';
 import hbs from 'htmlbars-inline-precompile';
 import connect from 'ember-redux/components/connect';
 
-var stateToComputed = (state, attrs) => {
+var stateToComputed = function(state, attrs) {
+  var component = this;
   return {
     low: state.low,
     high: state.high,
-    greeting: `Welcome back, ${attrs.name}!`
+    greeting: `Welcome back, ${attrs.name}!`,
+    serviced: component.get('fake.serviced')
   };
 };
 
@@ -18,6 +20,7 @@ var dispatchToActions = (dispatch) => {
 };
 
 var CountListComponent = Ember.Component.extend({
+  fake: Ember.inject.service(),
   layout: hbs`
     <span class="parent-state">{{low}}</span>
     <button class="btn-up" onclick={{action "up"}}>up</button>
@@ -26,6 +29,7 @@ var CountListComponent = Ember.Component.extend({
     <button class="btn-alter" onclick={{action "alter"}}>alter</button>
     <span class="random-state">{{color}}</span>
     <span class="greeting">{{greeting}}</span>
+    <span class="serviced">{{serviced}}</span>
   `,
   actions: {
     alter() {
