@@ -1,8 +1,6 @@
 import Ember from 'ember';
-import saga from 'npm:redux-saga';
-import effects from 'npm:redux-saga/effects';
+import { effects, takeEvery } from 'redux-saga';
 
-const { takeEvery } = saga;
 const { call, put } = effects;
 
 const delay = ms => Ember.run.next(resolve => setTimeout(resolve, ms));
