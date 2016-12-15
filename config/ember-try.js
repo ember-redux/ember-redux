@@ -29,6 +29,15 @@ module.exports = {
       }
     },
     {
+      name: 'ember-2.10.X',
+      dependencies: {
+        'ember': '~2.10.0'
+      },
+      resolutions: {
+        'ember': '~2.10.0'
+      }
+    },
+    {
       name: 'ember-beta',
       dependencies: {
         'ember': 'components/ember#beta'
