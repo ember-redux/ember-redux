@@ -33,7 +33,7 @@ export default (stateToComputed, dispatchToActions=() => ({})) => {
 
         if (!isEmpty(Object.keys(props))) {
           this.unsubscribe = redux.subscribe(() => {
-            run(() => this.handleChange());
+            this.handleChange();
           });
         }
 
@@ -47,13 +47,17 @@ export default (stateToComputed, dispatchToActions=() => ({})) => {
       handleChange() {
         const redux = this.get('redux');
 
-        let props = stateToComputed(redux.getState(), this.getAttrs());
+        const props = stateToComputed(redux.getState(), this.getAttrs());
 
-        Object.keys(props).forEach(name => {
-          if (this.get(name) !== props[name]) {
-            this.notifyPropertyChange(name);
-          }
+        const notifyProperties = Object.keys(props).filter(name => {
+          return this.get(name) !== props[name];
         });
+
+        if (notifyProperties.length > 0) {
+          run.join(() => {
+            notifyProperties.forEach(name => this.notifyPropertyChange(name));
+          });
+        }
       },
 
       /**

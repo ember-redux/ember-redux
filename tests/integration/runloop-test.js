@@ -34,17 +34,17 @@ test('handleChange is invoked inside runloop explicitly', function(assert) {
   assert.equal($parent.text(), 1);
 });
 
-// test('handleChange will join an existing runloop when exists', function(assert) {
-//   this.render(hbs`{{count-list}}`);
+test('handleChange will join an existing runloop when exists', function(assert) {
+  this.render(hbs`{{count-list}}`);
 
-//   let $parent = this.$('.parent-state');
+  let $parent = this.$('.parent-state');
 
-//   assert.equal($parent.text(), 0);
+  assert.equal($parent.text(), 0);
 
-//   Ember.run(() => {
-//     this.redux.dispatch({type: 'UP'});
-//   });
+  Ember.run(() => {
+    this.redux.dispatch({type: 'UP'});
+  });
 
-//   assert.equal($parent.text(), 1);
-//   assert.equal(joined, true);
-// });
+  assert.equal($parent.text(), 1);
+  assert.equal(joined, true);
+});
