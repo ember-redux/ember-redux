@@ -57,7 +57,12 @@
     "redux"
   ],
   "dependencies": {
-    "ember-cli-babel": "^5.1.7"
+    "broccoli-merge-trees": "^1.2.1",
+    "broccoli-rollup": "^1.0.3",
+    "ember-cli-babel": "^5.1.7",
+    "rollup-plugin-commonjs": "^5.0.5",
+    "rollup-plugin-node-resolve": "^2.0.0",
+    "rollup-plugin-replace": "^1.1.1"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
