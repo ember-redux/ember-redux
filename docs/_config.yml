@@ -1,0 +1,5 @@
+title: ember-redux
+email: toranb@gmail.com
+description: "ember-cli addon that provides simple redux bindings for ember.js"
+url: "http://www.ember-redux.com"
+permalink: /:title/
