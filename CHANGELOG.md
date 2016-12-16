@@ -1,6 +1,28 @@
 ember-redux Changelog
 ==============================
 
+1.10.0
+-----
+
+* [DEPENDENCY]: upgraded to ember-cli@2.10
+  ([#66](https://github.com/toranb/ember-redux/pull/66))
+
+* [PERFORMANCE]: Reduce the number of run loops created when state changes
+  ([#69](https://github.com/toranb/ember-redux/pull/69))
+
+* [TESTS]: improved runloop testing to confirm both run/and run.join work
+  ([#70](https://github.com/toranb/ember-redux/pull/70))
+
+* [BUILD]: Alphabetize dependencies
+  ([#62](https://github.com/toranb/ember-redux/pull/62))
+
+* [BUG]: Allow `null` stateToComputed argument
+  ([#67](https://github.com/toranb/ember-redux/pull/67))
+
+* [FEATURE] pass attrs to stateToComputed
+  ([#56](https://github.com/toranb/ember-redux/pull/56))
+
+
 1.9.2
 -----
 
