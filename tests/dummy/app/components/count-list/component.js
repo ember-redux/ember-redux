@@ -8,7 +8,8 @@ var stateToComputed = function(state, attrs) {
     low: state.low,
     high: state.high,
     greeting: `Welcome back, ${attrs.name}!`,
-    serviced: component.get('fake.serviced')
+    serviced: component.get('fake.serviced'),
+    dyno: `name: ${component.get('dynoName')}`
   };
 };
 
@@ -20,6 +21,10 @@ var dispatchToActions = (dispatch) => {
 };
 
 var CountListComponent = Ember.Component.extend({
+  dynoNameValue: null,
+  dynoName: Ember.computed('dynoNameValue', function() {
+    return this.get('dynoNameValue');
+  }),
   fake: Ember.inject.service(),
   layout: hbs`
     <span class="parent-state">{{low}}</span>
@@ -30,6 +35,7 @@ var CountListComponent = Ember.Component.extend({
     <span class="random-state">{{color}}</span>
     <span class="greeting">{{greeting}}</span>
     <span class="serviced">{{serviced}}</span>
+    <span class="dyno">{{dyno}}</span>
   `,
   actions: {
     alter() {

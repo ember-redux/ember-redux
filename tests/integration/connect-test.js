@@ -58,6 +58,19 @@ test('stateToComputed will provide `this` context that is the component instance
   assert.equal(this.$('.serviced').text(), 'true', 'should render the prop provided by component instance');
 });
 
+test('stateToComputed can be used with component level CP if notifyPropertyChange invoked during didUpdateAttrs', function(assert) {
+  assert.expect(2);
+
+  this.set('dynoNameValue', 'Toran');
+  this.render(hbs`{{count-list dynoNameValue=dynoNameValue}}`);
+
+  assert.equal(this.$('.dyno').text(), 'name: Toran', 'should render the local component value');
+
+  this.set('dynoNameValue', 'Tom');
+
+  assert.equal(this.$('.dyno').text(), 'name: Tom', 'should render new value when local component CP changed and notifyPropertyChange invoked');
+});
+
 test('the component should truly be extended meaning actions map over as you would expect', function(assert) {
   this.render(hbs`{{count-list}}`);
   let $random = this.$('.random-state');
