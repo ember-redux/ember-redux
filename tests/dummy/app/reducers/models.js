@@ -2,7 +2,7 @@ const initialState = {
   transition: 'notOk',
 };
 
-export default ((state=initialState, action) => { // jshint ignore:line
+export default ((state=initialState, action) => {
   if (action.type === 'AFTER_MODEL') {
     return Object.assign({}, state, {
       transition: action.transition
