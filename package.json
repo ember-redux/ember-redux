@@ -11,13 +11,13 @@
     "start": "ember server",
     "test": "ember try:testall"
   },
-  "homepage": "https://github.com/toranb/ember-redux",
+  "homepage": "https://github.com/ember-redux/ember-redux",
   "bugs": {
-    "url": "https://github.com/toranb/ember-redux/issues"
+    "url": "https://github.com/ember-redux/ember-redux/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/toranb/ember-redux"
+    "url": "https://github.com/ember-redux/ember-redux"
   },
   "engines": {
     "node": ">= 0.12.0"
