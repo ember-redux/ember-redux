@@ -104,14 +104,14 @@ Copyright © 2016 Toran Billups http://toranbillups.com
 
 Licensed under the MIT License
 
-[build-badge]: https://travis-ci.org/toranb/ember-redux.svg?branch=master
-[build]: https://travis-ci.org/toranb/ember-redux
+[build-badge]: https://travis-ci.org/ember-redux/ember-redux.svg?branch=master
+[build]: https://travis-ci.org/ember-redux/ember-redux
 
 [npm-badge]: https://img.shields.io/npm/v/ember-redux.svg?style=flat-square
 [npm]: https://www.npmjs.org/package/ember-redux
 
-[climate-badge]: https://codeclimate.com/github/toranb/ember-redux/badges/gpa.svg
-[climate]: https://codeclimate.com/github/toranb/ember-redux
+[climate-badge]: https://codeclimate.com/github/ember-redux/ember-redux/badges/gpa.svg
+[climate]: https://codeclimate.com/github/ember-redux/ember-redux
 
 [score-badge]: http://emberobserver.com/badges/ember-redux.svg
 [score]: http://emberobserver.com/addons/ember-redux
