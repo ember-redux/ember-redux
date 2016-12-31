@@ -1,3 +1,5 @@
+/*global ajax:true*/
+
 import Ember from 'ember';
 import { test, module } from 'qunit';
 import startApp from '../helpers/start-app';
