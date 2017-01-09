@@ -1,6 +1,22 @@
 ember-redux Changelog
 ==============================
 
+1.11.0
+-----
+
+* [DEPENDENCY]: upgraded redux/redux-saga in the package.json
+  ([#78](https://github.com/ember-redux/ember-redux/pull/78))
+
+* [FEATURE]: the component instance is now available as `this` for non [phat]Arrow
+  ([#60](https://github.com/ember-redux/ember-redux/pull/60))
+
+* [BUILD]: upgraded to eslint from jshint
+  ([#76](https://github.com/ember-redux/ember-redux/pull/76))
+
+* [BUILD]: updated travis and code climate badges
+  ([#75](https://github.com/ember-redux/ember-redux/pull/75))
+
+
 1.10.0
 -----
 
