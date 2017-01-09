@@ -45,8 +45,8 @@
     "ember-resolver": "^2.0.3",
     "ember-try": "0.1.3",
     "loader.js": "^4.0.10",
-    "redux": "^3.5.2",
-    "redux-saga": "0.12.0",
+    "redux": "^3.6.0",
+    "redux-saga": "0.14.2",
     "redux-thunk": "^2.1.0"
   },
   "keywords": [
