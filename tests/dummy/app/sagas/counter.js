@@ -13,5 +13,5 @@ function* incrementAsync() {
 }
 
 export default function* addAsync() {
-  yield* takeEvery('ADD', incrementAsync);
+  yield takeEvery('ADD', incrementAsync);
 }
