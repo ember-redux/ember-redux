@@ -1,4 +1,4 @@
-export default ((state=3, action) => { // jshint ignore:line
+export default ((state=3, action) => {
   if(action.type === 'MORE') {
     return state + 1;
   }

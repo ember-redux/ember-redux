@@ -27,13 +27,19 @@ export default ((state, action) => {
       unrelated: `unrelated ... ${Math.random()}`
     });
   }
+  if (action.type === 'THIS_CONTEXT_EXAMPLE') {
+    return Object.assign({}, state, {
+      contextt: `contextt ... ${action.value}`
+    });
+  }
   if (action.type === 'RANDOM_UPDATE') {
     return Object.assign({}, state, {
       random: Math.random(),
       all: state.all,
       filter: state.filter,
       unrelated: state.unrelated,
-      fake: state.fake
+      fake: state.fake,
+      contextt: state.contextt
     });
   }
   return state || initialState;

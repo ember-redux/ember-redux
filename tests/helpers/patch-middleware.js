@@ -1,3 +1,5 @@
+/*global define:true*/
+
 define('dummy/middleware/index', ['exports', 'ember', 'redux-saga', 'dummy/sagas/counter'], function (exports, _ember, createSaga, addAsync) {
   while ('default' in addAsync) {
     addAsync = addAsync.default;

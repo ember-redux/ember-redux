@@ -8,7 +8,11 @@ const {
   run
 } = Ember;
 
-export default (stateToComputed=() => ({}), dispatchToActions=() => ({})) => {
+export default (stateToComputed, dispatchToActions=() => ({})) => {
+
+  if (!stateToComputed) {
+    stateToComputed = () => ({});
+  }
 
   return Component => {
 
@@ -19,22 +23,22 @@ export default (stateToComputed=() => ({}), dispatchToActions=() => ({})) => {
       init() {
         const redux = this.get('redux');
 
-        let props = stateToComputed(redux.getState(), this.getAttrs());
+        let props = stateToComputed.call(this, redux.getState(), this.getAttrs());
 
         Object.keys(props).forEach(name => {
           defineProperty(this, name, computed(() =>
-            stateToComputed(redux.getState(), this.getAttrs())[name]
+            stateToComputed.call(this, redux.getState(), this.getAttrs())[name]
           ).property().readOnly());
         });
 
         if (!isEmpty(Object.keys(props))) {
           this.unsubscribe = redux.subscribe(() => {
-            run(() => this.handleChange());
+            this.handleChange();
           });
         }
 
         this.actions = Object.assign({},
-          this.actions, dispatchToActions(redux.dispatch.bind(redux))
+          this.actions, dispatchToActions.call(this, redux.dispatch.bind(redux))
         );
 
         this._super(...arguments);
@@ -43,13 +47,17 @@ export default (stateToComputed=() => ({}), dispatchToActions=() => ({})) => {
       handleChange() {
         const redux = this.get('redux');
 
-        let props = stateToComputed(redux.getState(), this.getAttrs());
+        const props = stateToComputed.call(this, redux.getState(), this.getAttrs());
 
-        Object.keys(props).forEach(name => {
-          if (this.get(name) !== props[name]) {
-            this.notifyPropertyChange(name);
-          }
+        const notifyProperties = Object.keys(props).filter(name => {
+          return this.get(name) !== props[name];
         });
+
+        if (notifyProperties.length > 0) {
+          run.join(() => {
+            notifyProperties.forEach(name => this.notifyPropertyChange(name));
+          });
+        }
       },
 
       /**

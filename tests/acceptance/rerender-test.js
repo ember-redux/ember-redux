@@ -1,3 +1,5 @@
+/*global ajax:true*/
+
 import Ember from 'ember';
 import { test, module } from 'qunit';
 import startApp from '../helpers/start-app';
@@ -13,20 +15,17 @@ module('Acceptance | rerender test', {
   }
 });
 
-test('should rerender when state is changed by other redux consumers', function(assert) {
-  const redux = application.__container__.lookup('service:redux');
-  ajax('/api/lists', 'GET', 200, []);
-
+test('dispatchToActions will provide `this` context that is the component instance (when not using [phat]Arrow function)', function(assert) {
+  ajax('/api/lists', 'GET', 200, [{id: 1, name: 'one', reviews: [{rating: 5}, {rating: 5}]}, {id: 2, name: 'two', reviews: [{rating: 3}, {rating: 1}]}]);
   visit('/lists');
-
   andThen(() => {
-    assert.equal(find('.list-item-one .item-name').length, 0, "No items initially");
-
-    redux.dispatch({type: 'TRANSFORM_LIST', response: [{id: 1, name: 'bob', reviews: [{rating: 5}]}]});
-
-    andThen(() => {
-      assert.equal(find('.list-item-one .item-name').length, 1, "One item after redux dispatch");
-    });
+    assert.equal(currentURL(), '/lists');
+    assert.equal(find('.fake-contextt').text(), '');
+  });
+  click('.btn-contextt');
+  andThen(() => {
+    assert.equal(currentURL(), '/lists');
+    assert.equal(find('.fake-contextt').text(), 'contextt ... abc123');
   });
 });
 

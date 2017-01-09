@@ -1,4 +1,3 @@
-/*jshint node:true*/
 module.exports = {
   description: 'Installation blueprint for ember-redux',
   normalizeEntityName: function() {},

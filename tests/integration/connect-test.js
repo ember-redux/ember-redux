@@ -50,6 +50,27 @@ test('should render attrs', function(assert) {
   assert.equal(this.$('.greeting').text(), 'Welcome back, Toran!', 'should rerender component if attrs change');
 });
 
+test('stateToComputed will provide `this` context that is the component instance (when not using [phat]Arrow function)', function(assert) {
+  assert.expect(1);
+
+  this.render(hbs`{{count-list}}`);
+
+  assert.equal(this.$('.serviced').text(), 'true', 'should render the prop provided by component instance');
+});
+
+test('stateToComputed can be used with component level CP if notifyPropertyChange invoked during didUpdateAttrs', function(assert) {
+  assert.expect(2);
+
+  this.set('dynoNameValue', 'Toran');
+  this.render(hbs`{{count-list dynoNameValue=dynoNameValue}}`);
+
+  assert.equal(this.$('.dyno').text(), 'name: Toran', 'should render the local component value');
+
+  this.set('dynoNameValue', 'Tom');
+
+  assert.equal(this.$('.dyno').text(), 'name: Tom', 'should render new value when local component CP changed and notifyPropertyChange invoked');
+});
+
 test('the component should truly be extended meaning actions map over as you would expect', function(assert) {
   this.render(hbs`{{count-list}}`);
   let $random = this.$('.random-state');
@@ -92,4 +113,26 @@ test('lifecycle hooks are still invoked', function(assert) {
   this.render(hbs`{{test-component name=name}}`);
 
   this.set('name', 'Dustin');
+});
+
+test('connecting dispatchToActions only', function(assert) {
+  assert.expect(2);
+  const dispatchToActions = () => {};
+
+  this.register('component:test-component-1', connect(null, dispatchToActions)(Ember.Component.extend({
+    init() {
+      this._super(...arguments);
+      assert.ok(true, 'should be able to connect components passing `null` to stateToComputed');
+    }
+  })));
+
+  this.register('component:test-component-2', connect(undefined, dispatchToActions)(Ember.Component.extend({
+    init() {
+      this._super(...arguments);
+      assert.ok(true, 'should be able to connect components passing `undefined` to stateToComputed');
+    }
+  })));
+
+  this.render(hbs`{{test-component-1}}`);
+  this.render(hbs`{{test-component-2}}`);
 });
