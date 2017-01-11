@@ -62,23 +62,19 @@ export default {
 
 **Reducers**
 
-In redux [reducers][] take the current state along with some action and return a new state. One reducer unique to `ember-redux` is named `optional.js` and it only exists because at the time I wanted a reducer that could run before any other. The original reason I wrote this was that I didn't know enhancers existed and I didn't truly understand how middleware worked. It may not be as useful to some people but here is one example where I used it to audit my actions (like you might do with middleware).
+In redux [reducers][] take the current state along with some action and return a new state. In the example below you can see we return the previous state + 1 when the explicit action 'ADD' is triggered.
 
 ```js
-//app/reducers/optional.js
-import Ember from 'ember';
-import AuditLog from '../utilities/audit';
+//app/reducers/index.js
+var number = ((state, action) => {
+    if(action.type === 'ADD') {
+        return state + 1;
+    }
+    return state || 0;
+});
 
-export default function(combine) {
-    return (state, action) => {
-        var entries = AuditLog.entries;
-        entries.push({
-            uuid: Ember.uuid(),
-            action: action,
-            state: state
-        });
-        return combine(state, action);
-    };
+export default {
+    number
 }
 ```
 
