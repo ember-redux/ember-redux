@@ -8,11 +8,11 @@ In redux [enhancers][] allow you to write a function that produces a "new and im
 
 ```js
 //app/enhancers/index.js
-import redux from 'npm:redux';
+import { compose } from 'redux';
 
 var devtools = window.devToolsExtension ? window.devToolsExtension() : f => f;
 
-export default redux.compose(devtools);
+export default compose(devtools);
 ```
 
 **Middleware**
@@ -21,7 +21,7 @@ In redux [middleware][] allows you to write a function that produces a "new and 
 
 ```js
 //app/middleware/index.js
-import thunk from 'npm:redux-thunk';
+import thunk from 'redux-thunk';
 
 var resolved = thunk.default ? thunk.default : thunk;
 
@@ -43,7 +43,7 @@ If the middleware you are using requires some additional setup after the store i
 
 ```js
 //app/middleware/index.js
-import createSagaMiddleWare from 'npm:redux-saga';
+import createSagaMiddleWare from 'redux-saga';
 import addAsync from '../sagas/counter';
 
 const createSaga = createSagaMiddleWare.default ? createSagaMiddleWare.default : createSagaMiddleWare;

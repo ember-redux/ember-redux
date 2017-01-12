@@ -87,9 +87,9 @@ export default UserTableComponent;
 
 ```js
 //app/enhancers/index.js
-import redux from 'redux';
+import { compose } from 'redux';
 var devtools = window.devToolsExtension ? window.devToolsExtension() : f => f;
-export default redux.compose(devtools);
+export default compose(devtools);
 ```
 
 ## Running Tests
