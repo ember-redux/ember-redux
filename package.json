@@ -42,7 +42,7 @@
     "ember-load-initializers": "^0.5.1",
     "ember-lodash-shim": "1.0.1",
     "ember-maybe-import-regenerator": "0.1.4",
-    "ember-redux-saga-shim": "0.0.13",
+    "ember-redux-saga-shim": "0.1.0",
     "ember-redux-shim": "0.0.5",
     "ember-redux-thunk-shim": "0.0.6",
     "ember-resolver": "^2.0.3",
