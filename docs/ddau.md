@@ -1,3 +1,5 @@
+{% raw %}
+
 # Data Down, Actions Up
 
 All of the examples so far have shown a single component but in real applications we build a tree of components each with a variety of responsibilities. In this short tutorial I hope to explain how redux has better informed my component design in ember by requiring the data down actions up paradigm.
@@ -199,3 +201,5 @@ Next learn about the different extension points by reading the [configuration](c
 [array]: https://gist.github.com/toranb/b661b53f9ab277ef8d4041cebe770414
 [idiomatic]: https://gist.github.com/toranb/8bf0b62841051dc64f1fa81299526a0a
 [github]: https://github.com/toranb/ember-redux-ddau-example
+
+{% endraw %}
