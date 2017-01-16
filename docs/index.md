@@ -1,3 +1,5 @@
+{% raw %}
+
 # ember-redux
 
 To install ember-redux
@@ -165,3 +167,5 @@ A quick recap of the 4 methods we use from redux.
 Note: One very important detail I'm skipping over is that when we return a new state of the application we should not mutate the previous state. Notice In my reducer function(s) above, we always return a new number (never change the existing number). The term for this concept is immutability and I'll discuss it in more detail later.
 
 Next, try the [quickstart](quickstart.md) to see the ember-redux API in action!
+
+{% endraw %}

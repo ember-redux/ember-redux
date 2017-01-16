@@ -1,3 +1,5 @@
+{% raw %}
+
 # Cookbook
 
 **Using ember services to manage complex action creation**
@@ -20,7 +22,7 @@ export default Ember.Service.extend({
     redux.dispatch({type: 'ADD_TODO_REQUESTED', todoId});
     channels.get('todos').add(name)
       .receive('ok', resp => redux.dispatch({type: 'ADD_TODO_COMPLETED', todoId}))
-      .receive('error', resp => redux.dispatch({type: 'ADD_TODO_FAILED', todoId});
+      .receive('error', resp => redux.dispatch({type: 'ADD_TODO_FAILED', todoId}));
   }
 });
 ```
@@ -37,3 +39,5 @@ export default Ember.Component.extend({
   }
 });
 ```
+
+{% endraw %}
