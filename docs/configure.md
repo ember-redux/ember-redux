@@ -1,3 +1,5 @@
+{% raw %}
+
 # Configure
 
 If you have a solid understanding of redux basics and what the ember bindings offer, this section will help you unlock the potential of ember-redux by showing all the extension points!
@@ -88,3 +90,5 @@ export default function(combine) {
 [middleware]: https://github.com/reactjs/redux/blob/master/docs/Glossary.md#middleware
 [reducers]: https://github.com/reactjs/redux/blob/master/docs/Glossary.md#reducer
 [redux-thunk]: https://github.com/gaearon/redux-thunk
+
+{% endraw %}

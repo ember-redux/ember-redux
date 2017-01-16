@@ -1,3 +1,5 @@
+{% raw %}
+
 # Quickstart
 
 Now that you have the hang of this redux thing lets take a look at what building that same component would look like using the `ember-redux` addon!
@@ -53,3 +55,5 @@ export default connect(stateToComputed, dispatchToActions)(NumbersComponent);
 And finally you will notice we use a new helper called `connect` to return a new component given the 2 functions that map the computed and actions.
 
 Next try this [example](https://ember-twiddle.com/7ce3446b14f166f04064eba663c0a350) in your web browser with ember-twiddle! Then continue reading about how to apply [data down/ actions up](ddau.md) with ember-redux!
+
+{% endraw %}
