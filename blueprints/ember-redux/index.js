@@ -5,8 +5,8 @@ module.exports = {
   afterInstall: function() {
     return this.addAddonsToProject({
       packages: [
-        {name: 'ember-redux-shim', target: '0.0.5'},
-        {name: 'ember-redux-thunk-shim', target: '0.0.6'}
+        {name: 'ember-redux-shim', target: '^1.0.0'},
+        {name: 'ember-redux-thunk-shim', target: '^1.0.0'}
       ]
     });
   }
