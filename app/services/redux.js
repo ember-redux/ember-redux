@@ -1,8 +1,7 @@
 import Ember from 'ember';
-import redux from 'npm:redux';
+import redux from 'redux';
 import reducers from '../reducers/index';
 import enhancers from '../enhancers/index';
-import optional from '../reducers/optional';
 import middlewareConfig from '../middleware/index';
 
 const { assert, isArray } = Ember;
@@ -24,7 +23,7 @@ var createStoreWithMiddleware = compose(applyMiddleware(...middleware), enhancer
 
 export default Ember.Service.extend({
   init() {
-    this.store = createStoreWithMiddleware(optional(combineReducers(reducers)));
+    this.store = createStoreWithMiddleware(combineReducers(reducers));
     setup(this.store);
     this._super(...arguments);
   },

@@ -19,10 +19,10 @@ http://www.ember-redux.com/
 ## Demo
 
 Counting Example (simple)
-https://ember-twiddle.com/7ce3446b14f166f04064eba663c0a350
+https://ember-twiddle.com/2d98cd4418b7df5cbce6c5213351d31e
 
 Yelp Clone (complex)
-https://ember-twiddle.com/64b18c23223fbc1f3a7da8171c6d8881
+https://ember-twiddle.com/6969acc7dda6aef431344cca031dcfcf
 
 ## Example Container Component
 
@@ -87,9 +87,9 @@ export default UserTableComponent;
 
 ```js
 //app/enhancers/index.js
-import redux from 'npm:redux';
+import { compose } from 'redux';
 var devtools = window.devToolsExtension ? window.devToolsExtension() : f => f;
-export default redux.compose(devtools);
+export default compose(devtools);
 ```
 
 ## Running Tests

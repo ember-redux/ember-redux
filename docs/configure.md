@@ -10,11 +10,11 @@ In redux [enhancers][] allow you to write a function that produces a "new and im
 
 ```js
 //app/enhancers/index.js
-import redux from 'npm:redux';
+import { compose } from 'redux';
 
 var devtools = window.devToolsExtension ? window.devToolsExtension() : f => f;
 
-export default redux.compose(devtools);
+export default compose(devtools);
 ```
 
 **Middleware**
@@ -23,7 +23,7 @@ In redux [middleware][] allows you to write a function that produces a "new and 
 
 ```js
 //app/middleware/index.js
-import thunk from 'npm:redux-thunk';
+import thunk from 'redux-thunk';
 
 var resolved = thunk.default ? thunk.default : thunk;
 
@@ -45,7 +45,7 @@ If the middleware you are using requires some additional setup after the store i
 
 ```js
 //app/middleware/index.js
-import createSagaMiddleWare from 'npm:redux-saga';
+import createSagaMiddleWare from 'redux-saga';
 import addAsync from '../sagas/counter';
 
 const createSaga = createSagaMiddleWare.default ? createSagaMiddleWare.default : createSagaMiddleWare;
@@ -64,23 +64,19 @@ export default {
 
 **Reducers**
 
-In redux [reducers][] take the current state along with some action and return a new state. One reducer unique to `ember-redux` is named `optional.js` and it only exists because at the time I wanted a reducer that could run before any other. The original reason I wrote this was that I didn't know enhancers existed and I didn't truly understand how middleware worked. It may not be as useful to some people but here is one example where I used it to audit my actions (like you might do with middleware).
+In redux [reducers][] take the current state along with some action and return a new state. In the example below you can see we return the previous state + 1 when the explicit action 'ADD' is triggered.
 
 ```js
-//app/reducers/optional.js
-import Ember from 'ember';
-import AuditLog from '../utilities/audit';
+//app/reducers/index.js
+var number = ((state, action) => {
+    if(action.type === 'ADD') {
+        return state + 1;
+    }
+    return state || 0;
+});
 
-export default function(combine) {
-    return (state, action) => {
-        var entries = AuditLog.entries;
-        entries.push({
-            uuid: Ember.uuid(),
-            action: action,
-            state: state
-        });
-        return combine(state, action);
-    };
+export default {
+    number
 }
 ```
 

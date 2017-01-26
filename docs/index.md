@@ -11,7 +11,7 @@ ember install ember-redux
 To better understand ember-redux we first need to break down the essential concepts in redux itself. Because redux revolves around a central store we first need to create it using the `createStore` function.
 
 ```js
-import Redux from 'npm:redux';
+import Redux from 'redux';
 
 var { createStore } = Redux;
 
@@ -36,7 +36,7 @@ The action represents some intent of the program to help us know what operation 
 We can now update the `createStore` function above to take this new reducer function as it's the required argument we were missing earlier.
 
 ```js
-import Redux from 'npm:redux';
+import Redux from 'redux';
 
 var { createStore } = Redux;
 
@@ -55,7 +55,7 @@ Now that we have the store itself, we can use it to get the state and send actio
 ```js
 import Ember from 'ember';
 import hbs from 'htmlbars-inline-precompile';
-import Redux from 'npm:redux';
+import Redux from 'redux';
 
 var { createStore } = Redux;
 
@@ -83,7 +83,7 @@ The initial render now shows the default state of `0` as we expect. To modify th
 ```js
 import Ember from 'ember';
 import hbs from 'htmlbars-inline-precompile';
-import Redux from 'npm:redux';
+import Redux from 'redux';
 
 var { createStore } = Redux;
 
@@ -119,7 +119,7 @@ To break the cache on the computed property we need to notify the component that
 ```js
 import Ember from 'ember';
 import hbs from 'htmlbars-inline-precompile';
-import Redux from 'npm:redux';
+import Redux from 'redux';
 
 var { createStore } = Redux;
 
