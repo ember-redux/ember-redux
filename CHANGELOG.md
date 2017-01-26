@@ -1,6 +1,25 @@
 ember-redux Changelog
 ==============================
 
+2.0.0
+-----
+
+* [DOCS]: new ember-twiddle for 2.0
+  ([#92](https://github.com/ember-redux/ember-redux/pull/92))
+
+* [DEPENDENCY]: upgraded redux/thunk shims in package.json
+  ([#90](https://github.com/ember-redux/ember-redux/pull/90))
+
+* [DOCS]: removed any mention of npm: from the docs/readme
+  ([#81](https://github.com/ember-redux/ember-redux/pull/81))
+
+* [REMOVAL]: killed the optional reducer api from 1x
+  ([#80](https://github.com/ember-redux/ember-redux/pull/80))
+
+* [BUILD]: Use Ember shims for redux packages instead of ember-browserify
+  ([#63](https://github.com/ember-redux/ember-redux/pull/63))
+
+
 1.11.0
 -----
 
