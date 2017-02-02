@@ -24,7 +24,9 @@ https://ember-twiddle.com/2d98cd4418b7df5cbce6c5213351d31e
 Yelp Clone (complex)
 https://ember-twiddle.com/6969acc7dda6aef431344cca031dcfcf
 
-## Example Container Component
+## Examples
+
+### Container Component
 
 ```js
 import Ember from 'ember';
@@ -54,7 +56,7 @@ var UserListComponent = Ember.Component.extend({
 export default connect(stateToComputed, dispatchToActions)(UserListComponent);
 ```
 
-## Example Presentation Component
+### Presentation Component
 
 ```js
 import Ember from 'ember';
@@ -72,7 +74,8 @@ var UserTableComponent = Ember.Component.extend({
 export default UserTableComponent;
 ```
 
-## Example Composition
+### Composition
+
 ```js
 {{#user-list accountId=accountId as |users remove|}}
   {{user-table users=users remove=remove}}
@@ -81,16 +84,18 @@ export default UserTableComponent;
 
 ## How do I enable time travel debugging?
 
-    1) install the redux chrome dev tools plugin
-    2) add a folder named enhancers with one file named index.js
-    3) in that file add 3 lines of code
+1. Install the [redux dev tools extension].
 
-```js
-//app/enhancers/index.js
-import { compose } from 'redux';
-var devtools = window.devToolsExtension ? window.devToolsExtension() : f => f;
-export default compose(devtools);
-```
+2. Add a folder named enhancers with one file named `index.js`.
+
+3. In that file, add the following 3 lines of code:
+
+    ```js
+    //app/enhancers/index.js
+    import { compose } from 'redux';
+    var devtools = window.devToolsExtension ? window.devToolsExtension() : f => f;
+    export default compose(devtools);
+    ```
 
 ## Running Tests
 
@@ -119,3 +124,5 @@ Licensed under the MIT License
 [ember-cli]: http://www.ember-cli.com/
 [ember.js]: http://emberjs.com/
 [redux]: https://github.com/rackt/redux/
+
+[redux dev tools extension]: https://github.com/zalmoxisus/redux-devtools-extension
