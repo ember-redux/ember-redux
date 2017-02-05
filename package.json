@@ -40,10 +40,10 @@
     "ember-cli-uglify": "^1.2.0",
     "ember-export-application-global": "^1.0.5",
     "ember-load-initializers": "^0.5.1",
-    "ember-lodash-shim": "1.0.1",
+    "ember-lodash-shim": "^1.2.0",
     "ember-maybe-import-regenerator": "0.1.4",
     "ember-redux-saga-shim": "0.1.0",
-    "ember-redux-shim": "^1.0.2",
+    "ember-redux-shim": "^1.1.0",
     "ember-redux-thunk-shim": "^1.1.1",
     "ember-resolver": "^2.0.3",
     "ember-symbol-observable": "0.1.2",
@@ -66,5 +66,9 @@
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
+  },
+  "ember-lodash-shim": {
+    "includeLodash3Exports": false,
+    "whitelist": true
   }
 }
