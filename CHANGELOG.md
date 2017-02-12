@@ -1,6 +1,19 @@
 ember-redux Changelog
 ==============================
 
+2.1.0
+-----
+
+* [BUILD]: Optimize lodash
+  ([#96](https://github.com/ember-redux/ember-redux/pull/96))
+
+* [DOCS]: update twiddle in the docs to point at v2.0 and fixed devTools install
+  ([#95](https://github.com/ember-redux/ember-redux/pull/95))
+
+* [DOCS]: Improve Markdown structure and content in README
+  ([#94](https://github.com/ember-redux/ember-redux/pull/94))
+
+
 2.0.0
 -----
 
