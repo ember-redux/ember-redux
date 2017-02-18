@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-var route = function(funcs) {
+var route = function(props) {
   return function wrapWithRoute(IncomingRoute) {
     var WrappedRoute = IncomingRoute || Ember.Route;
     return WrappedRoute.extend({
@@ -8,10 +8,14 @@ var route = function(funcs) {
       init() {
         var redux = this.get('redux');
         var route = this;
-        Object.keys(funcs).forEach(function(func) {
-          route[func] = function(...args) {
+        Object.keys(props).forEach(function(key) {
+          if (typeof props[key] !== 'function') {
+            route[key] = props[key]
+            return
+          }
+          route[key] = function(...args) {
             args.unshift(redux.dispatch.bind(redux));
-            return funcs[func].apply(route, args);
+            return props[key].apply(route, args);
           };
         });
         this._super(...arguments);
