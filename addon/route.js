@@ -10,8 +10,8 @@ var route = function(props) {
         var route = this;
         Object.keys(props).forEach(function(key) {
           if (typeof props[key] !== 'function') {
-            route[key] = props[key]
-            return
+            route[key] = props[key];
+            return;
           }
           route[key] = function(...args) {
             args.unshift(redux.dispatch.bind(redux));

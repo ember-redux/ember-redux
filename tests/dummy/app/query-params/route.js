@@ -16,6 +16,4 @@ function afterModel(dispatch, model, transition) {
   }
 }
 
-var QueryParamsRoute = Ember.Route.extend();
-
-export default route({queryParams, afterModel})(QueryParamsRoute);
+export default route({queryParams, afterModel})();
