@@ -19,7 +19,8 @@ const extractMiddlewareConfig = (mc) => {
 const { middleware, setup = () => {} } = extractMiddlewareConfig(middlewareConfig);
 
 var { createStore, applyMiddleware, combineReducers, compose } = redux;
-var createStoreWithMiddleware = compose(applyMiddleware(...middleware), enhancers)(createStore);
+var composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+var createStoreWithMiddleware = composeEnhancers(applyMiddleware(...middleware), enhancers)(createStore);
 
 export default Ember.Service.extend({
   init() {
