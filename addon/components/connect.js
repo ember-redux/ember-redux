@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { bindActionCreators } from 'redux';
 
 const {
   computed,
@@ -37,9 +38,15 @@ export default (stateToComputed, dispatchToActions=() => ({})) => {
           });
         }
 
-        this.actions = Object.assign({},
-          this.actions, dispatchToActions.call(this, redux.dispatch.bind(redux))
-        );
+        if (typeof dispatchToActions === 'function') {
+          this.actions = Object.assign({},
+            this.actions, dispatchToActions.call(this, redux.dispatch.bind(redux))
+          );
+        }
+
+        if (typeof dispatchToActions === 'object') {
+          this.actions = Object.assign({}, this.actions, bindActionCreators.call(this, dispatchToActions, redux.dispatch.bind(redux)));
+        }
 
         this._super(...arguments);
       },
