@@ -84,11 +84,13 @@ test('the component should truly be extended meaning actions map over as you wou
 test('each computed is truly readonly', function(assert) {
   assert.expect(1);
   this.render(hbs`{{count-list}}`);
-  try {
-    this.$('.btn-alter').trigger('click');
-  } catch (e) {
-    assert.ok(e.message.indexOf('Cannot set read-only property') > -1);
-  }
+  Ember.run(() => {
+    assert.throws(() => {
+      this.$('.btn-alter').trigger('click');
+    }, (e) => {
+      return e.message.indexOf('Cannot set read-only property') > -1;
+    });
+  });
 });
 
 test('lifecycle hooks are still invoked', function(assert) {
