@@ -86,7 +86,7 @@ export default UserTableComponent;
 
 1. Install the [redux dev tools extension].
 
-2. Enojy!
+2. Enjoy!
 
 ## Running Tests
 
