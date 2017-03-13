@@ -1,6 +1,16 @@
 ember-redux Changelog
 ==============================
 
+2.2.0
+-----
+
+* [FEATURE]: Support redux-devtools in browser
+  ([#99](https://github.com/ember-redux/ember-redux/pull/99))
+
+* [TESTS]: fixed readOnly assertion for ember 2.11.3
+  ([commit](https://github.com/ember-redux/ember-redux/commit/7a0aea1e7ceb39ebb0e90937d5ef8868c29ffd1e))
+
+
 2.1.0
 -----
 
