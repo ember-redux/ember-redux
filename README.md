@@ -4,7 +4,7 @@
 
 ## Description
 
-[ember-cli][] addon that provides simple [redux](https://github.com/reactjs/redux) bindings for [ember.js][]
+[ember-cli][] addon that provides simple [redux][] bindings for [ember.js][]
 
 ## Installation
 
@@ -114,6 +114,6 @@ Licensed under the MIT License
 
 [ember-cli]: http://www.ember-cli.com/
 [ember.js]: http://emberjs.com/
-[redux]: https://github.com/rackt/redux/
+[redux]: https://github.com/reactjs/redux
 
 [redux dev tools extension]: https://github.com/zalmoxisus/redux-devtools-extension
