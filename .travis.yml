@@ -7,11 +7,12 @@ sudo: false
 dist: trusty
 
 addons:
-  firefox: "44.0"
+  firefox: "51.0"
 
 cache:
   directories:
-    - node_modules
+    - $HOME/.npm
+    - $HOME/.cache # includes bowers cache
 
 env:
   - EMBER_TRY_SCENARIO=ember-2.0.X
@@ -32,4 +33,4 @@ install:
   - bower install
 
 script:
-  - ember try $EMBER_TRY_SCENARIO test
+  - node_modules/.bin/ember try:one $EMBER_TRY_SCENARIO test --skip-cleanup
