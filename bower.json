@@ -1,9 +1,6 @@
 {
   "name": "ember-redux",
   "dependencies": {
-    "ember": "~2.10.0",
-    "ember-cli-shims": "0.1.3",
-    "fauxjax-toranb": "1.9.0",
-    "jquery": "~2.1.4"
+    "fauxjax-toranb": "1.9.0"
   }
 }
