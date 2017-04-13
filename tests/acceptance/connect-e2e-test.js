@@ -70,3 +70,15 @@ test('components without state should not subscribe or unsubscribe', function(as
     assert.equal(unsubscribed, 1);
   });
 });
+
+
+test('binding computed props does not affect redux state', function(assert) {
+  visit('/project');
+  assert.deepEqual(redux.getState().project, { name: 'Chores' });
+
+  fillIn('.project-name', 'Todos');
+
+  andThen(() => {
+    assert.deepEqual(redux.getState().project, { name: 'Chores' }, 'state should not be affected by Ember binding');
+  });
+});
