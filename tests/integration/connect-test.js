@@ -138,3 +138,38 @@ test('connecting dispatchToActions only', function(assert) {
   this.render(hbs`{{test-component-1}}`);
   this.render(hbs`{{test-component-2}}`);
 });
+
+test('connecting dispatchToActions as object should dispatch action', function(assert) {
+  assert.expect(2);
+
+  const dispatchToActions = {
+    up() {
+      assert.ok(true, 'should be able to pass object of functions to dispatchToActions');
+      return {
+        type: 'UP'
+      };
+    },
+    down() {
+      assert.ok(true, 'should be able to pass object of functions to dispatchToActions');
+      return {
+        type: 'DOWN'
+      };
+    }
+  };
+
+  this.register('component:test-dispatch-action-object', connect(undefined, dispatchToActions)(Ember.Component.extend({
+    init() {
+      this._super(...arguments);
+    },
+    layout: hbs`
+      <button class="btn-up" onclick={{action "up"}}>up</button>
+      <button class="btn-down" onclick={{action "down"}}>up</button>
+    `
+  })));
+
+  this.render(hbs`{{test-dispatch-action-object}}`);
+  Ember.run(() => {
+    this.$('.btn-up').trigger('click');
+    this.$('.btn-down').trigger('click');
+  });
+});
