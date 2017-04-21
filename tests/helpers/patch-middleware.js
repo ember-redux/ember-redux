@@ -1,25 +1,37 @@
-/*global define:true*/
+/* global require, define */
 
-define('dummy/middleware/index', ['exports', 'ember', 'redux-saga', 'dummy/sagas/counter'], function (exports, _ember, createSaga, addAsync) {
-  while ('default' in addAsync) {
-    addAsync = addAsync.default;
-  }
+import originalMiddleware from 'dummy/middleware/index';
+import createSaga from 'redux-saga';
+import addAsync from 'dummy/sagas/counter';
 
-  while ('default' in createSaga) {
-    createSaga = createSaga.default;
-  }
+const { unsee } = require;
 
-  var sagaMiddleware = createSaga();
+export function applyPatch() {
+  unsee('dummy/services/redux');
+  unsee('dummy/middleware/index');
 
-  const setup = (...args) => {
-    window.middlewareArgs = args;
-    sagaMiddleware.run(addAsync);
-  };
+  define('dummy/middleware/index', ['exports'], function (exports) {
+    var sagaMiddleware = createSaga();
 
-  exports['default'] = {
-    middleware: [ sagaMiddleware ],
-    setup: setup
-  };
-});
+    const setup = (...args) => {
+      window.middlewareArgs = args;
+      sagaMiddleware.run(addAsync);
+    };
 
-export default function() {}
+    exports['default'] = {
+      middleware: [ sagaMiddleware ],
+      setup: setup
+    };
+  });
+}
+
+export function revertPatch() {
+  window.middlewareArgs = undefined;
+
+  unsee('dummy/services/redux');
+  unsee('dummy/middleware/index');
+
+  define('dummy/middleware/index', ['exports'], function (exports) {
+    exports['default'] = originalMiddleware;
+  });
+}

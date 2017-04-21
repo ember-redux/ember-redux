@@ -166,3 +166,24 @@ test('connected routes provide an ember route for you by default', function(asse
     assert.equal(find('.user-name').length, 2);
   });
 });
+
+test('connect supports action creator syntax', function(assert) {
+  visit('/actionz');
+  andThen(() => {
+    assert.equal(currentURL(), '/actionz');
+    assert.equal(find('.upp-low').text(), '0');
+  });
+  click('.btn-upp');
+  andThen(() => {
+    assert.equal(find('.upp-low').text(), '1');
+  });
+  click('.btn-upp');
+  andThen(() => {
+    assert.equal(find('.upp-low').text(), '2');
+  });
+  click('.btn-upp');
+  andThen(() => {
+    // remains 2 because of logic in the action
+    assert.equal(find('.upp-low').text(), '2');
+  });
+});
