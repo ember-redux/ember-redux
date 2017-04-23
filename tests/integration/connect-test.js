@@ -73,6 +73,29 @@ test('stateToComputed can be used with component level CP if notifyPropertyChang
   assert.equal(this.$('.dyno').text(), 'name: Tom', 'should render new value when local component CP changed and notifyPropertyChange invoked');
 });
 
+test('stateToComputed is not invoked extraneously', function(assert) {
+  let callCount = 0;
+  const stateToComputed = () => {
+    callCount++;
+    return { callCount };
+  }
+  this.register('component:test-component', connect(stateToComputed)(Component.extend({
+    layout: hbs`{{callCount}}`
+  })));
+
+  this.render(hbs`{{test-component attr=attr}}`);
+  assert.equal(this.$().text(), '1');
+  assert.equal(callCount, 1);
+
+  this.set('attr', 'some-change');
+  assert.equal(this.$().text(), '2');
+  assert.equal(callCount, 2);
+
+  this.get('redux').dispatch({ type: 'FAKE-ACTION' });
+  assert.equal(this.$().text(), '3');
+  assert.equal(callCount, 3);
+});
+
 test('the component should truly be extended meaning actions map over as you would expect', function(assert) {
   this.render(hbs`{{count-list}}`);
   let $random = this.$('.random-state');
