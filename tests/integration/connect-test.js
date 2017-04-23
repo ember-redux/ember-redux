@@ -3,6 +3,8 @@ import connect from 'ember-redux/components/connect';
 import hbs from 'htmlbars-inline-precompile';
 import { moduleForComponent, test } from 'ember-qunit';
 
+const { Component } = Ember;
+
 moduleForComponent('count-list', 'integration: connect test', {
   integration: true,
   setup() {
@@ -88,47 +90,35 @@ test('each computed is truly readonly', function(assert) {
     assert.throws(() => {
       this.$('.btn-alter').trigger('click');
     }, (e) => {
-      return e.message.indexOf('Cannot set read-only property') > -1;
+      return e.message.indexOf('Cannot set redux property "low"') > -1;
     });
   });
 });
 
 test('lifecycle hooks are still invoked', function(assert) {
-  assert.expect(3);
-  this.register('component:test-component', connect()(Ember.Component.extend({
+  assert.expect(1);
+  this.register('component:test-component', connect()(Component.extend({
     init() {
       assert.ok(true, 'init is invoked');
-      this._super(...arguments);
-    },
-
-    didUpdateAttrs() {
-      assert.ok(true, 'didUpdateAttrs should be invoked');
-      this._super(...arguments);
-    },
-
-    willDestroy() {
-      assert.ok(true, 'willDestroy is invoked');
       this._super(...arguments);
     }
   })));
 
   this.render(hbs`{{test-component name=name}}`);
-
-  this.set('name', 'Dustin');
 });
 
 test('connecting dispatchToActions only', function(assert) {
   assert.expect(2);
   const dispatchToActions = () => {};
 
-  this.register('component:test-component-1', connect(null, dispatchToActions)(Ember.Component.extend({
+  this.register('component:test-component-1', connect(null, dispatchToActions)(Component.extend({
     init() {
       this._super(...arguments);
       assert.ok(true, 'should be able to connect components passing `null` to stateToComputed');
     }
   })));
 
-  this.register('component:test-component-2', connect(undefined, dispatchToActions)(Ember.Component.extend({
+  this.register('component:test-component-2', connect(undefined, dispatchToActions)(Component.extend({
     init() {
       this._super(...arguments);
       assert.ok(true, 'should be able to connect components passing `undefined` to stateToComputed');
