@@ -1,6 +1,25 @@
 ember-redux Changelog
 ==============================
 
+2.3.0
+-----
+
+* [DEPENDENCY]: upgraded to ember-cli v2.13.0-beta.4
+  ([#111](https://github.com/ember-redux/ember-redux/pull/111))
+
+* [FEATURE]: unlock action creators
+  ([#107](https://github.com/ember-redux/ember-redux/pull/107))
+
+* [DEPENDENCY]: upgraded to ember-cli v2.13.0-beta.3
+  ([#106](https://github.com/ember-redux/ember-redux/pull/106))
+
+* [BUILD]: upgrade to firefox 51
+  ([#104](https://github.com/ember-redux/ember-redux/pull/104))
+
+* [DOCS]: Fix Redux link
+  ([#103](https://github.com/ember-redux/ember-redux/pull/103))
+
+
 2.2.0
 -----
 
