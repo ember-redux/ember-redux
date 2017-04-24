@@ -28,7 +28,7 @@ export default (stateToComputed, dispatchToActions=() => ({})) => {
 
         Object.keys(props).forEach(name => {
           defineProperty(this, name, computed(() =>
-            stateToComputed.call(this, redux.getState(), this.getAttrs())[name]
+            props[name]
           ).property().readOnly());
         });
 
