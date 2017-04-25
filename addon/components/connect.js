@@ -6,6 +6,7 @@ const {
   computed,
   defineProperty,
   getProperties,
+  guidFor,
   inject: { service },
   run
 } = Ember;
@@ -33,7 +34,7 @@ function changedKeys(state, newState) {
 function computedReduxProperty(key, getState) {
   return computed({
     get: () => getState()[key],
-    set: () => assert(`Cannot set redux property "${key}".`)
+    set: () => assert(`Cannot set redux property "${key}". Try dispatching a redux action instead.`)
   });
 }
 
@@ -60,6 +61,16 @@ function getAttrs(context) {
   const attrKeys = Object.keys(context.attrs || {});
   return getProperties(context, attrKeys);
 }
+
+/**
+  A hash that has keys that are guids for a particular component instance
+  that stores the `handleChange` and `unsubscribe` methods for that
+  component so that they can be used in the component's lifecycle hooks
+  without exposing them to the wrapped component.
+
+  @type {Object}
+*/
+const hooksForComponent = {};
 
 export default (stateToComputed, dispatchToActions) => {
   return Component => {
@@ -95,11 +106,7 @@ export default (stateToComputed, dispatchToActions) => {
 
           const unsubscribe = redux.subscribe(handleChange);
 
-          this.on('didUpdateAttrs', handleChange);
-          this.one('willDestroyElement', () => {
-            this.off('didReceiveAttrs', handleChange);
-            unsubscribe();
-          });
+          hooksForComponent[guidFor(this)] = { handleChange, unsubscribe };
         }
 
         if (typeof dispatchToActions === 'function') {
@@ -114,6 +121,25 @@ export default (stateToComputed, dispatchToActions) => {
         }
 
         this._super(...arguments);
+      },
+
+      didUpdateAttrs() {
+        this._super(...arguments);
+
+        const hooks = hooksForComponent[guidFor(this)];
+        if (hooks) {
+          hooks.handleChange();
+        }
+      },
+
+      willDestroy() {
+        this._super(...arguments);
+
+        const hooks = hooksForComponent[guidFor(this)];
+        if (hooks) {
+          hooks.unsubscribe();
+          delete hooksForComponent[guidFor(this)];
+        }
       }
     });
   };

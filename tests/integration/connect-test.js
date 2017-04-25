@@ -113,21 +113,33 @@ test('each computed is truly readonly', function(assert) {
     assert.throws(() => {
       this.$('.btn-alter').trigger('click');
     }, (e) => {
-      return e.message.indexOf('Cannot set redux property "low"') > -1;
+      return e.message.indexOf('Cannot set redux property "low". Try dispatching a redux action instead.') > -1;
     });
   });
 });
 
 test('lifecycle hooks are still invoked', function(assert) {
-  assert.expect(1);
-  this.register('component:test-component', connect()(Component.extend({
+  assert.expect(3);
+  this.register('component:test-component', connect()(Ember.Component.extend({
     init() {
       assert.ok(true, 'init is invoked');
+      this._super(...arguments);
+    },
+
+    didUpdateAttrs() {
+      assert.ok(true, 'didUpdateAttrs should be invoked');
+      this._super(...arguments);
+    },
+
+    willDestroy() {
+      assert.ok(true, 'willDestroy is invoked');
       this._super(...arguments);
     }
   })));
 
   this.render(hbs`{{test-component name=name}}`);
+
+  this.set('name', 'Dustin');
 });
 
 test('connecting dispatchToActions only', function(assert) {
