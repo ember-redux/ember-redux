@@ -35,7 +35,7 @@ https://ember-twiddle.com/6969acc7dda6aef431344cca031dcfcf
 ```js
 import Ember from 'ember';
 import hbs from 'htmlbars-inline-precompile';
-import connect from 'ember-redux/components/connect';
+import { connect } from 'ember-redux';
 import getUsersByAccountId from '../reducers';
 import fetch from 'fetch';
 
