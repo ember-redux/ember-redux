@@ -46,7 +46,7 @@ With the route in place we now need to fire an async network request to fetch th
 ```js
 //app/users/route.js
 
-import route from 'ember-redux/route';
+import { route } from 'ember-redux';
 import ajax from 'example/utilities/ajax';
 
 var model = (dispatch) => {
@@ -112,7 +112,7 @@ Now that we have fetched the data we declare the `Container Component` that will
 
 import Ember from 'ember';
 import hbs from 'htmlbars-inline-precompile';
-import connect from 'ember-redux/components/connect';
+import { connect } from 'ember-redux';
 import fetch from 'fetch';
 
 var stateToComputed = (state) => {

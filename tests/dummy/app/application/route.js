@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import route from 'ember-redux/route';
+import { route } from 'ember-redux';
 
 var beforeModel = (dispatch) => {
   let roles = Ember.$('[preload-roles]').data('configuration');

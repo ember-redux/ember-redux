@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import ajax from 'dummy/utilities/ajax';
-import route from 'ember-redux/route';
+import { route } from 'ember-redux';
 
 var model = (dispatch, params) => {
   var { item_id } = params;
