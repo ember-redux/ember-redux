@@ -5,36 +5,46 @@ const {
   computed,
   defineProperty,
   inject: { service },
-  isEmpty,
   run
 } = Ember;
 
 export default (stateToComputed, dispatchToActions=() => ({})) => {
-
-  if (!stateToComputed) {
-    stateToComputed = () => ({});
-  }
-
   return Component => {
-
     return Component.extend({
-
       redux: service(),
 
       init() {
         const redux = this.get('redux');
 
-        let props = stateToComputed.call(this, redux.getState(), this.getAttrs());
+        if (stateToComputed) {
+          const getProps = () => stateToComputed.call(this, redux.getState(), this.getAttrs());
+          let props = getProps();
 
-        Object.keys(props).forEach(name => {
-          defineProperty(this, name, computed(() =>
-            stateToComputed.call(this, redux.getState(), this.getAttrs())[name]
-          ).property().readOnly());
-        });
+          Object.keys(props).forEach(name => {
+            defineProperty(this, name, computed(() =>
+              props[name]
+            ).property().readOnly());
+          });
 
-        if (!isEmpty(Object.keys(props))) {
+          this._handleChange = () => {
+            const newProps = getProps();
+            if (props === newProps) return;
+
+            const notifyProperties = Object.keys(props).filter(name => {
+              return props[name] !== newProps[name];
+            });
+
+            props = newProps;
+
+            if (notifyProperties.length > 0) {
+              run.join(() => {
+                notifyProperties.forEach(name => this.notifyPropertyChange(name));
+              });
+            }
+          };
+
           this.unsubscribe = redux.subscribe(() => {
-            this.handleChange();
+            this._handleChange();
           });
         }
 
@@ -53,18 +63,14 @@ export default (stateToComputed, dispatchToActions=() => ({})) => {
       },
 
       handleChange() {
-        const redux = this.get('redux');
+        Ember.warn(
+          'The ember-redux `handleChange` method is private and may be removed in a future version.',
+          false,
+          { id: 'ember-redux.no-public-handle-change' }
+        );
 
-        const props = stateToComputed.call(this, redux.getState(), this.getAttrs());
-
-        const notifyProperties = Object.keys(props).filter(name => {
-          return this.get(name) !== props[name];
-        });
-
-        if (notifyProperties.length > 0) {
-          run.join(() => {
-            notifyProperties.forEach(name => this.notifyPropertyChange(name));
-          });
+        if (this._handleChange) {
+          return this._handleChange();
         }
       },
 
@@ -92,7 +98,11 @@ export default (stateToComputed, dispatchToActions=() => ({})) => {
 
       didUpdateAttrs() {
         this._super(...arguments);
-        this.handleChange();
+        // Components only have a handleChange method if it is subscribed
+        // to redux changes.
+        if (this._handleChange) {
+          this._handleChange();
+        }
       },
 
       willDestroy() {
