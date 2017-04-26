@@ -3,6 +3,8 @@ import connect from 'ember-redux/components/connect';
 import hbs from 'htmlbars-inline-precompile';
 import { moduleForComponent, test } from 'ember-qunit';
 
+const { Component } = Ember;
+
 moduleForComponent('count-list', 'integration: connect test', {
   integration: true,
   setup() {
@@ -71,6 +73,29 @@ test('stateToComputed can be used with component level CP if notifyPropertyChang
   assert.equal(this.$('.dyno').text(), 'name: Tom', 'should render new value when local component CP changed and notifyPropertyChange invoked');
 });
 
+test('stateToComputed is not invoked extraneously', function(assert) {
+  let callCount = 0;
+  const stateToComputed = () => {
+    callCount++;
+    return { callCount };
+  }
+  this.register('component:test-component', connect(stateToComputed)(Component.extend({
+    layout: hbs`{{callCount}}`
+  })));
+
+  this.render(hbs`{{test-component attr=attr}}`);
+  assert.equal(this.$().text(), '1');
+  assert.equal(callCount, 1);
+
+  this.set('attr', 'some-change');
+  assert.equal(this.$().text(), '2');
+  assert.equal(callCount, 2);
+
+  this.get('redux').dispatch({ type: 'FAKE-ACTION' });
+  assert.equal(this.$().text(), '3');
+  assert.equal(callCount, 3);
+});
+
 test('the component should truly be extended meaning actions map over as you would expect', function(assert) {
   this.render(hbs`{{count-list}}`);
   let $random = this.$('.random-state');
@@ -88,7 +113,7 @@ test('each computed is truly readonly', function(assert) {
     assert.throws(() => {
       this.$('.btn-alter').trigger('click');
     }, (e) => {
-      return e.message.indexOf('Cannot set read-only property') > -1;
+      return e.message.indexOf('Cannot set redux property "low". Try dispatching a redux action instead.') > -1;
     });
   });
 });
@@ -121,14 +146,14 @@ test('connecting dispatchToActions only', function(assert) {
   assert.expect(2);
   const dispatchToActions = () => {};
 
-  this.register('component:test-component-1', connect(null, dispatchToActions)(Ember.Component.extend({
+  this.register('component:test-component-1', connect(null, dispatchToActions)(Component.extend({
     init() {
       this._super(...arguments);
       assert.ok(true, 'should be able to connect components passing `null` to stateToComputed');
     }
   })));
 
-  this.register('component:test-component-2', connect(undefined, dispatchToActions)(Ember.Component.extend({
+  this.register('component:test-component-2', connect(undefined, dispatchToActions)(Component.extend({
     init() {
       this._super(...arguments);
       assert.ok(true, 'should be able to connect components passing `undefined` to stateToComputed');
