@@ -173,3 +173,23 @@ test('connecting dispatchToActions as object should dispatch action', function(a
     this.$('.btn-down').trigger('click');
   });
 });
+
+test('calling handleChange directly shows a deprecation warning', function(assert) {
+  assert.expect(1);
+
+  const originalWarn = Ember.warn;
+  Ember.warn = (message, falsy, { id }) => {
+    assert.equal(id, 'ember-redux.no-public-handle-change');
+  }
+
+  this.register('component:test-component', connect()(Ember.Component.extend({
+    init() {
+      this.handleChange();
+      this._super(...arguments);
+    }
+  })));
+
+  this.render(hbs`{{test-component}}`);
+
+  Ember.warn = originalWarn;
+});
