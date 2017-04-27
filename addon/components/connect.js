@@ -98,8 +98,6 @@ export default (stateToComputed, dispatchToActions=() => ({})) => {
 
       didUpdateAttrs() {
         this._super(...arguments);
-        // Components only have a handleChange method if it is subscribed
-        // to redux changes.
         if (this._handleChange) {
           this._handleChange();
         }

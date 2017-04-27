@@ -1,6 +1,13 @@
 ember-redux Changelog
 ==============================
 
+2.4.0
+-----
+
+* [PERFORMANCE]: Only call stateToComputed once per state update
+  ([#114](https://github.com/ember-redux/ember-redux/pull/114))
+
+
 2.3.0
 -----
 
