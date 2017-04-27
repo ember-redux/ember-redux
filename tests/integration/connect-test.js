@@ -113,7 +113,7 @@ test('each computed is truly readonly', function(assert) {
     assert.throws(() => {
       this.$('.btn-alter').trigger('click');
     }, (e) => {
-      return e.message.indexOf('Cannot set read-only property') > -1;
+      return e.message.indexOf('Assertion Failed: Cannot set redux property "low". Try dispatching a redux action instead.') > -1;
     });
   });
 });

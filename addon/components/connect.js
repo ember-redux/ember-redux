@@ -2,11 +2,26 @@ import Ember from 'ember';
 import { bindActionCreators } from 'redux';
 
 const {
+  assert,
   computed,
   defineProperty,
   inject: { service },
   run
 } = Ember;
+
+/**
+  Creates a read-only computed property for accessing redux state.
+
+  @method computedReduxProperty
+  @return {Function} an Ember computed property
+  @private
+*/
+function computedReduxProperty(key, getProps) {
+  return computed({
+    get: () => getProps()[key],
+    set: () => assert(`Cannot set redux property "${key}". Try dispatching a redux action instead.`)
+  });
+}
 
 export default (stateToComputed, dispatchToActions=() => ({})) => {
   return Component => {
@@ -20,10 +35,8 @@ export default (stateToComputed, dispatchToActions=() => ({})) => {
           const getProps = () => stateToComputed.call(this, redux.getState(), this.getAttrs());
           let props = getProps();
 
-          Object.keys(props).forEach(name => {
-            defineProperty(this, name, computed(() =>
-              props[name]
-            ).property().readOnly());
+          Object.keys(props).forEach(key => {
+            defineProperty(this, key, computedReduxProperty(key, () => props))
           });
 
           this._handleChange = () => {
