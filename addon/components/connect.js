@@ -4,10 +4,24 @@ import { bindActionCreators } from 'redux';
 const {
   assert,
   computed,
+  getProperties,
   defineProperty,
   inject: { service },
   run
 } = Ember;
+
+/**
+  Returns a list of keys that have different values between the two objects.
+
+  @method changedKeys
+  @return {Array} keys that have changed
+  @private
+*/
+function changedKeys(props, newProps) {
+  return Object.keys(props).filter(key => {
+    return props[key] !== newProps[key];
+  });
+}
 
 /**
   Creates a read-only computed property for accessing redux state.
@@ -23,6 +37,29 @@ function computedReduxProperty(key, getProps) {
   });
 }
 
+/**
+  Return an object of attrs passed to this Component.
+
+  `Component.attrs` is an object that can look like this:
+
+    {
+      myAttr: {
+        value: 'myValue'
+      }
+    }
+
+  Ember provides that a `get` will return the value:
+
+    this.get('myAttr') === 'myValue'
+
+  @method getAttrs
+  @private
+*/
+function getAttrs(context) {
+  const keys = Object.keys(context.attrs || {});
+  return getProperties(context, keys);
+}
+
 export default (stateToComputed, dispatchToActions=() => ({})) => {
   return Component => {
     return Component.extend({
@@ -32,7 +69,7 @@ export default (stateToComputed, dispatchToActions=() => ({})) => {
         const redux = this.get('redux');
 
         if (stateToComputed) {
-          const getProps = () => stateToComputed.call(this, redux.getState(), this.getAttrs());
+          const getProps = () => stateToComputed.call(this, redux.getState(), getAttrs(this));
           let props = getProps();
 
           Object.keys(props).forEach(key => {
@@ -43,9 +80,7 @@ export default (stateToComputed, dispatchToActions=() => ({})) => {
             const newProps = getProps();
             if (props === newProps) return;
 
-            const notifyProperties = Object.keys(props).filter(name => {
-              return props[name] !== newProps[name];
-            });
+            const notifyProperties = changedKeys(props, newProps);
 
             props = newProps;
 
@@ -87,26 +122,14 @@ export default (stateToComputed, dispatchToActions=() => ({})) => {
         }
       },
 
-      /**
-       * Return an object of attrs passed to this Component.
-       *
-       * `Component.attrs` is an object that can look like this:
-       *
-       *   {
-       *     myAttr: {
-       *       value: 'myValue'
-       *     }
-       *   }
-       *
-       * Ember provides that a `get` will return the value:
-       *
-       *   this.get('myAttr') === 'myValue'
-       *
-       * @method getAttrs
-       * @private
-       */
       getAttrs() {
-        return this.getProperties(Object.keys(this.attrs || {}));
+        Ember.warn(
+          'The ember-redux `getAttrs` method is private and may be removed in a future version.',
+          false,
+          { id: 'ember-redux.no-public-get-attrs' }
+        );
+
+        return getAttrs(this);
       },
 
       didUpdateAttrs() {
