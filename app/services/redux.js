@@ -23,7 +23,8 @@ var createStoreWithMiddleware = compose(applyMiddleware(...middleware), enhancer
 
 export default Ember.Service.extend({
   init() {
-    this.store = createStoreWithMiddleware(combineReducers(reducers));
+    const reducer = typeof reducers === 'function' ? reducers : combineReducers(reducers);
+    this.store = createStoreWithMiddleware(reducer);
     setup(this.store);
     this._super(...arguments);
   },
