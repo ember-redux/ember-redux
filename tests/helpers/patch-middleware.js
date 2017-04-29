@@ -7,10 +7,12 @@ import addAsync from 'dummy/sagas/counter';
 const { unsee } = require;
 
 export function applyPatch() {
-  unsee('dummy/services/redux');
+  unsee('ember-redux/middleware/index');
+  unsee('ember-redux/services/redux');
   unsee('dummy/middleware/index');
+  unsee('dummy/services/redux');
 
-  define('dummy/middleware/index', ['exports'], function (exports) {
+  define('ember-redux/middleware/index', ['exports'], function (exports) {
     var sagaMiddleware = createSaga();
 
     const setup = (...args) => {
@@ -28,10 +30,12 @@ export function applyPatch() {
 export function revertPatch() {
   window.middlewareArgs = undefined;
 
-  unsee('dummy/services/redux');
+  unsee('ember-redux/middleware/index');
+  unsee('ember-redux/services/redux');
   unsee('dummy/middleware/index');
+  unsee('dummy/services/redux');
 
-  define('dummy/middleware/index', ['exports'], function (exports) {
+  define('ember-redux/middleware/index', ['exports'], function (exports) {
     exports['default'] = originalMiddleware;
   });
 }

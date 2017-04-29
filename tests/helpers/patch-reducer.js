@@ -5,10 +5,12 @@ import originalReducer from 'dummy/reducers/index';
 const { unsee } = require;
 
 export function applyPatch() {
-  unsee('dummy/services/redux');
+  unsee('ember-redux/reducers/index');
+  unsee('ember-redux/services/redux');
   unsee('dummy/reducers/index');
+  unsee('dummy/services/redux');
 
-  define('dummy/reducers/index', ['exports', 'dummy/reducers/low', 'dummy/reducers/high', 'redux'], function (exports, _low, _high, _redux) {
+  define('ember-redux/reducers/index', ['exports', 'dummy/reducers/low', 'dummy/reducers/high', 'redux'], function (exports, _low, _high, _redux) {
     'use strict';
 
     Object.defineProperty(exports, "__esModule", {
@@ -32,10 +34,12 @@ export function applyPatch() {
 }
 
 export function revertPatch() {
-  unsee('dummy/services/redux');
+  unsee('ember-redux/reducers/index');
+  unsee('ember-redux/services/redux');
   unsee('dummy/reducers/index');
+  unsee('dummy/services/redux');
 
-  define('dummy/reducers/index', ['exports'], function (exports) {
+  define('ember-redux/reducers/index', ['exports'], function (exports) {
     exports['default'] = originalReducer;
   });
 }
