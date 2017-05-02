@@ -11,16 +11,18 @@ Next we need to move the reducer itself by creating a new folder called `reducer
 ```js
 //app/reducers/index.js
 
-var number = ((state, action) => {
-    if(action.type === 'ADD') {
-        return state + 1;
-    }
-    return state || 0;
-});
+import { combineReducers } from 'redux';
 
-export default {
-    number
-}
+const number = (state, action) => {
+  if (action.type === 'ADD') {
+    return state + 1;
+  }
+  return state || 0;
+};
+
+export default combineReducers({
+  number
+});
 ```
 
 After we've got our reducer setup we need to remove the computed and action we created manually and replace them with a function that will be given state/dispatch directly.
@@ -43,10 +45,10 @@ var dispatchToActions = (dispatch) => {
 };
 
 var NumbersComponent = Ember.Component.extend({
-    layout: hbs`
-      {{number}}
-      <button onclick={{action "add"}}>add</button>
-    `
+  layout: hbs`
+    {{number}}
+    <button onclick={{action "add"}}>add</button>
+  `
 });
 
 export default connect(stateToComputed, dispatchToActions)(NumbersComponent);

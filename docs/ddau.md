@@ -50,7 +50,7 @@ import route from 'ember-redux/route';
 import ajax from 'example/utilities/ajax';
 
 var model = (dispatch) => {
-    return ajax('/api/users', 'GET').then(response => dispatch({type: 'DESERIALIZE_USERS', response: response}));
+  return ajax('/api/users', 'GET').then(response => dispatch({type: 'DESERIALIZE_USERS', response: response}));
 };
 
 export default route({model})();
@@ -65,21 +65,21 @@ When the ajax request has resolved we dispatch an action to the redux store with
 import { uniq, remove } from 'example/utilities/array';
 
 const initialState = {
-    all: []
+  all: []
 };
 
 export default ((state, action) => {
-    if (action.type === 'DESERIALIZE_USERS') {
-        return Object.assign({}, state, {
-            all: uniq(state.all, action.response)
-        });
-    }
-    if (action.type === 'REMOVE_USER') {
-        return Object.assign({}, state, {
-            all: remove(state.all, action.id)
-        });
-    }
-    return state || initialState;
+  if (action.type === 'DESERIALIZE_USERS') {
+    return Object.assign({}, state, {
+      all: uniq(state.all, action.response)
+    });
+  }
+  if (action.type === 'REMOVE_USER') {
+    return Object.assign({}, state, {
+      all: remove(state.all, action.id)
+    });
+  }
+  return state || initialState;
 });
 ```
 
@@ -89,11 +89,12 @@ This reducer is fine but without an entry in the index.js file (found in the red
 
 ```js
 //app/reducers/index.js
+import { combineReducers } from 'redux';
 import users from 'example/reducers/users';
 
-export default {
-    users: users
-};
+export default combineReducers({
+  users
+});
 ```
 
 Before we can start building the component tree we need to add the template file for the users route and define the `users-list` component.
@@ -112,7 +113,7 @@ Now that we have fetched the data we declare the `Container Component` that will
 import Ember from 'ember';
 import hbs from 'htmlbars-inline-precompile';
 import connect from 'ember-redux/components/connect';
-import ajax from 'example/utilities/ajax';
+import fetch from 'fetch';
 
 var stateToComputed = (state) => {
   return {
@@ -122,7 +123,7 @@ var stateToComputed = (state) => {
 
 var dispatchToActions = (dispatch) => {
   return {
-    remove: (id) => ajax(`/api/users/${id}`, 'DELETE').then(() => dispatch({type: 'REMOVE_USER', id: id}))
+    remove: (id) => fetch(`/api/users/${id}`, {method: 'DELETE'}).then(fetched => fetched.json()).then(response => dispatch({type: 'REMOVE_USER', id: id}))
   };
 };
 

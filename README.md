@@ -32,8 +32,8 @@ https://ember-twiddle.com/6969acc7dda6aef431344cca031dcfcf
 import Ember from 'ember';
 import hbs from 'htmlbars-inline-precompile';
 import connect from 'ember-redux/components/connect';
-import ajax from 'example/utilities/ajax';
 import getUsersByAccountId from '../reducers';
+import fetch from 'fetch';
 
 var stateToComputed = (state, attrs) => {
   return {
@@ -43,7 +43,7 @@ var stateToComputed = (state, attrs) => {
 
 var dispatchToActions = (dispatch) => {
   return {
-    remove: (id) => ajax(`/api/users/${id}`, 'DELETE').then(() => dispatch({type: 'REMOVE_USER', id: id}))
+    remove: (id) => fetch(`/api/users/${id}`, {method: 'DELETE'}).then(fetched => fetched.json()).then(response => dispatch({type: 'REMOVE_USER', id: id}))
   };
 };
 
@@ -96,7 +96,7 @@ export default UserTableComponent;
 
 ## License
 
-Copyright © 2016 Toran Billups http://toranbillups.com
+Copyright © 2017 Toran Billups http://toranbillups.com
 
 Licensed under the MIT License
 

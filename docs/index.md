@@ -22,10 +22,10 @@ If you ran the code above you likely hit a runtime error in redux. This error oc
 
 ```js
 var reducer = ((state, action) => {
-    if(action.type === 'ADD') {
-        return state + 1;
-    }
-    return state || 0;
+  if(action.type === 'ADD') {
+    return state + 1;
+  }
+  return state || 0;
 });
 ```
 
@@ -41,10 +41,10 @@ import Redux from 'redux';
 var { createStore } = Redux;
 
 var reducer = ((state, action) => {
-    if(action.type === 'ADD') {
-        return state + 1;
-    }
-    return state || 0;
+  if(action.type === 'ADD') {
+    return state + 1;
+  }
+  return state || 0;
 });
 
 var store = createStore(reducer);
@@ -60,21 +60,21 @@ import Redux from 'redux';
 var { createStore } = Redux;
 
 var reducer = ((state, action) => {
-    if(action.type === 'ADD') {
-        return state + 1;
-    }
-    return state || 0;
+  if(action.type === 'ADD') {
+    return state + 1;
+  }
+  return state || 0;
 });
 
 var store = createStore(reducer);
 
 export default Ember.Component.extend({
-    number: Ember.computed(function() {
-        return store.getState();
-    }),
-    layout: hbs`
-      {{number}}
-    `
+  number: Ember.computed(function() {
+    return store.getState();
+  }),
+  layout: hbs`
+    {{number}}
+  `
 });
 ```
 
@@ -88,27 +88,27 @@ import Redux from 'redux';
 var { createStore } = Redux;
 
 var reducer = ((state, action) => {
-    if(action.type === 'ADD') {
-        return state + 1;
-    }
-    return state || 0;
+  if(action.type === 'ADD') {
+    return state + 1;
+  }
+  return state || 0;
 });
 
 var store = createStore(reducer);
 
 export default Ember.Component.extend({
-    number: Ember.computed(function() {
-        return store.getState();
-    }),
-    actions: {
-        add: function() {
-            store.dispatch({type: 'ADD'});
-        }
-    },
-    layout: hbs`
-      {{number}}
-      <button onclick={{action "add"}}>add</button>
-    `
+  number: Ember.computed(function() {
+    return store.getState();
+  }),
+  actions: {
+    add: function() {
+      store.dispatch({type: 'ADD'});
+    }
+  },
+  layout: hbs`
+    {{number}}
+    <button onclick={{action "add"}}>add</button>
+  `
 });
 ```
 
@@ -124,33 +124,33 @@ import Redux from 'redux';
 var { createStore } = Redux;
 
 var reducer = ((state, action) => {
-    if(action.type === 'ADD') {
-        return state + 1;
-    }
-    return state || 0;
+  if(action.type === 'ADD') {
+    return state + 1;
+  }
+  return state || 0;
 });
 
 var store = createStore(reducer);
 
 export default Ember.Component.extend({
-    init: function() {
-        this._super(...arguments);
-        store.subscribe(() => {
-            this.notifyPropertyChange('number');
-        });
-    },
-    number: Ember.computed(function() {
-        return store.getState();
-    }),
-    actions: {
-        add: function() {
-            store.dispatch({type: 'ADD'});
-        }
-    },
-    layout: hbs`
-      {{number}}
-      <button onclick={{action "add"}}>add</button>
-    `
+  init: function() {
+    this._super(...arguments);
+    store.subscribe(() => {
+      this.notifyPropertyChange('number');
+    });
+  },
+  number: Ember.computed(function() {
+    return store.getState();
+  }),
+  actions: {
+    add: function() {
+      store.dispatch({type: 'ADD'});
+    }
+  },
+  layout: hbs`
+    {{number}}
+    <button onclick={{action "add"}}>add</button>
+  `
 });
 ```
 
