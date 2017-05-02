@@ -4,6 +4,38 @@
 
 If you have a solid understanding of redux basics and what the ember bindings offer, this section will help you unlock the potential of ember-redux by showing all the extension points!
 
+**Customize createStore**
+
+If you need to customize how the redux store is created you can override the existing ember service. In the example below we import the reducers and enhancers like usual but notice we implement a method named `makeStoreInstance` and provide this to the new ReduxService we export.
+
+```js
+//app/services/redux.js
+import redux from 'redux';
+import ReduxService from 'ember-redux/services/redux';
+import createSagaMiddleWare from 'redux-saga';
+import reducers from '../reducers/index';
+import enhancers from '../enhancers/index';
+import root from '../sagas/index';
+
+const { createStore, applyMiddleware, compose } = redux;
+
+const sagaMiddleware = createSagaMiddleWare();
+
+const makeStoreInstance = ({reducers, enhancers}) => {
+  const middleware = applyMiddleware(sagaMiddleware);
+  const createStoreWithMiddleware = compose(middleware, enhancers)(createStore);
+  const store = createStoreWithMiddleware(reducers);
+  sagaMiddleware.run(root);
+  return store;
+};
+
+export default ReduxService.extend({
+  reducers,
+  enhancers,
+  makeStoreInstance
+});
+```
+
 **Enhancers**
 
 In redux [enhancers][] allow you to write a function that produces a "new and improved" store creator. The most well known enhancer is one that enables [time travel debugging][]. To write a custom enhancer that enables time travel debugging (with help from the [chrome dev tools][]) just add a new directory named `enhancers` and inside it a single file `index.js`
