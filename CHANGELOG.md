@@ -1,6 +1,25 @@
 ember-redux Changelog
 ==============================
 
+2.5.0
+-----
+
+* [BUILD]: updated ember-cli-babel to 6.1.0
+  ([#122](https://github.com/ember-redux/ember-redux/pull/122))
+
+* [TESTS]: added queryParams + connect example
+  ([#118](https://github.com/ember-redux/ember-redux/pull/118))
+
+* [FEATURE]: allow root reducer to explicitly call combineReducers
+  ([#119](https://github.com/ember-redux/ember-redux/pull/119))
+
+* [REFACTOR]: Clean up functions used in connect
+  ([#116](https://github.com/ember-redux/ember-redux/pull/116))
+
+* [REFACTOR]: Add a more descriptive error message on redux prop set
+  ([#117](https://github.com/ember-redux/ember-redux/pull/117))
+
+
 2.4.0
 -----
 
