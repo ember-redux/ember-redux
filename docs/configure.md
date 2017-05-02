@@ -53,12 +53,12 @@ const createSaga = createSagaMiddleWare.default ? createSagaMiddleWare.default :
 const sagaMiddleware = createSaga();
 
 const setup = () => {
-    sagaMiddleware.run(addAsync);
+  sagaMiddleware.run(addAsync);
 };
 
 export default {
-    middleware: [sagaMiddleware],
-    setup: setup
+  middleware: [sagaMiddleware],
+  setup: setup
 };
 ```
 
@@ -68,16 +68,18 @@ In redux [reducers][] take the current state along with some action and return a
 
 ```js
 //app/reducers/index.js
-var number = ((state, action) => {
-    if(action.type === 'ADD') {
-        return state + 1;
-    }
-    return state || 0;
-});
+import { combineReducers } from 'redux';
 
-export default {
-    number
-}
+const number = (state, action) => {
+  if (action.type === 'ADD') {
+    return state + 1;
+  }
+  return state || 0;
+};
+
+export default combineReducers({
+  number
+});
 ```
 
 [chrome dev tools]: https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en
