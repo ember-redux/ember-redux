@@ -10,9 +10,7 @@ addons:
   firefox: "51.0"
 
 cache:
-  directories:
-    - $HOME/.npm
-    - $HOME/.cache # includes bowers cache
+  firefox: "51.0"
 
 env:
   - EMBER_TRY_SCENARIO=ember-2.8.X
@@ -20,14 +18,16 @@ env:
   - EMBER_TRY_SCENARIO=ember-beta
 
 before_install:
+  - curl -o- -L https://yarnpkg.com/install.sh | bash
+  - export PATH=$HOME/.yarn/bin:$PATH
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
   - "npm config set spin false"
   - "npm install -g npm@^2"
 
 install:
+  - yarn install --no-lockfile
   - npm install -g bower
-  - npm install
   - bower install
 
 script:
