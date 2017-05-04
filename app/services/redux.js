@@ -36,5 +36,8 @@ export default Ember.Service.extend({
   },
   subscribe(func) {
     return this.store.subscribe(func);
+  },
+  replaceReducer(nextReducer) {
+    return this.store.replaceReducer(nextReducer);
   }
 });
