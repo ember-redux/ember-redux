@@ -1,6 +1,16 @@
 ember-redux Changelog
 ==============================
 
+2.6.0
+-----
+
+* [FEATURE]: Add "replaceReducer" method to redux service
+  ([#126](https://github.com/ember-redux/ember-redux/pull/126))
+
+* [BUILD]: Upgrading to ember-cli v2.13.0 stable and adding yarn
+  ([#123](https://github.com/ember-redux/ember-redux/pull/123))
+
+
 2.5.0
 -----
 
