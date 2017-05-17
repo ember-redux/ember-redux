@@ -245,7 +245,7 @@ One problem we have with both the list and detail parent components right now is
 ember install ember-reselect-shim
 ```
 
-Next we add the custom selectors in the reducer file. If are are familiar with computed properties in ember you can think of each selector below in much the same way. If the inputs to any selector have changed the value will be recalculated. If not, you will get a cached value back
+Next we add the custom selectors in the reducer file. If you are familiar with computed properties in ember you can think of each selector below in much the same way. If the inputs to any selector have changed the value will be recalculated. If not, you will get a cached value back
 
 ```js
 //app/reducers/restaurants.js
@@ -455,6 +455,119 @@ This update does require we alter the yield and the detail controller template
 {{/restaurant-item}}
 ```
 
-<p>Want the source code for this entire application? You can find this commit up on <a href="https://github.com/ember-redux/guides/commits/master">github</a></p>
+<p>Want the source code for part 4? You can find it on <a href="https://github.com/ember-redux/guides/commits/master">github</a> under the commit titled "[REFACTOR]: added normalizr to expose reviews w/out restaurant"</p>
+
+**Feature 3: Add rate action to add/update review**
+
+The next feature allows us to create or update a rating for a given restaurant. First we add the html below to the restaurant-detail component. This represents a basic star rating component in its most primitive form. Notice we are planning to use a new closure action called "rate" that will be defined in the parent component and passed down
+
+```js
+//app/templates/components/restaurant-detail.hbs
+<div class="star-rating">
+  <span onclick={{action rate 1}}>★</span>
+  <span onclick={{action rate 2}}>★</span>
+  <span onclick={{action rate 3}}>★</span>
+  <span onclick={{action rate 4}}>★</span>
+  <span onclick={{action rate 5}}>★</span>
+</div>
+
+<ul>
+  {{#each reviews as |review|}}
+    <li>{{review.rating}} ★</li>
+  {{else}}
+    <li>no reviews</li>
+  {{/each}}
+</ul>
+```
+To pass the "rate" closure action down we need to modify both the restaurant-item and detail controller templates
+
+```js
+//app/templates/components/restaurant-item.hbs
+{{yield reviews (action "rate")}}
+```
+
+```js
+//app/templates/restaurants/detail.hbs
+{{#restaurant-item as |reviews rate|}}
+  {{restaurant-detail reviews=reviews rate=rate}}
+{{/restaurant-item}}
+```
+Next open the restaurant-item component and add the function dispatchToActions. This function is where we define closure actions that will interact with redux. The "rate" action requires the id of the restaurant we are planning to add a review for. We don't have this in the template itself but redux is tracking the active restaurant with a "selectedId" property. We can create a selector to expose this and add that to our stateToComputed function.
+
+One important point to note in this example is that because we want to ask for a computed property inside the dispatchToActions function I intentionally used the "function" keyword. If we used the "=>" syntax here we wouldn't have access to the component instance
+
+```js
+//app/components/restaurant-item.js
+import Ember from 'ember';
+import fetch from 'fetch';
+import connect from 'ember-redux/components/connect';
+import { getReviews, getSelectedId } from '../reducers/restaurants';
+
+const { get } = Ember;
+
+var stateToComputed = (state) => {
+  return {
+    reviews: getReviews(state),
+    selectedId: getSelectedId(state)
+  };
+};
+
+var dispatchToActions = function(dispatch) {
+  return {
+    rate: rating => {
+      let selectedId = get(this, 'selectedId');
+      let params = {
+        method: 'POST',
+        body: JSON.stringify({rating: rating})
+      };
+      return fetch(`/api/restaurants/${selectedId}`, params)
+        .then(fetched => fetched.json())
+        .then(response => dispatch({
+          type: 'RESTAURANTS:RATE',
+          response: response.restaurants
+        }));
+    }
+  };
+};
+
+export default connect(stateToComputed, dispatchToActions)(Ember.Component);
+```
+Now in the reducer we need to add that new selector
+
+```js
+//app/reducers/restaurants.js
+const selectedId = state => state.restaurants.selectedId;
+
+export const getSelectedId = createSelector(
+  selectedId,
+  (selectedId) => selectedId
+);
+```
+
+And finally we need to write the reducer logic to handle our new "RESTAURANTS:RATE" action. This case is almost identical to the "RESTAURANTS:TRANSFORM_DETAIL" action and at some point in the near future we will DRY up this reducer
+
+```js
+//app/reducers/restaurants.js
+export default ((state, action) => {
+  switch(action.type) {
+    // other reducer code from parts 1-4
+    case 'RESTAURANTS:RATE': {
+      const restaurant = {[action.response.id]: action.response};
+      const normalized = normalize(restaurant, [restaurantSchema]);
+      const { restaurants, reviews } = normalized.entities;
+      const rateMerge = _.extend({}, state.all, restaurants);
+      const rateReviews = _.extend({}, state.reviews, _.keyBy(reviews, r => r.id));
+      return Object.assign({}, state, {
+        all: rateMerge,
+        reviews: rateReviews
+      });
+    }
+  }
+});
+```
+
+<p>Want the source code for this entire application? You can find it on <a href="https://github.com/ember-redux/guides/commits/master">github</a></p>
+
+<p>Still not sure about the relationship between reducers and the store? Checkout this <a href="https://ember-twiddle.com/c950cf7d7e1c9f37b1ca683967370ae7?openFiles=components.number-count.js%2C">ember twiddle</a> with a 24 line redux implementation!</p>
 
 {% endraw %}
