@@ -16,6 +16,11 @@ ember install ember-redux
 
 http://www.ember-redux.com/
 
+## Guides and source code
+
+http://www.ember-redux.com/guides/
+https://github.com/ember-redux/guides
+
 ## Demo
 
 Counting Example (simple)
