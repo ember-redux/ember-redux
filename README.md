@@ -91,7 +91,6 @@ export default UserTableComponent;
 ## Running Tests
 
     npm install
-    bower install
     ember test
 
 ## License
