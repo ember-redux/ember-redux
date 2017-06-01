@@ -60,6 +60,25 @@ function getAttrs(context) {
   return getProperties(context, keys);
 }
 
+/**
+  Return a wrapped stateToComputed function that can be used
+  regardless of wheter the input function is a static selector
+  or a factory.
+
+  @method wrapStateToComputed
+  @private
+*/
+function wrapStateToComputed(stateToComputed) {
+  return () => {
+    const result = stateToComputed();
+    if (typeof result === 'function') {
+      stateToComputed = result;
+      return stateToComputed();
+    }
+    return result;
+  };
+}
+
 export default (stateToComputed, dispatchToActions=() => ({})) => {
   return Component => {
     return Component.extend({
@@ -69,7 +88,9 @@ export default (stateToComputed, dispatchToActions=() => ({})) => {
         const redux = this.get('redux');
 
         if (stateToComputed) {
-          const getProps = () => stateToComputed.call(this, redux.getState(), getAttrs(this));
+          const getProps = wrapStateToComputed(() =>
+            stateToComputed.call(this, redux.getState(), getAttrs(this))
+          );
           let props = getProps();
 
           Object.keys(props).forEach(key => {
