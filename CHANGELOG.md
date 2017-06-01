@@ -1,6 +1,13 @@
 ember-redux Changelog
 ==============================
 
+2.7.0
+-----
+
+* [REFACTOR]: Export route and connect from addon root
+  ([#113](https://github.com/ember-redux/ember-redux/pull/113))
+
+
 2.6.0
 -----
 
