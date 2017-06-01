@@ -25,7 +25,7 @@ In the route itself we use ember-fetch to make the network call. When this has c
 ```js
 //app/routes/restaurants.js
 import fetch from 'fetch';
-import route from 'ember-redux/route';
+import { route } from 'ember-redux';
 
 var model = dispatch => {
   return fetch('/api/restaurants')
@@ -90,7 +90,7 @@ Because the restaurant-list component is html only we need a parent component th
 ```js
 //app/components/restaurant-items.js
 import Ember from 'ember';
-import connect from 'ember-redux/components/connect';
+import { connect } from 'ember-redux';
 
 var stateToComputed = (state) => {
   return {
@@ -116,7 +116,7 @@ The last step is to wire up both components in the routes controller template
 {{/restaurant-items}}
 ```
 
-<p>Want the source code for part 1? You can find this commit up on <a href="https://github.com/ember-redux/guides/commit/e6ac713b92e731a79965fee3839d5edd829fc30a">github</a></p>
+<p>Want the source code for part 1? You can find this commit up on <a href="https://github.com/ember-redux/guides/commit/59126b6a227c2c8d080f2e687fbb4f411b7dedb8">github</a></p>
 
 **Feature 2: Display restaurant details**
 
@@ -136,7 +136,7 @@ Next we define the detail route itself. Similar to the list route in part 1, we 
 ```js
 //app/routes/restaurants/detail.js
 import fetch from 'fetch';
-import route from 'ember-redux/route';
+import { route } from 'ember-redux';
 
 var model = (dispatch, params) => {
   return fetch(`/api/restaurants/${params.id}`)
@@ -207,7 +207,7 @@ And to provide the reviews for this presentation component we will add another p
 ```js
 //app/components/restaurant-item.js
 import Ember from 'ember';
-import connect from 'ember-redux/components/connect';
+import { connect } from 'ember-redux';
 import _ from 'lodash';
 
 var stateToComputed = (state) => {
@@ -235,7 +235,7 @@ And finally we add a detail controller template and wire up the parent and child
 {{/restaurant-item}}
 ```
 
-<p>Want the source code for part 2? You can find this commit up on <a href="https://github.com/ember-redux/guides/commit/5698dd971c85af3f65bacaef88fb6611f7d7d917">github</a></p>
+<p>Want the source code for part 2? You can find this commit up on <a href="https://github.com/ember-redux/guides/commit/b4e29f597ed5b29fc47968e6632e8ced023bd25f">github</a></p>
 
 **Refactor: Use reselect to encapsulate**
 
@@ -274,7 +274,7 @@ Now in the detail component we use the getSelectedRestaurant selector
 ```js
 //app/components/restaurant-item.js
 import Ember from 'ember';
-import connect from 'ember-redux/components/connect';
+import { connect } from 'ember-redux';
 import { getSelectedRestaurant } from '../reducers/restaurants';
 
 var stateToComputed = (state) => {
@@ -291,7 +291,7 @@ And in the list component we can use the getRestaurants selector
 ```js
 //app/components/restaurant-items.js
 import Ember from 'ember';
-import connect from 'ember-redux/components/connect';
+import { connect } from 'ember-redux';
 import { getRestaurants } from '../reducers/restaurants';
 
 var stateToComputed = (state) => {
@@ -305,7 +305,7 @@ export default connect(stateToComputed)(Ember.Component);
 
 If this feels a little silly at first glance just keep in mind that as your application grows you will be thankful you didn't expose any implementation details about the store because of the freedom this contract affords you at refactor time
 
-<p>Want the source code for part 3? You can find this commit up on <a href="https://github.com/ember-redux/guides/commit/c23b9a44b3b50b772e26f20f94f7a82ee0cc5f08">github</a></p>
+<p>Want the source code for part 3? You can find this commit up on <a href="https://github.com/ember-redux/guides/commit/6e5286cd2ac04d4219e15effa8824f1753854e2f">github</a></p>
 
 **Refactor: Use normalizr to expose reviews**
 
@@ -419,7 +419,7 @@ Now we can update the selector used in the detail parent component
 ```js
 //app/components/restaurant-item.js
 import Ember from 'ember';
-import connect from 'ember-redux/components/connect';
+import { connect } from 'ember-redux';
 import { getReviews } from '../reducers/restaurants';
 
 var stateToComputed = (state) => {
@@ -455,7 +455,7 @@ This update does require we alter the yield and the detail controller template
 {{/restaurant-item}}
 ```
 
-<p>Want the source code for part 4? You can find it on <a href="https://github.com/ember-redux/guides/commits/master">github</a> under the commit titled "[REFACTOR]: added normalizr to expose reviews w/out restaurant"</p>
+<p>Want the source code for part 4? You can find this commit up on <a href="https://github.com/ember-redux/guides/commit/226bd28e6cde904e09d6358d10d4332c2dab3573">github</a></p>
 
 **Feature 3: Add rate action to add/update review**
 
@@ -500,7 +500,7 @@ One important point to note in this example is that because we want to ask for a
 //app/components/restaurant-item.js
 import Ember from 'ember';
 import fetch from 'fetch';
-import connect from 'ember-redux/components/connect';
+import { connect } from 'ember-redux';
 import { getReviews, getSelectedId } from '../reducers/restaurants';
 
 const { get } = Ember;
