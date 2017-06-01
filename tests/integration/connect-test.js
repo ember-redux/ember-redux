@@ -199,6 +199,35 @@ test('connecting dispatchToActions as object should dispatch action', function(a
   });
 });
 
+test('stateToComputed supports a static function', function(assert) {
+  const stateToComputed = () => ({ id: 'static-selector' });
+
+  this.register('component:component-with-static-selector', connect(stateToComputed)(Component.extend({
+    layout: hbs`{{id}}`
+  })));
+
+  this.render(hbs`{{component-with-static-selector}}`);
+
+  assert.equal(this.$().text(), 'static-selector');
+});
+
+test('stateToComputed supports a factory function', function(assert) {
+  let createdCount = 0;
+  const stateToComputedFactory = () => {
+    createdCount++;
+    return () => ({ id: `selector-${createdCount}` })
+  }
+
+  this.register('component:component-with-selector-factory', connect(stateToComputedFactory)(Component.extend({
+    layout: hbs`{{id}}`
+  })));
+
+  this.render(hbs`{{component-with-selector-factory}} {{component-with-selector-factory}}`);
+
+  assert.equal(createdCount, 2);
+  assert.equal(this.$().text(), 'selector-1 selector-2');
+});
+
 test('calling deprecated methods shows message', function(assert) {
   const warnings = [];
 
