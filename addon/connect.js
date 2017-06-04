@@ -80,8 +80,9 @@ function wrapStateToComputed(stateToComputed) {
 }
 
 export default (stateToComputed, dispatchToActions=() => ({})) => {
-  return Component => {
-    return Component.extend({
+  return IncomingComponent => {
+    const WrappedComponent = IncomingComponent || Ember.Component;
+    return WrappedComponent.extend({
       redux: service(),
 
       init() {
