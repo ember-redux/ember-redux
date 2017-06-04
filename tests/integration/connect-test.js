@@ -199,6 +199,18 @@ test('connecting dispatchToActions as object should dispatch action', function(a
   });
 });
 
+test('connect provides an Ember.Component for you by default', function(assert) {
+  this.registry.register('template:components/foo-bar', hbs`{{name}}`);
+
+  const stateToComputed = () => ({ name: 'byDefault?' });
+
+  this.register('component:foo-bar', connect(stateToComputed)());
+
+  this.render(hbs`{{foo-bar}}`);
+
+  assert.equal(this.$().text(), 'byDefault?');
+});
+
 test('stateToComputed supports a static function', function(assert) {
   const stateToComputed = () => ({ id: 'static-selector' });
 
