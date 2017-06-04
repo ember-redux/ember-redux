@@ -1,6 +1,13 @@
 ember-redux Changelog
 ==============================
 
+2.9.0
+-----
+
+* [FEATURE]: connect now provides default Ember.Component
+  ([#131](https://github.com/ember-redux/ember-redux/pull/131))
+
+
 2.8.0
 -----
 
