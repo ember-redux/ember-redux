@@ -1,6 +1,13 @@
 ember-redux Changelog
 ==============================
 
+2.8.0
+-----
+
+* [FEATURE]: Support factories for stateToComputed
+  ([#129](https://github.com/ember-redux/ember-redux/pull/129))
+
+
 2.7.0
 -----
 
