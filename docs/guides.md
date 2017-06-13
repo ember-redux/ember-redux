@@ -2,7 +2,7 @@
 
 # Guides
 
-If you prefer to write Ember and Redux with TypeScript checkout the TypeScript <a href="{{ site.baseurl }}/typescript/">guide</a>
+If you prefer to write Ember and Redux with TypeScript checkout the TypeScript <a href="/typescript/">guide</a>
 
 **Feature 1: Display a list of restaurants**
 
