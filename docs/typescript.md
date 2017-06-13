@@ -378,7 +378,7 @@ export default ((state: RestaurantState, action: Action): RestaurantState => {
 
 One very important TypeScript concept worth calling out here. Because we want type safety in the case statements on a per action basis we create what is called a <a href="https://basarat.gitbooks.io/typescript/docs/types/discriminated-unions.html">Discriminated Union</a> allowing the compiler to properly determine a given type (by doing a switch on action.type). This helps provide the appropriate compiler errors when the shape of an action doesn't match
 
-Next We want to show the reviews for a given restaurant when the detail route is active. To start we should add some review data to the ember-cli-mirage fixture
+Next we want to show the reviews for a given restaurant when the detail route is active. To start we should add some review data to the ember-cli-mirage fixture
 
 ```js
 //mirage/fixtures/restaurants.js
@@ -428,6 +428,17 @@ const stateToComputed = (state: RootState) => {
 };
 
 export default connect(stateToComputed)();
+```
+
+Because RestaurantState now has both "all" and "selectedId" we will get a compiler error until we update it
+
+```ts
+//app/types/restaurants.ts
+
+export interface RestaurantState {
+  all: Dictionary<Restaurant>;
+  selectedId: number;
+}
 ```
 
 We then yield this restaurant from the template
