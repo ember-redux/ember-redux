@@ -1,6 +1,13 @@
 ember-redux Changelog
 ==============================
 
+2.9.1
+-----
+
+* [FEATURE]: add typescript type defs
+  ([#132](https://github.com/ember-redux/ember-redux/pull/132))
+
+
 2.9.0
 -----
 
