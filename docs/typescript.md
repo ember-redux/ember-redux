@@ -925,7 +925,7 @@ Before we can boot up the app we need to alter the templates to pass through the
   {{/each}}
 </ul>
 ```
-To pass the "rate" closure action down we need to modify both the restaurant-item and detail controller templates
+Next we need to yield the "selectedId" and plug that value into the restaurant-detail component
 
 ```js
 //app/templates/components/restaurant-item.hbs
