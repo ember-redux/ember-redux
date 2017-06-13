@@ -2,6 +2,8 @@
 
 # Guides
 
+If you prefer to write Ember and Redux with TypeScript checkout the TypeScript <a href="{{ site.baseurl }}/typescript/">guide</a>
+
 **Feature 1: Display a list of restaurants**
 
 Before we start writing any code we need to install a few dependencies
