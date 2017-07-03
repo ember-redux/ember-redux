@@ -239,25 +239,3 @@ test('stateToComputed supports a factory function', function(assert) {
   assert.equal(createdCount, 2);
   assert.equal(this.$().text(), 'selector-1 selector-2');
 });
-
-test('calling deprecated methods shows message', function(assert) {
-  const warnings = [];
-
-  const originalWarn = Ember.warn;
-  Ember.warn = (message, falsy, { id }) => warnings.push({ message, id });
-
-  this.register('component:test-component', connect()(Component.extend({
-    init() {
-      this.handleChange();
-      this.getAttrs();
-      this._super(...arguments);
-    }
-  })));
-
-  this.render(hbs`{{test-component}}`);
-
-  assert.equal(warnings[0].id, 'ember-redux.no-public-handle-change');
-  assert.equal(warnings[1].id, 'ember-redux.no-public-get-attrs');
-
-  Ember.warn = originalWarn;
-});

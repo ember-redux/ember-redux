@@ -132,28 +132,6 @@ export default (stateToComputed, dispatchToActions=() => ({})) => {
         this._super(...arguments);
       },
 
-      handleChange() {
-        Ember.warn(
-          'The ember-redux `handleChange` method is private and may be removed in a future version.',
-          false,
-          { id: 'ember-redux.no-public-handle-change' }
-        );
-
-        if (this._handleChange) {
-          return this._handleChange();
-        }
-      },
-
-      getAttrs() {
-        Ember.warn(
-          'The ember-redux `getAttrs` method is private and may be removed in a future version.',
-          false,
-          { id: 'ember-redux.no-public-get-attrs' }
-        );
-
-        return getAttrs(this);
-      },
-
       didUpdateAttrs() {
         this._super(...arguments);
         if (this._handleChange) {
