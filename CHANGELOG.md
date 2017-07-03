@@ -1,6 +1,13 @@
 ember-redux Changelog
 ==============================
 
+2.10.0
+-----
+
+* [REFACTOR]: createStore is more robust for power users
+  ([#121](https://github.com/ember-redux/ember-redux/pull/121))
+
+
 2.9.1
 -----
 
