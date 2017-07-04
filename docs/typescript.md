@@ -98,13 +98,7 @@ export interface ListDispatch {
 export const TRANSFORM_LIST = 'RESTAURANTS:TRANSFORM_LIST';
 ```
 
-One last compiler error for this route is a result of ember-cli-typescript looking for typedefs in the node_modules/@types directory by default. The ember-fetch project does not yet ship with type defs so we need to bolt this on with a workaround for the moment (pending <a href="https://github.com/stefanpenner/ember-fetch/pull/34">PR</a> to ember-fetch)
-
-```bash
-npm install ember-fetch-tsdefs
-```
-
-To eliminate the compiler error we need to crack open the tsconfig.json file again and add the path to this newly installed type definition file. To save a little time we will also tell TypeScript where it can find the redux/ and ember-redux type definition files
+One last compiler error for this route is a result of ember-cli-typescript looking for typedefs in node_modules/@types by default. To eliminate the compiler error we need to open the tsconfig.json file and add the path to each type definition file (ember-fetch, redux and ember-redux)
 
 ```json
 {
@@ -122,7 +116,7 @@ To eliminate the compiler error we need to crack open the tsconfig.json file aga
       "guides/*": ["app/*"],
       "ember-redux": ["node_modules/ember-redux/index.d.ts"],
       "redux": ["node_modules/redux/index.d.ts"],
-      "fetch": ["node_modules/ember-fetch-tsdefs/index.d.ts"]
+      "fetch": ["node_modules/ember-fetch/index.d.ts"]
     }
   },
   "include": [
@@ -261,7 +255,7 @@ The last step is to wire up both components in the routes controller template
 {{/restaurant-items}}
 ```
 
-<p>Want the source code for part 1? You can find this commit up on <a href="https://github.com/ember-redux/guides/commit/c38a79e1f35b280d03260e3dbdbf279e844d1a78">github</a></p>
+<p>Want the source code for part 1? You can find this commit up on <a href="https://github.com/ember-redux/guides/commit/6fa784ead8ff258ec35eeab09230c59652ce6a9a">github</a></p>
 
 **Feature 2: Display restaurant details**
 
@@ -457,7 +451,7 @@ And finally we add a detail controller template and wire up the parent and child
 {{/restaurant-item}}
 ```
 
-<p>Want the source code for part 2? You can find this commit up on <a href="https://github.com/ember-redux/guides/commit/61b72f09e190d2223a67c19e7f4a843c08217ac6">github</a></p>
+<p>Want the source code for part 2? You can find this commit up on <a href="https://github.com/ember-redux/guides/commit/a90a8471a2694448f84bab9a6457b2e9e246e7">github</a></p>
 
 **Refactor: Use reselect to encapsulate**
 
@@ -514,7 +508,7 @@ To clear up any compiler error regarding reselect open the tsconfig.json file an
       "guides/*": ["app/*"],
       "ember-redux": ["node_modules/ember-redux/index.d.ts"],
       "redux": ["node_modules/redux/index.d.ts"],
-      "fetch": ["node_modules/ember-fetch-tsdefs/index.d.ts"],
+      "fetch": ["node_modules/ember-fetch/index.d.ts"],
       "reselect": ["node_modules/reselect/lib/index.d.ts"]
     }
   },
@@ -560,7 +554,7 @@ export default connect(stateToComputed)();
 
 If this feels a little silly at first glance just keep in mind that as your application grows you will be thankful you didn't expose any implementation details about the store because of the freedom this contract affords you at refactor time
 
-<p>Want the source code for part 3? You can find this commit up on <a href="https://github.com/ember-redux/guides/commit/8c411a8ee57ca4b851cd7f083d0437286155d011">github</a></p>
+<p>Want the source code for part 3? You can find this commit up on <a href="https://github.com/ember-redux/guides/commit/cbf43c2450f1745a3dc5b7cb6afde4f2fd3c1681">github</a></p>
 
 **Refactor: Use normalizr to expose reviews**
 
@@ -709,6 +703,35 @@ export interface RestaurantHash {
 }
 ```
 
+The last compiler error requires we add the normalizr typedefs to the tsconfig.json file
+
+```json
+{
+  "compilerOptions": {
+    "target": "es2015",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "strict": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "allowSyntheticDefaultImports": true,
+    "noEmitOnError": false,
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "guides/*": ["app/*"],
+      "ember-redux": ["node_modules/ember-redux/index.d.ts"],
+      "redux": ["node_modules/redux/index.d.ts"],
+      "fetch": ["node_modules/ember-fetch/index.d.ts"],
+      "reselect": ["node_modules/reselect/lib/index.d.ts"],
+      "normalizr": ["node_modules/normalizr/index.d.ts"]
+    }
+  },
+  "include": [
+    "**/*.ts"
+  ]
+}
+```
+
 The next step is to create a custom selector that only returns the reviews for a given restaurant
 
 ```ts
@@ -767,7 +790,7 @@ This update does require we alter the yield and the detail controller template
 {{/restaurant-item}}
 ```
 
-<p>Want the source code for part 4? You can find this commit up on <a href="https://github.com/ember-redux/guides/commit/cb2c0ce89912cd02313a1a6dcb745b91cee8ee78">github</a></p>
+<p>Want the source code for part 4? You can find this commit up on <a href="https://github.com/ember-redux/guides/commit/047ec9fce66d2d3ca4387323fefd4b3543325d31">github</a></p>
 
 **Feature 3: Add rate action to add/update review**
 
