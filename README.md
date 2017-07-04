@@ -8,6 +8,8 @@
 
 ## Installation
 
+ember redux requires ember-cli v2.4+ and node 6+
+
 ```
 ember install ember-redux
 ```
