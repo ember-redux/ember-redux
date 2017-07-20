@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 import hbs from 'htmlbars-inline-precompile';
 import { connect } from 'ember-redux';
 
@@ -8,7 +8,7 @@ var stateToComputed = (state) => {
   };
 };
 
-var UserListComponent = Ember.Component.extend({
+var UserListComponent = Component.extend({
   layout: hbs`
     {{#each users as |user|}}
       <div class="user-name">{{user.name}}</div>

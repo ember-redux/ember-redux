@@ -1,11 +1,11 @@
-import Ember from 'ember';
+import Route from '@ember/routing/route';
 import { route } from 'ember-redux';
 
 var model = () => {
   return [];
 };
 
-var SuperRoute = Ember.Route.extend({
+var SuperRoute = Route.extend({
   invoked: null,
   init: function() {
     this.set('invoked', true);

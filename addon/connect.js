@@ -1,14 +1,10 @@
-import Ember from 'ember';
+import { run } from '@ember/runloop';
+import { assert } from '@ember/debug'; //BUSTED (see below)
+// https://github.com/ember-cli/ember-modules-codemod/issues/23
+import { inject } from '@ember/service';
+import Component from '@ember/component';
+import { computed, getProperties, defineProperty } from '@ember/object';
 import { bindActionCreators } from 'redux';
-
-const {
-  assert,
-  computed,
-  getProperties,
-  defineProperty,
-  inject: { service },
-  run
-} = Ember;
 
 /**
   Returns a list of keys that have different values between the two objects.
@@ -81,9 +77,9 @@ function wrapStateToComputed(stateToComputed) {
 
 export default (stateToComputed, dispatchToActions=() => ({})) => {
   return IncomingComponent => {
-    const WrappedComponent = IncomingComponent || Ember.Component;
+    const WrappedComponent = IncomingComponent || Component;
     return WrappedComponent.extend({
-      redux: service(),
+      redux: inject('redux'),
 
       init() {
         const redux = this.get('redux');

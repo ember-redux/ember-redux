@@ -1,10 +1,11 @@
-import Ember from 'ember';
+import { inject } from '@ember/service';
+import Route from '@ember/routing/route';
 
 var route = function(funcs) {
   return function wrapWithRoute(IncomingRoute) {
-    var WrappedRoute = IncomingRoute || Ember.Route;
+    var WrappedRoute = IncomingRoute || Route;
     return WrappedRoute.extend({
-      redux: Ember.inject.service('redux'),
+      redux: inject('redux'),
       init() {
         var redux = this.get('redux');
         var route = this;

@@ -1,4 +1,6 @@
-import Ember from 'ember';
+import { inject } from '@ember/service';
+import Component from '@ember/component';
+import { computed } from '@ember/object';
 import hbs from 'htmlbars-inline-precompile';
 import { connect } from 'ember-redux';
 
@@ -22,12 +24,12 @@ var dispatchToActions = (dispatch) => {
   };
 };
 
-var CountListComponent = Ember.Component.extend({
+var CountListComponent = Component.extend({
   dynoNameValue: null,
-  dynoName: Ember.computed('dynoNameValue', function() {
+  dynoName: computed('dynoNameValue', function() {
     return this.get('dynoNameValue');
   }),
-  fake: Ember.inject.service(),
+  fake: inject(),
   layout: hbs`
     <span class="parent-state">{{low}}</span>
     <button class="btn-up" onclick={{action "up"}}>up</button>

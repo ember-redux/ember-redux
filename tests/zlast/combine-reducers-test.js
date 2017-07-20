@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import { run } from '@ember/runloop';
 import { test, module } from 'qunit';
 import { applyPatch, revertPatch } from '../helpers/patch-reducer';
 import startApp from '../helpers/start-app';
@@ -11,7 +11,7 @@ module('Acceptance | combine reducers test', {
     application = startApp();
   },
   afterEach() {
-    Ember.run(application, 'destroy');
+    run(application, 'destroy');
     revertPatch();
   }
 });

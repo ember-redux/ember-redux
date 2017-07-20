@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 import hbs from 'htmlbars-inline-precompile';
 import { connect } from 'ember-redux';
 import filterRating from 'dummy/utilities/filter';
@@ -16,7 +16,7 @@ var dispatchToActions = (dispatch) => {
   };
 };
 
-var ListTwoComponent = Ember.Component.extend({
+var ListTwoComponent = Component.extend({
   layout: hbs`
     {{yield items (action "filter")}}
   `

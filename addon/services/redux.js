@@ -1,10 +1,11 @@
-import Ember from 'ember';
+import { get } from '@ember/object';
+import { assert } from '@ember/debug';
+import { isArray } from '@ember/array';
+import Service from '@ember/service';
 import redux from 'redux';
 import reducers from '../reducers/index';
 import enhancers from '../enhancers/index';
 import middlewares from '../middleware/index';
-
-const { assert, isArray, get } = Ember;
 
 // Handle "classic" middleware exports (i.e. an array), as well as the hash option
 const extractMiddlewareConfig = (mc) => {
@@ -26,7 +27,7 @@ const makeStoreInstance = ({middlewares, reducers, enhancers}) => {
   return store;
 };
 
-export default Ember.Service.extend({
+export default Service.extend({
   middlewares,
   reducers,
   enhancers,

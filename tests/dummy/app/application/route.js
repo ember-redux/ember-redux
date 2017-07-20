@@ -1,11 +1,9 @@
-import Ember from 'ember';
+import $ from 'jquery';
 import { route } from 'ember-redux';
 
 var beforeModel = (dispatch) => {
-  let roles = Ember.$('[preload-roles]').data('configuration');
+  let roles = $('[preload-roles]').data('configuration');
   dispatch({type: 'ADD_ROLES', roles: roles});
 };
 
-var ApplicationRoute = Ember.Route.extend();
-
-export default route({beforeModel})(ApplicationRoute);
+export default route({beforeModel})();

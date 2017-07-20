@@ -1,5 +1,5 @@
-import Ember from 'ember';
 import { test, module } from 'qunit';
+import { run } from '@ember/runloop';
 import { applyPatch, revertPatch } from '../helpers/patch-middleware';
 import startApp from '../helpers/start-app';
 
@@ -11,7 +11,7 @@ module('Acceptance | middleware configuration test', {
     application = startApp();
   },
   afterEach() {
-    Ember.run(application, 'destroy');
+    run(application, 'destroy');
     revertPatch();
   }
 });

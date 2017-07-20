@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 import ajax from 'dummy/utilities/ajax';
 import hbs from 'htmlbars-inline-precompile';
 import { connect } from 'ember-redux';
@@ -24,7 +24,7 @@ var dispatchToActions = function(dispatch) {
   };
 };
 
-var ListOneComponent = Ember.Component.extend({
+var ListOneComponent = Component.extend({
   valuee: 'abc123',
   layout: hbs`
     {{yield items fake contextt (action "filter") (action "refresh") (action "update") (action "random") (action "faked") (action "context")}}

@@ -8,10 +8,10 @@
 // export default combineReducers({
 //   foobar
 // })
-import Ember from 'ember';
+import { warn } from '@ember/debug';
 
 export default function(state) {
-  Ember.warn(`You haven't created a reducer yet. Place the root reducer in "app/reducers/index.js"`, null, { id: 'ember-redux.default-reducer' });
+  warn(`You haven't created a reducer yet. Place the root reducer in "app/reducers/index.js"`, null, { id: 'ember-redux.default-reducer' });
 
   return state;
 }

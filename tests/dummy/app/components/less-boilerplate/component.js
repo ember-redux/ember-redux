@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 import hbs from 'htmlbars-inline-precompile';
 import { connect } from 'ember-redux';
 import { bumpTwice } from '../../actions/index';
@@ -13,7 +13,7 @@ var mapDispatchToActions = {
   bumpTwice
 };
 
-var LessBoilerplateComponent = Ember.Component.extend({
+var LessBoilerplateComponent = Component.extend({
   layout: hbs`
     <span class="upp-low">{{low}}</span>
     <button class="btn-upp" onclick={{action "bumpTwice" 1}}>upp</button>

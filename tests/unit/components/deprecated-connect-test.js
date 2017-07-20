@@ -1,8 +1,7 @@
-import Ember from 'ember';
 import connect from 'ember-redux/components/connect';
+import Component from '@ember/component';
 import { module, test } from 'qunit';
-
-const { Component } = Ember;
+import Ember from 'ember';
 
 const originalWarn = Ember.warn;
 let warnings;

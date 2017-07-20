@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 import hbs from 'htmlbars-inline-precompile';
 import { connect } from 'ember-redux';
 
@@ -8,7 +8,7 @@ var stateToComputed = (state) => {
   };
 };
 
-var UserDetailComponent = Ember.Component.extend({
+var UserDetailComponent = Component.extend({
   layout: hbs`
     <span style="color: blue;" class="user-detail-name">{{user.name}}</span>
   `

@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 import hbs from 'htmlbars-inline-precompile';
 import { connect } from 'ember-redux';
 
@@ -14,7 +14,7 @@ var dispatchToActions = (dispatch) => {
   };
 };
 
-var SagaComponent = Ember.Component.extend({
+var SagaComponent = Component.extend({
     layout: hbs`
       <span class="saga-number">{{low}}</span>
       <button class="btn-saga" onclick={{action "add"}}>add with saga</button>

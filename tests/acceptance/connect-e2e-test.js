@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import { run } from '@ember/runloop';
 import { test, module } from 'qunit';
 import startApp from '../helpers/start-app';
 
@@ -24,7 +24,7 @@ module('Acceptance | subscribe e2e test', {
   },
   afterEach() {
     redux.subscribe = original;
-    Ember.run(application, 'destroy');
+    run(application, 'destroy');
   }
 });
 
