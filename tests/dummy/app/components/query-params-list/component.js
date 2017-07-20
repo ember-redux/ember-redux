@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 import hbs from 'htmlbars-inline-precompile';
 import connect from 'ember-redux/components/connect';
 
@@ -9,7 +9,7 @@ var stateToComputed = (state) => {
   };
 };
 
-var QueryParamsListComponent = Ember.Component.extend({
+var QueryParamsListComponent = Component.extend({
   layout: hbs`
     {{#each queryParams as |queryParam|}}
       <div class="query-param-name">{{queryParam}}</div>

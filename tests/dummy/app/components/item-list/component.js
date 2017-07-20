@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 import hbs from 'htmlbars-inline-precompile';
 import { connect } from 'ember-redux';
 
@@ -9,7 +9,7 @@ var stateToComputed = (state) => {
   };
 };
 
-var ItemListComponent = Ember.Component.extend({
+var ItemListComponent = Component.extend({
   layout: hbs`
     <div id="after-model-transition">{{transitionMsg}}</div>
     {{#each items as |item|}}

@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 import hbs from 'htmlbars-inline-precompile';
 import { connect } from 'ember-redux';
 
@@ -8,7 +8,7 @@ var stateToComputed = (state) => {
   };
 };
 
-var UnrelatedComponent = Ember.Component.extend({
+var UnrelatedComponent = Component.extend({
   layout: hbs`
     {{yield unrelated}}
   `

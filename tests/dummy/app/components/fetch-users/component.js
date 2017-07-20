@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 import hbs from 'htmlbars-inline-precompile';
 import ajax from 'dummy/utilities/ajax';
 import { connect } from 'ember-redux';
@@ -15,7 +15,7 @@ var dispatchToActions = (dispatch) => {
   };
 };
 
-var UserListComponent = Ember.Component.extend({
+var UserListComponent = Component.extend({
   init() {
     this._super(...arguments);
     this.triggerAction({action: 'fetch', target: this});

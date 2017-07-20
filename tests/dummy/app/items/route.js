@@ -1,5 +1,5 @@
-import Ember from 'ember';
 import ajax from 'dummy/utilities/ajax';
+import { isPresent } from '@ember/utils';
 import { route } from 'ember-redux';
 
 var model = (dispatch) => {
@@ -7,7 +7,7 @@ var model = (dispatch) => {
 };
 
 function afterModel(dispatch, model, transition) {
-  if (Ember.isPresent(transition)) {
+  if (isPresent(transition)) {
     dispatch({type: 'AFTER_MODEL', transition: 'ok'});
   }
 }

@@ -1,6 +1,7 @@
-import Ember from 'ember';
+import { run } from '@ember/runloop';
 import hbs from 'htmlbars-inline-precompile';
 import { moduleForComponent, test } from 'ember-qunit';
+import Ember from 'ember';
 
 var original, joined;
 
@@ -41,7 +42,7 @@ test('handleChange will join an existing runloop when exists', function(assert) 
 
   assert.equal($parent.text(), 0);
 
-  Ember.run(() => {
+  run(() => {
     this.redux.dispatch({type: 'UP'});
   });
 

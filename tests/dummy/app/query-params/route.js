@@ -1,7 +1,9 @@
-import Ember from 'ember';
+import { inject } from '@ember/service';
+import Route from '@ember/routing/route';
+import { isPresent } from '@ember/utils';
 
-const QueryParamsRoute = Ember.Route.extend({
-  redux: Ember.inject.service(),
+const QueryParamsRoute = Route.extend({
+  redux: inject(),
   queryParams: {
     foo: {
       refreshModel: false
@@ -9,7 +11,7 @@ const QueryParamsRoute = Ember.Route.extend({
   },
   afterModel(model, transition) {
     var redux = this.get('redux');
-    if (Ember.isPresent(transition)) {
+    if (isPresent(transition)) {
       redux.dispatch({
         queryParams: Object.keys(this.get('queryParams')),
         type: 'SET_QUERY_PARAMS'

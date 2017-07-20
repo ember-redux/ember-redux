@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 import hbs from 'htmlbars-inline-precompile';
 import { connect } from 'ember-redux';
 
@@ -14,7 +14,7 @@ var dispatchToActions = (dispatch) => {
   };
 };
 
-var ItemDetailComponent = Ember.Component.extend({
+var ItemDetailComponent = Component.extend({
   layout: hbs`
     <input class="item-detail-name" value={{item.name}} oninput={{action "nameUpdated" value="target.value"}} />
   `

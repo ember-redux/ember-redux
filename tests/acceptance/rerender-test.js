@@ -1,6 +1,6 @@
 /*global ajax:true*/
 
-import Ember from 'ember';
+import { run } from '@ember/runloop';
 import { test, module } from 'qunit';
 import startApp from '../helpers/start-app';
 
@@ -11,7 +11,7 @@ module('Acceptance | rerender test', {
     application = startApp();
   },
   afterEach() {
-    Ember.run(application, 'destroy');
+    run(application, 'destroy');
   }
 });
 
