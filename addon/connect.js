@@ -1,6 +1,5 @@
 import { run } from '@ember/runloop';
-import { assert } from '@ember/debug'; //BUSTED (see below)
-// https://github.com/ember-cli/ember-modules-codemod/issues/23
+import { assert } from '@ember/debug';
 import { inject } from '@ember/service';
 import Component from '@ember/component';
 import { computed, getProperties, defineProperty } from '@ember/object';
@@ -29,7 +28,7 @@ function changedKeys(props, newProps) {
 function computedReduxProperty(key, getProps) {
   return computed({
     get: () => getProps()[key],
-    set: () => assert(`Cannot set redux property "${key}". Try dispatching a redux action instead.`)
+    set: () => { assert(`Cannot set redux property "${key}". Try dispatching a redux action instead.`); }
   });
 }
 
