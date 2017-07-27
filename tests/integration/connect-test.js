@@ -3,7 +3,6 @@ import { connect } from 'ember-redux';
 import hbs from 'htmlbars-inline-precompile';
 import { moduleForComponent, test } from 'ember-qunit';
 import Component from '@ember/component';
-import { skip } from 'qunit';
 
 moduleForComponent('count-list', 'integration: connect test', {
   integration: true,
@@ -106,8 +105,7 @@ test('the component should truly be extended meaning actions map over as you wou
   assert.equal($random.text(), 'blue');
 });
 
-//WIP: broken at the moment because assert is busted
-skip('each computed is truly readonly', function(assert) {
+test('each computed is truly readonly', function(assert) {
   assert.expect(1);
   this.render(hbs`{{count-list}}`);
   run(() => {
