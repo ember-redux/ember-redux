@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 import hbs from 'htmlbars-inline-precompile';
-import connect from 'ember-redux/components/connect';
+import { connect } from 'ember-redux';
 
 var stateToComputed = (state) => {
   return {
