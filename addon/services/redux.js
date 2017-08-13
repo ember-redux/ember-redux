@@ -21,6 +21,13 @@ const makeStoreInstance = ({middlewares, reducers, enhancers}) => {
   const { middleware, setup = () => {} } = extractMiddlewareConfig(middlewares);
   const createStoreWithMiddleware = compose(applyMiddleware(...middleware), enhancers)(createStore);
   const reducer = typeof reducers === 'function' ? reducers : combineReducers(reducers);
+  if (typeof reducers !== 'function') {
+    Ember.warn(
+      "ember-redux will soon end support for `export default {}` in the root reducer. Please update `app/reducers/index.js` by first importing combineReducers `import { combineReducers } from 'redux';` and then exporting with it `export default combineReducers({})`",
+      false,
+      { id: 'ember-redux.combineReducers' }
+    );
+  }
   const store = createStoreWithMiddleware(reducer);
   setup(store);
   return store;

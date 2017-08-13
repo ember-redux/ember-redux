@@ -23,7 +23,7 @@ http://www.ember-redux.com/guides/
 ## Demo
 
 Counting Example (simple)
-https://ember-twiddle.com/2d98cd4418b7df5cbce6c5213351d31e
+https://ember-twiddle.com/cf196e6c892864415eb825a0c7f65b3f
 
 Yelp Clone (complex)
 https://ember-twiddle.com/6969acc7dda6aef431344cca031dcfcf
