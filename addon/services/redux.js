@@ -16,13 +16,12 @@ const extractMiddlewareConfig = (mc) => {
   return isArray(mc) ? { middleware: mc } : mc;
 }
 
-const { createStore, applyMiddleware, combineReducers, compose } = redux;
+const { createStore, applyMiddleware, compose } = redux;
 
 const makeStoreInstance = ({middlewares, reducers, enhancers}) => {
   const { middleware, setup = () => {} } = extractMiddlewareConfig(middlewares);
   const createStoreWithMiddleware = compose(applyMiddleware(...middleware), enhancers)(createStore);
-  const reducer = typeof reducers === 'function' ? reducers : combineReducers(reducers);
-  const store = createStoreWithMiddleware(reducer);
+  const store = createStoreWithMiddleware(reducers);
   setup(store);
   return store;
 };
