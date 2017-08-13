@@ -1,7 +1,7 @@
-// Type definitions for ember-redux 2.9.0
+// Type definitions for ember-redux 3.0.0
 // Project: https://github.com/ember-redux/ember-redux
 // Definitions by: Toran Billups <https://github.com/toranb>
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 import * as Redux from 'redux';
 
