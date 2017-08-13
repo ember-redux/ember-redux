@@ -1,3 +1,4 @@
+import { combineReducers } from 'redux';
 import low from 'dummy/reducers/low';
 import high from 'dummy/reducers/high';
 import combined from 'dummy/reducers/combined';
@@ -9,7 +10,7 @@ import list from 'dummy/reducers/list';
 import models from 'dummy/reducers/models';
 import queryParams from 'dummy/reducers/query-params';
 
-export default {
+export default combineReducers({
   low: low,
   high: high,
   combined: combined,
@@ -20,4 +21,4 @@ export default {
   items: items,
   list: list,
   queryParams: queryParams
-};
+});
