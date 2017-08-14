@@ -20,7 +20,7 @@
     "url": "https://github.com/ember-redux/ember-redux"
   },
   "engines": {
-    "node": ">= 4"
+    "node": ">= 6"
   },
   "author": "Toran Billups toranb@gmail.com",
   "license": "MIT",
