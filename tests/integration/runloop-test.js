@@ -1,7 +1,6 @@
 import { run } from '@ember/runloop';
 import hbs from 'htmlbars-inline-precompile';
 import { moduleForComponent, test } from 'ember-qunit';
-import Ember from 'ember';
 
 var original, joined;
 
@@ -11,15 +10,15 @@ moduleForComponent('count-list', 'integration: runloop test', {
     this.inject.service('redux');
 
     joined = false;
-    original = Ember.run.join;
-    Ember.run.join = function() {
+    original = run.join;
+    run.join = function() {
       joined = true;
       return original.apply(this, arguments);
     };
   },
   teardown() {
     joined = false;
-    Ember.run.join = original;
+    run.join = original;
   }
 });
 
