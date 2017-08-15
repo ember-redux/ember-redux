@@ -26,30 +26,30 @@
   "license": "MIT",
   "devDependencies": {
     "broccoli-asset-rev": "^2.4.5",
-    "ember-cli": "2.13.0",
-    "ember-cli-dependency-checker": "^1.3.0",
-    "ember-cli-eslint": "^3.0.0",
-    "ember-cli-htmlbars": "^1.1.1",
-    "ember-cli-htmlbars-inline-precompile": "^0.4.0",
+    "ember-cli": "2.15.0-beta.2",
+    "ember-cli-dependency-checker": "^2.0.0",
+    "ember-cli-eslint": "^4.0.0",
+    "ember-cli-htmlbars": "^2.0.1",
+    "ember-cli-htmlbars-inline-precompile": "^1.0.0",
     "ember-cli-inject-live-reload": "^1.4.1",
-    "ember-cli-qunit": "^4.0.0-beta.1",
+    "ember-cli-qunit": "^4.0.0",
     "ember-cli-shims": "^1.1.0",
     "ember-cli-sri": "^2.1.0",
     "ember-cli-uglify": "^1.2.0",
-    "ember-disable-prototype-extensions": "^1.1.0",
+    "ember-disable-prototype-extensions": "^1.1.2",
     "ember-export-application-global": "^2.0.0",
     "ember-load-initializers": "^1.0.0",
-    "ember-lodash-shim": "^2.0.0",
+    "ember-lodash-shim": "^2.0.5",
     "ember-maybe-import-regenerator": "0.1.4",
+    "ember-qunit-assert-helpers": "^0.2.0",
     "ember-redux-saga-shim": "1.1.0",
     "ember-redux-shim": "^2.2.0",
     "ember-redux-thunk-shim": "^2.1.0",
-    "ember-source": "~2.13.3",
-    "ember-symbol-observable": "^1.0.0",
     "ember-resolver": "^4.0.0",
+    "ember-source": "~2.15.0-beta.2",
+    "ember-symbol-observable": "^1.0.0",
     "loader.js": "^4.2.3",
-    "lodash-es": "4.15.0",
-    "redux": "^3.7.0",
+    "redux": "^3.7.2",
     "redux-saga": "0.15.3",
     "redux-thunk": "^2.2.0"
   },
@@ -61,13 +61,9 @@
     "redux"
   ],
   "dependencies": {
-    "ember-cli-babel": "^6.6.0"
+    "ember-cli-babel": "^6.7.2"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
-  },
-  "ember-lodash-shim": {
-    "includeLodash3Exports": false,
-    "whitelist": true
   }
 }
