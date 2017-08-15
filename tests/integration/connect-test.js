@@ -108,13 +108,9 @@ test('the component should truly be extended meaning actions map over as you wou
 test('each computed is truly readonly', function(assert) {
   assert.expect(1);
   this.render(hbs`{{count-list}}`);
-  run(() => {
-    assert.throws(() => {
-      this.$('.btn-alter').trigger('click');
-    }, (e) => {
-      return e.message.indexOf('Assertion Failed: Cannot set redux property "low". Try dispatching a redux action instead.') > -1;
-    });
-  });
+  assert.expectAssertion(() => {
+    this.$('.btn-alter').trigger('click');
+  }, 'Assertion Failed: Cannot set redux property "low". Try dispatching a redux action instead.');
 });
 
 test('lifecycle hooks are still invoked', function(assert) {
