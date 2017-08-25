@@ -14,7 +14,7 @@ test('route loads data with Ember loading state', function(assert) {
 
   const usersData = [{id: 1, name: 'one'}, {id: 2, name: 'two'}];
   // Use a delay here so that we force entry into Ember's route loading state.
-  ajax('/api/users', 'GET', 200, usersData, null, {responseTime: 500});
+  ajax('/api/users', 'GET', 200, usersData, 500);
 
   visit('/');
   andThen(() => {

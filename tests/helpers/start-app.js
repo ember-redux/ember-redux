@@ -1,26 +1,25 @@
 import $ from 'jquery';
-import { run } from '@ember/runloop';
+import { run, later } from '@ember/runloop';
 import { merge } from '@ember/polyfills';
 import { registerAsyncHelper } from '@ember/test';
 import Application from '../../app';
 import config from '../../config/environment';
 
-function ajax(app, url, method, status, response, data, options = {}) {
+let unhandled = {};
+
+function interceptAjax(hash) {
+  let request = unhandled[hash.url];
+  let delay = request.responseTime || 0;
+  later(() => {
+    hash.success(request.response);
+  }, delay);
+}
+
+$.ajax = interceptAjax;
+
+function ajax(app, url, method, status, response, responseTime) {
   run(function() {
-    $.fauxjax.removeExisting(url, method);
-    var request = { url: url , method: method };
-    if (data) {
-      request.data = data;
-      request.contentType = 'application/json';
-    }
-    $.fauxjax.new({
-      request: request,
-      response: {
-        status: status,
-        content: response,
-        responseTime: options.responseTime
-      }
-    });
+    unhandled[url] = {response: response, responseTime: responseTime};
   });
   return app.testHelpers.wait();
 }
