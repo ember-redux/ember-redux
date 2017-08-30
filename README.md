@@ -24,10 +24,13 @@ http://www.ember-redux.com/guides/
 
 ## Demo
 
-Counting Example (simple)
+Counting
 https://ember-twiddle.com/5bee7478e4216abe49f1c0a439bae352
 
-Yelp Clone (complex)
+TodoMVC
+https://ember-twiddle.com/4bb9c326a7e54c739b1f5a5023ccc805
+
+Yelp
 https://ember-twiddle.com/f17fdcaa48cc99be9f6e3aac6f103191
 
 ## Examples
