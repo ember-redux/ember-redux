@@ -24,7 +24,7 @@ http://www.ember-redux.com/guides/
 
 ## Demo
 
-Counting
+Counter
 https://ember-twiddle.com/5bee7478e4216abe49f1c0a439bae352
 
 TodoMVC
@@ -99,7 +99,7 @@ export default UserTableComponent;
 
 ## Running Tests
 
-    npm install
+    yarn
     ember test
 
 ## License
