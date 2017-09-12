@@ -1,5 +1,6 @@
 ---
 layout: docs
+title: Overview - ember-redux
 ---
 {% raw %}
 

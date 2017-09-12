@@ -1,5 +1,6 @@
 ---
 layout: docs
+title: Philosophy - ember-redux
 ---
 
 # Philosophy

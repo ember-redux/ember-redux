@@ -4,8 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
-  <title></title>
+  <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
   <link rel="stylesheet" href="{{site.baseurl}}/assets/examples.css">
+  <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
 </head>
 <body>
   <div class="flex-page">
@@ -25,7 +26,7 @@
           </nav>
         </div>
         <div class="flex-logo">
-          <img class="ember-logo" src="{{ site.baseurl}}/assets/emberLogo.png" /> <img class="redux-logo" src="{{site.baseurl}}/assets/white.png" />
+          <a href="/"><img class="ember-logo" src="{{ site.baseurl}}/assets/emberLogo.png" /> <img class="redux-logo" src="{{site.baseurl}}/assets/white.png" /></a>
         </div>
       </div>
     </div>

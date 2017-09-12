@@ -74,7 +74,6 @@
   padding-right: 20px;
   padding-left: 20px;
   font-size: 24px;
-  max-width: 50%;
 }
 .left-nav a {
   color: #7051b6;
@@ -102,6 +101,8 @@ body {
   color: white;
   text-align: center;
   padding: .5%;
+  padding-left: 30px;
+  padding-right: 30px;
 }
 .footer a {
   color: white;
@@ -150,11 +151,6 @@ body {
 }
 .preflex {
   padding: 20px; max-width: 1000px; margin: auto;
-}
-@media only screen and (min-width : 414px) {
-  .right-content {
-    max-width: 55%;
-  }
 }
 @media only screen and (min-width : 705px) {
   .flex-logo {

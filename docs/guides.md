@@ -1,5 +1,6 @@
 ---
 layout: docs
+title: JavaScript Guide - ember-redux
 ---
 {% raw %}
 
