@@ -1,0 +1,255 @@
+.flex-main-content {
+  display:flex;
+  flex-grow: 1;
+  flex-direction: column;
+}
+.main-content {
+  display:flex;
+  flex: 1;
+  flex-wrap: wrap;
+  background-color: white;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+.container-flex {
+  display: flex;
+  flex-direction: row-reverse;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.flex-nav {
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: 60%;
+  align-self: center;
+}
+.flex-logo {
+  flex-grow: 0;
+  flex-shrink: 0;
+  padding-top: 30px;
+}
+.nav {
+ display: flex;
+ flex-direction: row-reverse;
+ justify-content: space-around;
+}
+.examples {
+  padding-bottom: 25px;
+}
+.nav-button {
+  font-size: 24px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+  color: white;
+  text-decoration: none;
+  border: 2px solid white;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+.left-nav {
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 15%;
+  margin-top: 10px;
+  margin-right: 2rem;
+  margin-left: 2rem;
+  min-width: 100%;
+  padding-top: 10px;
+}
+.right-content {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 60%;
+  padding-top: 20px;
+  padding-bottom: 7px;
+}
+.left-nav a {
+  color: #7051b6;
+  line-height: 2.5;
+  display: block;
+  font-size: 30px;
+}
+.left-nav header {
+  color: #919191;
+  font-size: 38px;
+  font-weight: 300;
+  border-bottom: 1px solid rgba(153,153,153,.2);
+  margin-bottom: 10px;
+}
+.right-content iframe {
+  height: 100%;
+  width: 100%;
+}
+body {
+  margin: 0;
+}
+.flex-page {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+.footer {
+  background-color: #856abf;
+  color: white;
+  text-align: center;
+  padding: .5%;
+}
+.footer a {
+  color: white;
+}
+.main-page-logo {
+  align-self: center;
+}
+.ember-logo {
+  max-width: 130px;
+  height: auto;
+}
+.redux-logo {
+  margin-bottom: 2px;
+  max-width: 140px;
+  max-height: 100px;
+  width: auto;
+  height: auto;
+}
+.main-page-header {
+  padding-top: 15px;
+  font-size: 20px;
+  color: white;
+  align-self: center;
+}
+.main-page-outter {
+  padding-left: 10%;
+  padding-right: 10%;
+}
+.main-page {
+  padding: 32px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background: linear-gradient(125deg, #6f4fb5, #8b72c3 100%, #9a83cb 0, #a895d2);
+}
+.small-logo {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+.prepost {
+  padding: 25px;
+}
+.preflex {
+  padding: 20px; max-width: 1000px; margin: auto;
+}
+@media only screen and (min-width : 320px) {
+}
+@media only screen and (min-width : 480px) {
+}
+@media only screen and (min-width : 705px) {
+  .flex-logo {
+    padding-top: 0;
+  }
+}
+@media only screen and (min-width : 768px) {
+  .left-nav {
+    min-width: 154px;
+  }
+  .left-nav a {
+    font-size: 22px;
+  }
+  .left-nav header {
+    font-size: 30px;
+  }
+  .nav-button {
+    font-size: 30px;
+  }
+  .main-page-header {
+    font-size: 34px;
+  }
+  .footer {
+    font-size: 25px;
+  }
+  .flex-logo {
+    padding-top: 0;
+  }
+}
+@media only screen and (min-width : 992px) {
+  .prepost {
+    padding: 30px;
+  }
+  .nav-button {
+    font-size: 30px;
+  }
+  .main-page-header {
+    font-size: 34px;
+  }
+  .footer {
+    font-size: 25px;
+  }
+  .left-nav {
+    min-width: 154px;
+  }
+  .left-nav a {
+    font-size: 23px;
+  }
+  .left-nav header {
+    font-size: 30px;
+  }
+  .nav {
+   display: flex;
+   flex-direction: row-reverse;
+   justify-content: flex-start;
+  }
+  .nav-item {
+    padding-left: 35px;
+  }
+  .nav-item:nth-child(3) {
+    padding-left: 0px;
+  }
+  .flex-logo {
+    padding-right: 0;
+    padding-top: 0;
+  }
+}
+@media only screen and (min-width : 1200px) {
+  .prepost {
+    padding: 40px;
+  }
+  .nav-button {
+    font-size: 30px;
+  }
+  .main-page-header {
+    font-size: 34px;
+  }
+  .footer {
+    font-size: 25px;
+  }
+  .main-page-header {
+    font-size: 34px;
+  }
+  .left-nav {
+    min-width: 154px;
+  }
+  .left-nav a {
+    font-size: 25px;
+  }
+  .left-nav header {
+    font-size: 32px;
+  }
+  .nav {
+   display: flex;
+   flex-direction: row-reverse;
+   justify-content: flex-start;
+  }
+  .nav-item {
+    padding-left: 35px;
+  }
+  .nav-item:nth-child(3) {
+    padding-left: 0px;
+  }
+  .flex-logo {
+    padding-right: 0;
+    padding-top: 0;
+  }
+}

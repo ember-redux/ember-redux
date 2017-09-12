@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+  <title></title>
+  <link rel="stylesheet" href="{{site.baseurl}}/assets/docs.css">
+</head>
+<body>
+  <div class="flex-page">
+    <div class="main-page-wrapper">
+    <div class="main-page">
+      <div class="container-flex">
+        <div class="flex-nav">
+          <nav class="nav">
+            <div class="nav-item">
+            <a class="nav-button" href="https://github.com/ember-redux/ember-redux">github</a>
+            </div>
+            <div class="nav-item">
+            <a class="nav-button" href="/examples">examples</a>
+            </div>
+            <div class="nav-item">
+            <a class="nav-button" href="/docs">docs</a>
+            </div>
+          </nav>
+        </div>
+        <div class="flex-logo">
+          <img class="ember-logo" src="{{ site.baseurl}}/assets/emberLogo.png" /> <img class="redux-logo" src="{{site.baseurl}}/assets/white.png" />
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="flex-main-content">
+      <div class="main-content">
+        <div class="left-nav">
+          <div>
+            <header>Basics</header>
+            <div class="examples">
+              <a href="/philosophy">Philosophy</a>
+              <a href="/overview">Overview</a>
+              <a href="/quickstart">Quickstart</a>
+              <a href="/ddau">DDAU</a>
+              <a href="/configure">Configure</a>
+            </div>
+            <header>Guides</header>
+            <div class="guides">
+              <a href="/guides">JavaScript</a>
+              <a href="/typescript">TypeScript</a>
+            </div>
+            <header>Videos</header>
+            <div class="videos">
+              <a href="https://vimeo.com/151603293">Redux Intro</a>
+              <a href="https://vimeo.com/166199795">Origin Story</a>
+              <a href="https://vimeo.com/212534548">DC meetup</a>
+              <a href="https://vimeo.com/229775616">Performance</a>
+            </div>
+          </div>
+        </div>
+        <div class="right-content">
+          <article class="post">
+            <div class="post-content">
+              {{ content }}
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p>ember redux is built and maintained by <a href="https://github.com/toranb">Toran Billups</a> and contributors</p>
+    </footer>
+  </div>
+</body>
+</html>

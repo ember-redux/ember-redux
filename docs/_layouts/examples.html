@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+  <title></title>
+  <link rel="stylesheet" href="{{site.baseurl}}/assets/examples.css">
+</head>
+<body>
+  <div class="flex-page">
+    <div class="main-page">
+      <div class="container-flex">
+        <div class="flex-nav">
+          <nav class="nav">
+            <div class="nav-item">
+            <a class="nav-button" href="https://github.com/ember-redux/ember-redux">github</a>
+            </div>
+            <div class="nav-item">
+            <a class="nav-button" href="/examples">examples</a>
+            </div>
+            <div class="nav-item">
+            <a class="nav-button" href="/docs">docs</a>
+            </div>
+          </nav>
+        </div>
+        <div class="flex-logo">
+          <img class="ember-logo" src="{{ site.baseurl}}/assets/emberLogo.png" /> <img class="redux-logo" src="{{site.baseurl}}/assets/white.png" />
+        </div>
+      </div>
+    </div>
+
+    <div class="flex-main-content">
+      <div class="main-content">
+        <div class="left-nav">
+          <div>
+            <header>Twiddle</header>
+            <div class="examples">
+              <a href="https://ember-twiddle.com/5bee7478e4216abe49f1c0a439bae352?fileTreeShown=false">Counter</a>
+              <a href="https://ember-twiddle.com/4bb9c326a7e54c739b1f5a5023ccc805?fileTreeShown=false&openFiles=templates.components.ui-layout.hbs%2C">TodoMVC</a>
+              <a href="https://ember-twiddle.com/f17fdcaa48cc99be9f6e3aac6f103191?fileTreeShown=false&openFiles=welp-result.component.js%2C">Yelp</a>
+              <a href="https://ember-twiddle.com/c6bebdbe5964c89598bea2761197e232?fileTreeShown=false&openFiles=templates.application.hbs%2C">Master Detail</a>
+              <a href="https://ember-twiddle.com/47a9f3254808ad4a1e093c71393a1016?fileTreeShown=false">Redux Saga</a>
+              <a href="https://ember-twiddle.com/f18b3f7d1ad449a5b7f2ee7bb3fecd91?fileTreeShown=false&openFiles=services.redux.js%2C">Custom createStore</a>
+              <a href="https://ember-twiddle.com/c950cf7d7e1c9f37b1ca683967370ae7?fileTreeShown=false&openFiles=components.number-count.js%2C">Redux Demystified</a>
+            </div>
+            <header>Github</header>
+            <div class="github">
+              <a href="https://github.com/ember-redux/guides/commits/typescript">TypeScript</a>
+              <a href="https://github.com/ember-redux/redux-and-engines/commits/master">Engines</a>
+            </div>
+          </div>
+        </div>
+        <div class="right-content">
+          <iframe id="twiddle" src="https://ember-twiddle.com/5bee7478e4216abe49f1c0a439bae352?fileTreeShown=false" frameborder="0" style="height: 700px;"></iframe>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p>ember redux is built and maintained by <a href="https://github.com/toranb">Toran Billups</a> and contributors</p>
+    </footer>
+  </div>
+
+  <script type="text/javascript">
+    var activeUrl = 'https://ember-twiddle.com/5bee7478e4216abe49f1c0a439bae352?fileTreeShown=false';
+    var twiddle = document.getElementById('twiddle');
+    document.querySelectorAll('.examples a').forEach(function(element) {
+      element.onclick = function(e){
+        var url = e.target.href;
+        e.preventDefault();
+        if (url !== activeUrl) {
+          twiddle.src = url;
+          activeUrl = url;
+        }
+      }
+    });
+  </script>
+</body>
+</html>

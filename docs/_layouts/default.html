@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
+  <link rel="stylesheet" href="{{site.baseurl}}/assets/default.css">
+  <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
+  <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}">
+</head>
+<body>
+  <div class="main-page">
+    <nav class="nav">
+      <div class="nav-item">
+      <a class="nav-button" href="https://github.com/ember-redux/ember-redux">github</a>
+      </div>
+      <div class="nav-item">
+      <a class="nav-button" href="/examples">examples</a>
+      </div>
+      <div class="nav-item">
+      <a class="nav-button" href="/docs">docs</a>
+      </div>
+    </nav>
+    <div class="main-page-outter">
+    <div class="prepost"></div>
+    <div class="preflex">
+      <div class="theflex">
+        <div class="main-page-logo">
+          <img class="ember-logo" src="{{ site.baseurl}}/assets/emberLogo.png" /> <img class="redux-logo" src="{{site.baseurl}}/assets/white.png" />
+        </div>
+        <div class="main-page-header">
+          <h1>Predictable state management for ember apps</h1>
+        </div>
+      </div>
+    </div>
+    <div class="prepost"></div>
+  </div>
+
+  <div class="main-page-video-wrapper">
+  <div class="main-page-video">
+    <iframe src="https://player.vimeo.com/video/233247967" width="100%" height="100%" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+  </div>
+  </div>
+
+  <footer class="footer">
+    <p>ember redux is built and maintained by <a href="https://github.com/toranb">Toran Billups</a> and contributors</p>
+  </footer>
+  </div>
+</body>
+</html>
