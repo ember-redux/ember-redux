@@ -4,7 +4,7 @@
 
 ## Description
 
-[ember-cli][] addon that provides simple [redux][] bindings for [ember.js][]
+Predictable state management for ember apps
 
 ## Installation
 
@@ -16,11 +16,7 @@ ember install ember-redux
 
 ## Documentation
 
-http://www.ember-redux.com/
-
-## Guides
-
-http://www.ember-redux.com/guides/
+http://www.ember-redux.com/docs
 
 ## Demo
 
@@ -29,9 +25,6 @@ https://ember-twiddle.com/5bee7478e4216abe49f1c0a439bae352
 
 TodoMVC
 https://ember-twiddle.com/4bb9c326a7e54c739b1f5a5023ccc805
-
-Yelp
-https://ember-twiddle.com/f17fdcaa48cc99be9f6e3aac6f103191
 
 ## Examples
 
@@ -120,8 +113,6 @@ Licensed under the MIT License
 [score-badge]: http://emberobserver.com/badges/ember-redux.svg
 [score]: http://emberobserver.com/addons/ember-redux
 
-[ember-cli]: http://www.ember-cli.com/
-[ember.js]: http://emberjs.com/
 [redux]: https://github.com/reactjs/redux
 
 [redux dev tools extension]: https://github.com/zalmoxisus/redux-devtools-extension
