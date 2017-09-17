@@ -197,7 +197,7 @@ The full ember application for this example is available on [github][]
 
 > "prefer duplication over the wrong abstraction"
 
-Next learn about the different extension points by reading the [configuration](configure) documentation!
+Next learn about the different extension points by reading the [configuration](/configure) documentation!
 
 [Dan Abramov]: https://twitter.com/dan_abramov
 [blog]: https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0

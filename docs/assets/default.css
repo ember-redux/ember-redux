@@ -5,9 +5,10 @@ body {
   background-color: #856abf;
   color: white;
   text-align: center;
-  padding: .5%;
+  padding: 20px;
   padding-left: 30px;
   padding-right: 30px;
+  font-size: 28px;
 }
 .footer a {
   color: white;
@@ -22,6 +23,8 @@ body {
   margin:auto;
   width: 80vw;
   height: 45vw;
+  max-height: 670.5px;
+  max-width: 1192px;
 }
 .main-page-logo {
   align-self: center;
@@ -99,9 +102,6 @@ body {
   .main-page-header {
     font-size: 34px;
   }
-  .footer {
-    font-size: 25px;
-  }
   .redux-logo {
     padding-left: 10px;
     max-width: 230px;
@@ -131,9 +131,6 @@ body {
   .main-page-header {
     font-size: 34px;
   }
-  .footer {
-    font-size: 25px;
-  }
   .redux-logo {
     padding-left: 10px;
     max-width: 230px;
@@ -155,9 +152,6 @@ body {
   }
   .main-page-header {
     font-size: 34px;
-  }
-  .footer {
-    font-size: 25px;
   }
   .main-page-header {
     font-size: 34px;

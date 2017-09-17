@@ -29,6 +29,9 @@
   flex-shrink: 0;
   padding-top: 30px;
 }
+.flex-logo a {
+  text-decoration: none;
+}
 .nav {
  display: flex;
  flex-direction: row-reverse;
@@ -97,9 +100,10 @@ body {
   background-color: #856abf;
   color: white;
   text-align: center;
-  padding: .5%;
+  padding: 20px;
   padding-left: 30px;
   padding-right: 30px;
+  font-size: 28px;
 }
 .footer a {
   color: white;
@@ -169,9 +173,6 @@ body {
   .main-page-header {
     font-size: 34px;
   }
-  .footer {
-    font-size: 25px;
-  }
   .flex-logo {
     padding-top: 0;
   }
@@ -185,9 +186,6 @@ body {
   }
   .main-page-header {
     font-size: 34px;
-  }
-  .footer {
-    font-size: 25px;
   }
   .left-nav {
     min-width: 154px;
@@ -223,9 +221,6 @@ body {
   }
   .main-page-header {
     font-size: 34px;
-  }
-  .footer {
-    font-size: 25px;
   }
   .main-page-header {
     font-size: 34px;
