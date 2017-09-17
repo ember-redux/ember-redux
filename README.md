@@ -14,9 +14,9 @@ ember redux requires ember-cli v2.4+ and node 6+
 ember install ember-redux
 ```
 
-## Documentation
+## Documentation and Examples
 
-http://www.ember-redux.com/docs
+http://www.ember-redux.com
 
 ## Demo
 
@@ -26,7 +26,7 @@ https://ember-twiddle.com/5bee7478e4216abe49f1c0a439bae352
 TodoMVC
 https://ember-twiddle.com/4bb9c326a7e54c739b1f5a5023ccc805
 
-## Examples
+## Usage
 
 ### Container Component
 
