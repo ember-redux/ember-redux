@@ -1,4 +1,4 @@
-import {uniq} from 'dummy/utilities/array';
+import { uniq } from 'dummy/utilities/array';
 
 const initialState = {
   all: [],

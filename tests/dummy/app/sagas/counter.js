@@ -1,5 +1,5 @@
 import { next } from '@ember/runloop';
-import {effects, takeEvery} from 'redux-saga';
+import { effects, takeEvery } from 'redux-saga';
 
 const { call, put } = effects;
 
