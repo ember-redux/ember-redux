@@ -2,8 +2,6 @@
 
 [![Travis][build-badge]][build] [![Code Climate][climate-badge]][climate] [![Score][score-badge]][score] [![npm package][npm-badge]][npm]
 
-## Description
-
 Predictable state management for ember apps
 
 ## Installation
