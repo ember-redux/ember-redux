@@ -1,30 +1,37 @@
+/* eslint-env node */
 module.exports = {
+  useYarn: true,
   scenarios: [
     {
-      name: 'ember-2.8.X',
-      dependencies: {
-        'ember': '~2.8.0'
-      },
-      resolutions: {
-        'ember': '~2.8.0'
+      name: 'ember-2.12.X',
+      npm: {
+        devDependencies: {
+          'ember-source': '~2.12.0'
+        }
       }
     },
     {
-      name: 'ember-2.10.X',
-      dependencies: {
-        'ember': '~2.10.0'
-      },
-      resolutions: {
-        'ember': '~2.10.0'
+      name: 'ember-2.17.X',
+      npm: {
+        devDependencies: {
+          'ember-source': '~2.17.0'
+        }
       }
     },
     {
       name: 'ember-beta',
-      dependencies: {
-        'ember': 'components/ember#beta'
+      bower: {
+        dependencies: {
+          'ember': 'components/ember#beta'
+        },
+        resolutions: {
+          'ember': 'beta'
+        }
       },
-      resolutions: {
-        'ember': 'beta'
+      npm: {
+        devDependencies: {
+          'ember-source': null
+        }
       }
     }
   ]
