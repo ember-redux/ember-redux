@@ -70,3 +70,17 @@ test('components without state should not subscribe or unsubscribe', function(as
     assert.equal(unsubscribed, 1);
   });
 });
+
+test('es2015 class based components dispatch & render state from redux', function(assert) {
+  visit('/clazz');
+  andThen(() => {
+    assert.equal(currentURL(), '/clazz');
+    assert.equal(find('.clazz-state').text(), '0');
+    assert.equal(find('.clazz-up').text(), 'up');
+  });
+  click('.clazz-up');
+  andThen(() => {
+    assert.equal(currentURL(), '/clazz');
+    assert.equal(find('.clazz-state').text(), '1');
+  });
+});
