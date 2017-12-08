@@ -12,6 +12,7 @@ const dispatchToActions = dispatch => ({
 class MyClazz extends Component {
   constructor() {
     super(...arguments);
+    this.color = 'orange';
   }
 }
 
