@@ -13,8 +13,8 @@ cache:
   yarn: true
 
 env:
-  - EMBER_TRY_SCENARIO=ember-2.12.X
-  - EMBER_TRY_SCENARIO=ember-2.17.X
+  - EMBER_TRY_SCENARIO=ember-2.16.X
+  - EMBER_TRY_SCENARIO=ember-2.18.X
   - EMBER_TRY_SCENARIO=ember-beta
 
 before_install:
@@ -25,4 +25,5 @@ install:
   - yarn install --no-lockfile --non-interactive
 
 script:
+  - npm run lint:js
   - node_modules/.bin/ember try:one $EMBER_TRY_SCENARIO test --skip-cleanup
