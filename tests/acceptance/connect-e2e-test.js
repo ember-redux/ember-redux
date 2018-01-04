@@ -49,6 +49,27 @@ test('should subscribe and unsubscribe when components are created/destroyed', f
   });
 });
 
+test('es2015 class based components subscribe and unsubscribe when components are created/destroyed', function(assert) {
+  visit('/clazz');
+  andThen(() => {
+    assert.equal(currentURL(), '/clazz');
+    assert.equal(subscribed, 1);
+    assert.equal(unsubscribed, 0);
+  });
+  click('.dashboard-link');
+  andThen(() => {
+    assert.equal(currentURL(), '/dashboard');
+    assert.equal(subscribed, 2);
+    assert.equal(unsubscribed, 1);
+  });
+  click('.clazz-link');
+  andThen(() => {
+    assert.equal(currentURL(), '/clazz');
+    assert.equal(subscribed, 3);
+    assert.equal(unsubscribed, 2);
+  });
+});
+
 test('components without state should not subscribe or unsubscribe', function(assert) {
   visit('/empty');
   andThen(() => {
