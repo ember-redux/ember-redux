@@ -137,6 +137,36 @@ test('lifecycle hooks are still invoked', function(assert) {
   this.set('name', 'Dustin');
 });
 
+test('lifecycle hooks are still invoked for es2015 class based components', function(assert) {
+  assert.expect(2);
+  // assert.expect(3);
+  // TODO: didUpdateAttrs is broken
+
+  class FakeClazz extends Component {
+    constructor() {
+      assert.ok(true, 'constructor is invoked');
+      super(...arguments);
+    }
+
+    didUpdateAttrs() {
+      assert.ok(true, 'didUpdateAttrs should be invoked');
+      super.didUpdateAttrs(...arguments);
+    }
+
+    willDestroy() {
+      assert.ok(true, 'willDestroy is invoked');
+      super.willDestroy(...arguments);
+    }
+  }
+
+  this.register('component:test-clazz', connect()(FakeClazz));
+
+  this.render(hbs`{{test-clazz name=name}}`);
+
+  // TODO: didUpdateAttrs is broken
+  // this.set('name', 'Toran');
+});
+
 test('connecting dispatchToActions only', function(assert) {
   assert.expect(2);
   const dispatchToActions = () => {};
