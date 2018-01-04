@@ -25,6 +25,8 @@ Router.map(function() {
   this.route('actionz', { path: '/actionz' });
   this.route('clazz', { path: '/clazz' });
   this.route('query-params', { path: '/query-params' });
+  this.route('clazz-actionz', { path: '/clazz-actionz' });
+  this.route('clazz-factorie', { path: '/clazz-factorie' });
 });
 
 export default Router;

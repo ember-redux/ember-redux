@@ -76,9 +76,7 @@ export function core(stateToComputed, dispatchToActions) {
   const redux = this.get('redux');
 
   if (stateToComputed) {
-    const getProps = wrapStateToComputed(() =>
-      stateToComputed.call(this, redux.getState(), getAttrs(this))
-    );
+    const getProps = () => wrapStateToComputed(() => stateToComputed.call(this, redux.getState(), getAttrs(this)))();
     let props = getProps();
 
     Object.keys(props).forEach(key => {
