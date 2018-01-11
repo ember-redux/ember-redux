@@ -5,9 +5,9 @@ const makeUniqueSelector = () => {
   return (state) => state.low;
 }
 
-const stateToComputedFactory = (state) => {
+const stateToComputedFactory = () => {
   const selectItemHereOnly = makeUniqueSelector();
-  return () => {
+  return (state) => {
     const low = selectItemHereOnly(state);
     return {
       low
