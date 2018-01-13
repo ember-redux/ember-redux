@@ -174,6 +174,28 @@ test('lifecycle hooks are still invoked for es2015 class based components', func
   assert.equal(this.$('.name').text(), 'Toran');
 });
 
+test('without didUpdateAttrs lifecycle defined connect will not throw runtime error', function(assert) {
+  assert.expect(2);
+
+  const stateToComputed = (state, attrs) => ({
+    number: attrs.name
+  });
+
+  class FakeClazz extends Component {
+    get layout() {
+      return hbs`<span class="name">{{number}}</span>`;
+    }
+  }
+
+  this.register('component:test-clazz', connect(stateToComputed)(FakeClazz));
+
+  this.render(hbs`{{test-clazz name=name}}`);
+  assert.equal(this.$('.name').text(), '');
+
+  this.set('name', 'Christopher');
+  assert.equal(this.$('.name').text(), 'Christopher');
+});
+
 test('connecting dispatchToActions only', function(assert) {
   assert.expect(2);
   const dispatchToActions = () => {};
