@@ -13,7 +13,7 @@ export default function wrapEs2015Class(stateToComputed, dispatchToActions, Wrap
     }
 
     didUpdateAttrs() {
-      super.didUpdateAttrs(...arguments);
+      super.didUpdateAttrs && super.didUpdateAttrs(...arguments);
       update.call(this);
     }
 
