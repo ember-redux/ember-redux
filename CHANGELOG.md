@@ -1,6 +1,15 @@
 ember-redux Changelog
 ==============================
 
+3.1.0
+-----
+
+* [FEATURE]: add support for ES2015 class syntax
+  ([#144](https://github.com/ember-redux/ember-redux/pull/144))
+
+* [BUG]: applied fix for factory functions from Brett Burley
+  ([commit](https://github.com/ember-redux/ember-redux/commit/93bf05389a98fd692d6bc05806151f866a27583a))
+
 3.0.0
 -----
 
