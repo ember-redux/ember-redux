@@ -1,6 +1,18 @@
 ember-redux Changelog
 ==============================
 
+3.0.0
+-----
+
+additional details and the upgrade guide can be found here
+https://github.com/ember-redux/ember-redux/releases
+
+* [DEPENDENCY]: release v3.0.0
+  ([#133](https://github.com/ember-redux/ember-redux/pull/133))
+
+* [DOCS]: new jekyll website
+  ([commit](https://github.com/ember-redux/ember-redux/commit/75294e3bad8b07dda6c19c68c3280c6b08d4abd4))
+
 2.10.0
 -----
 
