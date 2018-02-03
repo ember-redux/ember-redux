@@ -1,7 +1,6 @@
-/*global ajax:true*/
-
 import moduleForAcceptance from '../../tests/helpers/module-for-acceptance';
 import { test } from 'qunit';
+import ajax from '../helpers/ajax';
 
 moduleForAcceptance('Acceptance | thunk dispatch test', {
   beforeEach() {

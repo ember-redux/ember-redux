@@ -1,8 +1,7 @@
-/*global ajax:true*/
-
 import { run } from '@ember/runloop';
 import { test, module } from 'qunit';
 import startApp from '../helpers/start-app';
+import ajax from '../helpers/ajax';
 
 var application, oneUpdated = 0, oneFakeUpdated = 0, twoUpdated = 0, fourUpdated = 0, fiveUpdated = 0;
 
