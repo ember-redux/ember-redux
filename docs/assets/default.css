@@ -14,9 +14,10 @@ body {
   color: white;
 }
 .main-page-video-wrapper {
-  padding:80px;
+  padding-top: 80px;
   padding-left: 0;
   padding-right: 0;
+  padding-bottom: 20px;
   background-color: #ded8ee;
 }
 .main-page-video {
@@ -26,6 +27,16 @@ body {
   max-height: 670.5px;
   max-width: 1192px;
 }
+.video-description {
+  padding-top: 20px;
+  text-align: center;
+  font-style: italic;
+  color: #7051b6;
+  font-weight: normal;
+}
+.video-description a {
+  color: #7051b6;
+ }
 .main-page-logo {
   align-self: center;
 }
