@@ -13,8 +13,8 @@ cache:
   yarn: true
 
 env:
-  - EMBER_TRY_SCENARIO=ember-2.16.X
   - EMBER_TRY_SCENARIO=ember-2.18.X
+  - EMBER_TRY_SCENARIO=ember-3.0.X
   - EMBER_TRY_SCENARIO=ember-beta
 
 before_install:
