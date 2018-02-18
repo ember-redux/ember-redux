@@ -48,6 +48,7 @@
     "ember-redux-thunk-shim": "^2.4.0",
     "ember-resolver": "^4.0.0",
     "ember-source": "~3.0.0",
+    "ember-try": "^0.2.23",
     "eslint-plugin-ember": "^5.0.0",
     "eslint-plugin-node": "^5.2.1",
     "ember-symbol-observable": "^1.0.0",
