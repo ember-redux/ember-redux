@@ -1,38 +1,24 @@
-import { run } from '@ember/runloop';
 import { test, module } from 'qunit';
-import { applyPatch, revertPatch } from '../helpers/patch-reducer';
-import startApp from '../helpers/start-app';
+import { visit, click, find, currentURL } from '@ember/test-helpers';
+import { setupApplicationTest } from 'ember-qunit';
+import { patchReducer } from '../helpers/patch-reducer';
 
-var application;
+module('Acceptance | combine reducers test', function(hooks) {
+  setupApplicationTest(hooks);
+  patchReducer(hooks);
 
-module('Acceptance | combine reducers test', {
-  beforeEach() {
-    applyPatch();
-    application = startApp();
-  },
-  afterEach() {
-    run(application, 'destroy');
-    revertPatch();
-  }
-});
-
-test('reducer can use combineReducers function directly', function(assert) {
-  visit('/');
-  andThen(() => {
+  test('reducer can use combineReducers function directly', async function(assert) {
+    await visit('/');
     assert.equal(currentURL(), '/');
-    assert.equal(find('.parent-state').text(), '0');
-    assert.equal(find('.combined').text().trim(), 'false');
-  });
-  click('.btn-combine');
-  andThen(() => {
+    assert.equal(find('.parent-state').textContent, '0');
+    assert.equal(find('.combined').textContent, 'false');
+    await click('.btn-combine');
     assert.equal(currentURL(), '/');
-    assert.equal(find('.parent-state').text(), '0');
-    assert.equal(find('.combined').text().trim(), 'true');
-  });
-  click('.btn-up');
-  andThen(() => {
+    assert.equal(find('.parent-state').textContent, '0');
+    assert.equal(find('.combined').textContent, 'true');
+    await click('.btn-up');
     assert.equal(currentURL(), '/');
-    assert.equal(find('.parent-state').text(), '1');
-    assert.equal(find('.combined').text().trim(), 'true');
+    assert.equal(find('.parent-state').textContent, '1');
+    assert.equal(find('.combined').textContent, 'true');
   });
 });

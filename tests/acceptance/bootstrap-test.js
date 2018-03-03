@@ -1,22 +1,18 @@
-import { run } from '@ember/runloop';
 import { test, module } from 'qunit';
-import startApp from '../helpers/start-app';
+import { visit, currentURL } from '@ember/test-helpers';
+import { setupApplicationTest } from 'ember-qunit';
 
-var application, redux;
+var redux;
 
-module('Acceptance | bootstrap test', {
-  beforeEach() {
-    application = startApp();
-    redux = application.__container__.lookup('service:redux');
-  },
-  afterEach() {
-    run(application, 'destroy');
-  }
-});
+module('Acceptance | bootstrap test', function(hooks) {
+  setupApplicationTest(hooks);
 
-test('on boot the static role configuration is loaded', function(assert) {
-  visit('/');
-  andThen(() => {
+  hooks.beforeEach(function() {
+    redux = this.owner.lookup('service:redux');
+  });
+
+  test('on boot the static role configuration is loaded', async function(assert) {
+    await visit('/');
     assert.equal(currentURL(), '/');
     assert.equal(redux.getState().roles.all.length, 2);
     assert.equal(redux.getState().roles.all[0].id, 2);
@@ -25,4 +21,3 @@ test('on boot the static role configuration is loaded', function(assert) {
     assert.equal(redux.getState().roles.all[1].name, 'Guest');
   });
 });
-

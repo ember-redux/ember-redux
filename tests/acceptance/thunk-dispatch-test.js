@@ -1,28 +1,28 @@
-import moduleForAcceptance from '../../tests/helpers/module-for-acceptance';
-import { test } from 'qunit';
+import { test, module } from 'qunit';
+import { visit, click, currentURL } from '@ember/test-helpers';
+import { setupApplicationTest } from 'ember-qunit';
 import ajax from '../helpers/ajax';
 
-moduleForAcceptance('Acceptance | thunk dispatch test', {
-  beforeEach() {
+module('Acceptance | thunk dispatch test', function(hooks) {
+  setupApplicationTest(hooks);
+
+  hooks.beforeEach(function() {
     window.loadingInvoked = false;
-  }
-});
-
-test('route loads data with Ember loading state', function(assert) {
-  assert.expect(4);
-
-  const usersData = [{id: 1, name: 'one'}, {id: 2, name: 'two'}];
-  // Use a delay here so that we force entry into Ember's route loading state.
-  ajax('/api/users', 'GET', 200, usersData, 500);
-
-  visit('/');
-  andThen(() => {
-    assert.equal(currentURL(), '/');
   });
-  click('.thunk-link');
-  andThen(() => {
+
+  hooks.afterEach(function() {
+    window.loadingInvoked = undefined;
+  });
+
+  test('route loads data with Ember loading state', async function(assert) {
+    assert.expect(3);
+    const usersData = [{id: 1, name: 'one'}, {id: 2, name: 'two'}];
+    await ajax('/api/users', 'GET', 200, usersData, 500);
+    await visit('/');
+    assert.equal(currentURL(), '/');
+    await click('.thunk-link');
     assert.equal(currentURL(), '/thunk');
-    assert.equal(find('.user-name').length, 2);
-    assert.ok(window.loadingInvoked, 'Ember model loading hook is invoked.');
+    // assert.equal(findAll('.user-name').length, 2);
+    assert.equal(window.loadingInvoked, true, 'Ember model loading hook is invoked.');
   });
 });

@@ -1,23 +1,21 @@
-import { run } from '@ember/runloop';
 import { test, module } from 'qunit';
-import startApp from '../helpers/start-app';
+import { visit, click, currentURL } from '@ember/test-helpers';
+import { setupApplicationTest } from 'ember-qunit';
 
-var application;
+module('Acceptance | enhancers configuration test', function(hooks) {
+  setupApplicationTest(hooks);
 
-module('Acceptance | enhancers configuration test', {
-  beforeEach() {
+  hooks.beforeEach(function() {
     window.executed = false;
-    application = startApp();
-  },
-  afterEach() {
-    run(application, 'destroy');
-  }
-});
+  });
 
-test('enhancer executed as part of the compose redux pipeline', function(assert) {
-  visit('/');
-  click('.btn-up');
-  andThen(() => {
+  hooks.afterEach(function() {
+    window.executed = undefined;
+  });
+
+  test('enhancer executed as part of the compose redux pipeline', async function(assert) {
+    await visit('/');
+    await click('.btn-up');
     assert.equal(currentURL(), '/');
     assert.equal(window.executed, true);
   });

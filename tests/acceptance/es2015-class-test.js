@@ -1,69 +1,46 @@
-import { run } from '@ember/runloop';
 import { test, module } from 'qunit';
-import startApp from '../helpers/start-app';
+import { visit, click, find, currentURL } from '@ember/test-helpers';
+import { setupApplicationTest } from 'ember-qunit';
 
-var application;
+module('Acceptance | es2015 class e2e test', function(hooks) {
+  setupApplicationTest(hooks);
 
-module('Acceptance | es2015 class e2e test', {
-  beforeEach() {
-    application = startApp();
-  },
-  afterEach() {
-    run(application, 'destroy');
-  }
-});
-
-test('es2015 class based components dispatch & render state from redux', function(assert) {
-  visit('/clazz');
-  andThen(() => {
+  test('es2015 class based components dispatch & render state from redux', async function(assert) {
+    await visit('/clazz');
     assert.equal(currentURL(), '/clazz');
-    assert.equal(find('.clazz-state').text(), '0');
-    assert.equal(find('.clazz-up').text(), 'up');
-    assert.equal(find('.clazz-color').text(), 'orange');
-  });
-  click('.clazz-up');
-  andThen(() => {
+    assert.equal(find('.clazz-state').textContent, '0');
+    assert.equal(find('.clazz-up').textContent, 'up');
+    assert.equal(find('.clazz-color').textContent, 'orange');
+    await click('.clazz-up');
     assert.equal(currentURL(), '/clazz');
-    assert.equal(find('.clazz-state').text(), '1');
-    assert.equal(find('.clazz-color').text(), 'orange');
+    assert.equal(find('.clazz-state').textContent, '1');
+    assert.equal(find('.clazz-color').textContent, 'orange');
   });
-});
 
-test('es2015 class based components support action creator syntax', function(assert) {
-  visit('/clazz-actionz');
-  andThen(() => {
+  test('es2015 class based components support action creator syntax', async function(assert) {
+    await visit('/clazz-actionz');
     assert.equal(currentURL(), '/clazz-actionz');
-    assert.equal(find('.upp-low').text(), '0');
-    assert.equal(find('.clazz-color').text(), 'green');
-  });
-  click('.btn-upp');
-  andThen(() => {
-    assert.equal(find('.upp-low').text(), '1');
-    assert.equal(find('.clazz-color').text(), 'green');
-  });
-  click('.btn-upp');
-  andThen(() => {
-    assert.equal(find('.upp-low').text(), '2');
-    assert.equal(find('.clazz-color').text(), 'green');
-  });
-  click('.btn-upp');
-  andThen(() => {
+    assert.equal(find('.upp-low').textContent, '0');
+    assert.equal(find('.clazz-color').textContent, 'green');
+    await click('.btn-upp');
+    assert.equal(find('.upp-low').textContent, '1');
+    assert.equal(find('.clazz-color').textContent, 'green');
+    await click('.btn-upp');
+    assert.equal(find('.upp-low').textContent, '2');
+    assert.equal(find('.clazz-color').textContent, 'green');
+    await click('.btn-upp');
     // remains 2 because of logic in the action
-    assert.equal(find('.upp-low').text(), '2');
-    assert.equal(find('.clazz-color').text(), 'green');
+    assert.equal(find('.upp-low').textContent, '2');
+    assert.equal(find('.clazz-color').textContent, 'green');
   });
-});
 
-test('es2015 class based components support stateToComputed factory functions', function(assert) {
-  visit('/clazz-factorie');
-  andThen(() => {
+  test('es2015 class based components support stateToComputed factory functions', async function(assert) {
+    await visit('/clazz-factorie');
     assert.equal(currentURL(), '/clazz-factorie');
-    assert.equal(find('.uppp-low').text(), '0');
-    assert.equal(find('.clazz-color').text(), 'white');
-  });
-  click('.btn-uppp');
-  andThen(() => {
-    assert.equal(find('.clazz-color').text(), 'white');
-    assert.equal(find('.uppp-low').text(), '1');
+    assert.equal(find('.uppp-low').textContent, '0');
+    assert.equal(find('.clazz-color').textContent, 'white');
+    await click('.btn-uppp');
+    assert.equal(find('.clazz-color').textContent, 'white');
+    assert.equal(find('.uppp-low').textContent, '1');
   });
 });
