@@ -1,50 +1,53 @@
 import { run } from '@ember/runloop';
 import hbs from 'htmlbars-inline-precompile';
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render } from '@ember/test-helpers';
 
-var original, joined;
+var original, joined, redux;
 
-moduleForComponent('count-list', 'integration: runloop test', {
-  integration: true,
-  setup() {
-    this.inject.service('redux');
+module('integration: runloop test', function(hooks) {
+  setupRenderingTest(hooks);
 
+  hooks.beforeEach(function() {
+    redux = this.owner.lookup('service:redux');
     joined = false;
     original = run.join;
     run.join = function() {
       joined = true;
       return original.apply(this, arguments);
     };
-  },
-  teardown() {
-    joined = false;
-    run.join = original;
-  }
-});
-
-test('handleChange is invoked inside runloop explicitly', function(assert) {
-  this.render(hbs`{{count-list}}`);
-
-  let $parent = this.$('.parent-state');
-
-  assert.equal($parent.text(), 0);
-
-  this.redux.dispatch({type: 'UP'});
-
-  assert.equal($parent.text(), 1);
-});
-
-test('handleChange will join an existing runloop when exists', function(assert) {
-  this.render(hbs`{{count-list}}`);
-
-  let $parent = this.$('.parent-state');
-
-  assert.equal($parent.text(), 0);
-
-  run(() => {
-    this.redux.dispatch({type: 'UP'});
   });
 
-  assert.equal($parent.text(), 1);
-  assert.equal(joined, true);
+  hooks.afterEach(function() {
+    joined = false;
+    run.join = original;
+  });
+
+  test('handleChange is invoked inside runloop explicitly', async function(assert) {
+    await render(hbs`{{count-list}}`);
+
+    let $parent = this.$('.parent-state');
+
+    assert.equal($parent.text(), 0);
+
+    redux.dispatch({type: 'UP'});
+
+    assert.equal($parent.text(), 1);
+  });
+
+  test('handleChange will join an existing runloop when exists', async function(assert) {
+    await render(hbs`{{count-list}}`);
+
+    let $parent = this.$('.parent-state');
+
+    assert.equal($parent.text(), 0);
+
+    run(() => {
+      redux.dispatch({type: 'UP'});
+    });
+
+    assert.equal($parent.text(), 1);
+    assert.equal(joined, true);
+  });
 });

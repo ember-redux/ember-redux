@@ -1,25 +1,21 @@
-import { test } from 'qunit';
-import moduleForAcceptance from '../../tests/helpers/module-for-acceptance';
+import { test, module } from 'qunit';
+import { visit, find, currentURL } from '@ember/test-helpers';
+import { setupApplicationTest } from 'ember-qunit';
 import ajax from '../helpers/ajax';
 
-moduleForAcceptance('Acceptance | route hooks');
+module('Acceptance | route hooks', function(hooks) {
+  setupApplicationTest(hooks);
 
-test('route hooks such as afterModel should have all its params be accessible in a connect', function(assert) {
-  ajax('/api/items', 'GET', 200, [{id: 1, name: 'first'}, {id: 2, name: 'second'}]);
-
-  visit('/items');
-
-  andThen(function() {
+  test('route hooks such as afterModel should have all its params be accessible in a connect', async function(assert) {
+    await ajax('/api/items', 'GET', 200, [{id: 1, name: 'first'}, {id: 2, name: 'second'}]);
+    await visit('/items');
     assert.equal(currentURL(), '/items');
-    assert.equal(find('#after-model-transition').text(), 'ok');
+    assert.equal(find('#after-model-transition').textContent, 'ok');
   });
-});
 
-test('route properties such as queryParams should be accessible in a connect', function(assert) {
-  visit('/query-params');
-
-  andThen(function() {
+  test('route properties such as queryParams should be accessible in a connect', async function(assert) {
+    await visit('/query-params');
     assert.equal(currentURL(), '/query-params');
-    assert.equal(find('.query-param-name').text(), 'foo');
+    assert.equal(find('.query-param-name').textContent, 'foo');
   });
 });

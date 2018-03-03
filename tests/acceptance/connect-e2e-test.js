@@ -1,15 +1,16 @@
-import { run } from '@ember/runloop';
 import { test, module } from 'qunit';
-import startApp from '../helpers/start-app';
+import { visit, click, find, currentURL } from '@ember/test-helpers';
+import { setupApplicationTest } from 'ember-qunit';
 
-var application, redux, subscribed, unsubscribed, original;
+var redux, subscribed, unsubscribed, original;
 
-module('Acceptance | subscribe e2e test', {
-  beforeEach() {
+module('Acceptance | subscribe e2e test', function(hooks) {
+  setupApplicationTest(hooks);
+
+  hooks.beforeEach(function() {
     subscribed = 0;
     unsubscribed = 0;
-    application = startApp();
-    redux = application.__container__.lookup('service:redux');
+    redux = this.owner.lookup('service:redux');
     original = redux.subscribe;
     redux.subscribe = function() {
       subscribed = subscribed + 1;
@@ -21,71 +22,53 @@ module('Acceptance | subscribe e2e test', {
       };
       return unsubscribe;
     };
-  },
-  afterEach() {
+  });
+
+  hooks.afterEach(function() {
     redux.subscribe = original;
-    run(application, 'destroy');
-  }
-});
+  });
 
-test('should subscribe and unsubscribe when components are created/destroyed', function(assert) {
-  visit('/');
-  andThen(() => {
+  test('should subscribe and unsubscribe when components are created/destroyed', async function(assert) {
+    await visit('/');
     assert.equal(currentURL(), '/');
     assert.equal(subscribed, 1);
     assert.equal(unsubscribed, 0);
-  });
-  click('.dashboard-link');
-  andThen(() => {
+    await click('.dashboard-link');
     assert.equal(currentURL(), '/dashboard');
     assert.equal(subscribed, 2);
     assert.equal(unsubscribed, 1);
-  });
-  click('.counts-link');
-  andThen(() => {
+    await click('.counts-link');
     assert.equal(currentURL(), '/');
     assert.equal(subscribed, 3);
     assert.equal(unsubscribed, 2);
   });
-});
 
-test('es2015 class based components subscribe and unsubscribe when components are created/destroyed', function(assert) {
-  visit('/clazz');
-  andThen(() => {
+  test('es2015 class based components subscribe and unsubscribe when components are created/destroyed', async function(assert) {
+    await visit('/clazz');
     assert.equal(currentURL(), '/clazz');
     assert.equal(subscribed, 1);
     assert.equal(unsubscribed, 0);
-  });
-  click('.dashboard-link');
-  andThen(() => {
+    await click('.dashboard-link');
     assert.equal(currentURL(), '/dashboard');
     assert.equal(subscribed, 2);
     assert.equal(unsubscribed, 1);
-  });
-  click('.clazz-link');
-  andThen(() => {
+    await click('.clazz-link');
     assert.equal(currentURL(), '/clazz');
     assert.equal(subscribed, 3);
     assert.equal(unsubscribed, 2);
   });
-});
 
-test('components without state should not subscribe or unsubscribe', function(assert) {
-  visit('/empty');
-  andThen(() => {
+  test('components without state should not subscribe or unsubscribe', async function(assert) {
+    await visit('/empty');
     assert.equal(currentURL(), '/empty');
     assert.equal(subscribed, 0);
     assert.equal(unsubscribed, 0);
-    assert.equal(find('.empty-state').text(), 'empty');
-  });
-  click('.dashboard-link');
-  andThen(() => {
+    assert.equal(find('.empty-state').textContent, 'empty');
+    await click('.dashboard-link');
     assert.equal(currentURL(), '/dashboard');
     assert.equal(subscribed, 1);
     assert.equal(unsubscribed, 0);
-  });
-  click('.counts-link');
-  andThen(() => {
+    await click('.counts-link');
     assert.equal(currentURL(), '/');
     assert.equal(subscribed, 2);
     assert.equal(unsubscribed, 1);

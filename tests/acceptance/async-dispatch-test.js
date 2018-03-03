@@ -1,188 +1,133 @@
-import { run } from '@ember/runloop';
 import { test, module } from 'qunit';
-import startApp from '../helpers/start-app';
+import { visit, click, find, findAll, fillIn, currentURL } from '@ember/test-helpers';
+import { setupApplicationTest } from 'ember-qunit';
 import ajax from '../helpers/ajax';
 
-var application;
+module('Acceptance | async dispatch test', function(hooks) {
+  setupApplicationTest(hooks);
 
-module('Acceptance | async dispatch test', {
-  beforeEach() {
-    application = startApp();
-  },
-  afterEach() {
-    run(application, 'destroy');
-  }
-});
+  test('route will fetch async data and dispatch to deserialize with the response', async function(assert) {
+    await visit('/');
+    assert.equal(currentURL(), '/');
+    await ajax('/api/users', 'GET', 200, [{id: 1, name: 'one'}, {id: 2, name: 'two'}]);
+    await click('.users-link');
+    assert.equal(currentURL(), '/users');
+    assert.equal(findAll('.user-name').length, 2);
+    assert.equal(find('.user-setupcontroller-state').textContent, 'yes');
+    await click('.counts-link');
+    assert.equal(currentURL(), '/');
+    await ajax('/api/users', 'GET', 200, [{id: 1, name: 'one'}, {id: 2, name: 'two'}]);
+    await click('.users-link');
+    assert.equal(currentURL(), '/users');
+    assert.equal(findAll('.user-name').length, 2);
+  });
 
-test('route will fetch async data and dispatch to deserialize with the response', function(assert) {
-  visit('/');
-  andThen(() => {
+  test('master detail will show both list and selected user correctly', async function(assert) {
+    await visit('/');
     assert.equal(currentURL(), '/');
-  });
-  ajax('/api/users', 'GET', 200, [{id: 1, name: 'one'}, {id: 2, name: 'two'}]);
-  click('.users-link');
-  andThen(() => {
+    await ajax('/api/users', 'GET', 200, [{id: 1, name: 'one'}, {id: 2, name: 'two'}]);
+    await click('.users-link');
     assert.equal(currentURL(), '/users');
-    assert.equal(find('.user-name').length, 2);
-    assert.equal(find('.user-setupcontroller-state').text().trim(), 'yes');
-  });
-  click('.counts-link');
-  andThen(() => {
-    assert.equal(currentURL(), '/');
-  });
-  ajax('/api/users', 'GET', 200, [{id: 1, name: 'one'}, {id: 2, name: 'two'}]);
-  click('.users-link');
-  andThen(() => {
-    assert.equal(currentURL(), '/users');
-    assert.equal(find('.user-name').length, 2);
-  });
-});
-
-test('master detail will show both list and selected user correctly', function(assert) {
-  visit('/');
-  andThen(() => {
-    assert.equal(currentURL(), '/');
-  });
-  ajax('/api/users', 'GET', 200, [{id: 1, name: 'one'}, {id: 2, name: 'two'}]);
-  click('.users-link');
-  andThen(() => {
-    assert.equal(currentURL(), '/users');
-    assert.equal(find('.user-name').length, 2);
-  });
-  ajax('/api/users/2', 'GET', 200, {id: 2, name: 'two'});
-  click('.user-detail-link:eq(1)');
-  andThen(() => {
+    assert.equal(findAll('.user-name').length, 2);
+    await ajax('/api/users/2', 'GET', 200, {id: 2, name: 'two'});
+    await click('.user-detail-link:nth-of-type(2)');
     assert.equal(currentURL(), '/users/2');
-    assert.equal(find('.user-name').length, 2);
-    assert.equal(find('.user-detail-name').text().trim(), 'two');
+    assert.equal(findAll('.user-name').length, 2);
+    assert.equal(find('.user-detail-name').textContent, 'two');
   });
-});
 
-test('should fetch async data and display after xhr has resolved (super is called after actions are wired up)', function(assert) {
-  visit('/');
-  andThen(() => {
+  test('should fetch async data and display after xhr has resolved (super is called after actions are wired up)', async function(assert) {
+    await visit('/');
     assert.equal(currentURL(), '/');
-  });
-  ajax('/api/users', 'GET', 200, [{id: 1, name: 'one'}, {id: 2, name: 'two'}]);
-  click('.fetch-link');
-  andThen(() => {
+    await ajax('/api/users', 'GET', 200, [{id: 1, name: 'one'}, {id: 2, name: 'two'}]);
+    await click('.fetch-link');
     assert.equal(currentURL(), '/fetch');
-    assert.equal(find('.user-name').length, 2);
-  });
-  click('.counts-link');
-  andThen(() => {
+    assert.equal(findAll('.user-name').length, 2);
+    await click('.counts-link');
     assert.equal(currentURL(), '/');
-  });
-  ajax('/api/users', 'GET', 200, [{id: 1, name: 'one'}, {id: 3, name: 'three'}]);
-  click('.fetch-link');
-  andThen(() => {
+    await ajax('/api/users', 'GET', 200, [{id: 1, name: 'one'}, {id: 3, name: 'three'}]);
+    await click('.fetch-link');
     assert.equal(currentURL(), '/fetch');
-    assert.equal(find('.user-name').length, 3);
+    assert.equal(findAll('.user-name').length, 3);
   });
-});
 
-test('route connect function should call super in the init', function(assert) {
-  visit('/super');
-  andThen(() => {
+  test('route connect function should call super in the init', async function(assert) {
+    await visit('/super');
     assert.equal(currentURL(), '/super');
-    var route = application.__container__.lookup('route:super');
+    const route = this.owner.lookup('route:super');
     assert.equal(route.get('invoked'), true);
   });
-});
 
-test('deep linking directly will work as you would expect in ember', function(assert) {
-  ajax('/api/users', 'GET', 200, [{id: 1, name: 'one'}, {id: 2, name: 'two'}]);
-  ajax('/api/users/2', 'GET', 200, {id: 2, name: 'two'});
-  visit('/users/2');
-  andThen(() => {
+  test('deep linking directly will work as you would expect in ember', async function(assert) {
+    await ajax('/api/users', 'GET', 200, [{id: 1, name: 'one'}, {id: 2, name: 'two'}]);
+    await ajax('/api/users/2', 'GET', 200, {id: 2, name: 'two'});
+    await visit('/users/2');
     assert.equal(currentURL(), '/users/2');
-    assert.equal(find('.user-name').length, 2);
-    assert.equal(find('.user-detail-name').text().trim(), 'two');
+    assert.equal(findAll('.user-name').length, 2);
+    assert.equal(find('.user-detail-name').textContent, 'two');
   });
-});
 
-test('parent and child templates render and re-render correctly when edits occur in the child component', function(assert) {
-  ajax('/api/items', 'GET', 200, [{id: 1, name: 'first'}, {id: 2, name: 'second'}]);
-  visit('/items');
-  andThen(() => {
+  test('parent and child templates render and re-render correctly when edits occur in the child component', async function(assert) {
+    await ajax('/api/items', 'GET', 200, [{id: 1, name: 'first'}, {id: 2, name: 'second'}]);
+    await visit('/items');
     assert.equal(currentURL(), '/items');
-    assert.equal(find('.item-name').length, 2);
-    assert.equal(find('.item-name:eq(0)').text().trim(), 'first');
-    assert.equal(find('.item-name:eq(1)').text().trim(), 'second');
-  });
-  ajax('/api/items/2', 'GET', 200, {id: 2, name: 'updated'});
-  click('.item-detail-link:eq(1)');
-  andThen(() => {
+    assert.equal(findAll('.item-name').length, 2);
+    assert.equal(find('.item-name:nth-of-type(2)').textContent, 'first');
+    assert.equal(find('.item-name:nth-of-type(3)').textContent, 'second');
+    await ajax('/api/items/2', 'GET', 200, {id: 2, name: 'updated'});
+    await click('.item-detail-link:nth-of-type(2)');
     assert.equal(currentURL(), '/items/2');
-    assert.equal(find('.item-detail-name').length, 1);
-    assert.equal(find('.item-detail-name').val(), 'updated');
-    assert.equal(find('.item-name').length, 2);
-    assert.equal(find('.item-name:eq(0)').text().trim(), 'first');
-    assert.equal(find('.item-name:eq(1)').text().trim(), 'updated');
-  });
-  ajax('/api/users', 'GET', 200, [{id: 1, name: 'one'}, {id: 2, name: 'two'}]);
-  click('.fetch-link');
-  andThen(() => {
+    assert.equal(findAll('.item-detail-name').length, 1);
+    assert.equal(find('.item-detail-name').value, 'updated');
+    assert.equal(findAll('.item-name').length, 2);
+    assert.equal(find('.item-name:nth-of-type(2)').textContent, 'first');
+    assert.equal(find('.item-name:nth-of-type(3)').textContent, 'updated');
+    await ajax('/api/users', 'GET', 200, [{id: 1, name: 'one'}, {id: 2, name: 'two'}]);
+    await click('.fetch-link');
     assert.equal(currentURL(), '/fetch');
-  });
-  ajax('/api/items', 'GET', 200, [{id: 1, name: 'zap'}, {id: 2, name: 'updated'}, {id: 3, name: 'more'}]);
-  click('.items-link');
-  andThen(() => {
+    await ajax('/api/items', 'GET', 200, [{id: 1, name: 'zap'}, {id: 2, name: 'updated'}, {id: 3, name: 'more'}]);
+    await click('.items-link');
     assert.equal(currentURL(), '/items');
-    assert.equal(find('.item-name').length, 3);
-    assert.equal(find('.item-name:eq(0)').text().trim(), 'zap');
-    assert.equal(find('.item-name:eq(1)').text().trim(), 'updated');
-    assert.equal(find('.item-name:eq(2)').text().trim(), 'more');
-  });
-  ajax('/api/items/1', 'GET', 200, {id: 1, name: 'zap'});
-  click('.item-detail-link:eq(0)');
-  andThen(() => {
+    assert.equal(findAll('.item-name').length, 3);
+    assert.equal(find('.item-name:nth-of-type(2)').textContent, 'zap');
+    assert.equal(find('.item-name:nth-of-type(3)').textContent, 'updated');
+    assert.equal(find('.item-name:nth-of-type(4)').textContent, 'more');
+    await ajax('/api/items/1', 'GET', 200, {id: 1, name: 'zap'});
+    await click('.item-detail-link:nth-of-type(1)');
     assert.equal(currentURL(), '/items/1');
-    assert.equal(find('.item-detail-name').length, 1);
-    assert.equal(find('.item-detail-name').val(), 'zap');
-    assert.equal(find('.item-name').length, 3);
-    assert.equal(find('.item-name:eq(0)').text().trim(), 'zap');
-    assert.equal(find('.item-name:eq(1)').text().trim(), 'updated');
-    assert.equal(find('.item-name:eq(2)').text().trim(), 'more');
-  });
-  fillIn('.item-detail-name', 'x');
-  andThen(() => {
+    assert.equal(findAll('.item-detail-name').length, 1);
+    assert.equal(find('.item-detail-name').value, 'zap');
+    assert.equal(findAll('.item-name').length, 3);
+    assert.equal(find('.item-name:nth-of-type(2)').textContent, 'zap');
+    assert.equal(find('.item-name:nth-of-type(3)').textContent, 'updated');
+    assert.equal(find('.item-name:nth-of-type(4)').textContent, 'more');
+    await fillIn('.item-detail-name', 'x');
     assert.equal(currentURL(), '/items/1');
-    assert.equal(find('.item-detail-name').length, 1);
-    assert.equal(find('.item-detail-name').val(), 'x');
-    assert.equal(find('.item-name').length, 3);
-    assert.equal(find('.item-name:eq(0)').text().trim(), 'x');
-    assert.equal(find('.item-name:eq(1)').text().trim(), 'updated');
-    assert.equal(find('.item-name:eq(2)').text().trim(), 'more');
+    assert.equal(findAll('.item-detail-name').length, 1);
+    assert.equal(find('.item-detail-name').value, 'x');
+    assert.equal(findAll('.item-name').length, 3);
+    assert.equal(find('.item-name:nth-of-type(2)').textContent, 'x');
+    assert.equal(find('.item-name:nth-of-type(3)').textContent, 'updated');
+    assert.equal(find('.item-name:nth-of-type(4)').textContent, 'more');
   });
-});
 
-test('connected routes provide an ember route for you by default', function(assert) {
-  ajax('/api/users', 'GET', 200, [{id: 1, name: 'one'}, {id: 2, name: 'two'}]);
-  visit('/simple');
-  andThen(() => {
+  test('connected routes provide an ember route for you by default', async function(assert) {
+    await ajax('/api/users', 'GET', 200, [{id: 1, name: 'one'}, {id: 2, name: 'two'}]);
+    await visit('/simple');
     assert.equal(currentURL(), '/simple');
-    assert.equal(find('.user-name').length, 2);
+    assert.equal(findAll('.user-name').length, 2);
   });
-});
 
-test('connect supports action creator syntax', function(assert) {
-  visit('/actionz');
-  andThen(() => {
+  test('connect supports action creator syntax', async function(assert) {
+    await visit('/actionz');
     assert.equal(currentURL(), '/actionz');
-    assert.equal(find('.upp-low').text(), '0');
-  });
-  click('.btn-upp');
-  andThen(() => {
-    assert.equal(find('.upp-low').text(), '1');
-  });
-  click('.btn-upp');
-  andThen(() => {
-    assert.equal(find('.upp-low').text(), '2');
-  });
-  click('.btn-upp');
-  andThen(() => {
+    assert.equal(find('.upp-low').textContent, '0');
+    await click('.btn-upp');
+    assert.equal(find('.upp-low').textContent, '1');
+    await click('.btn-upp');
+    assert.equal(find('.upp-low').textContent, '2');
+    await click('.btn-upp');
     // remains 2 because of logic in the action
-    assert.equal(find('.upp-low').text(), '2');
+    assert.equal(find('.upp-low').textContent, '2');
   });
 });
