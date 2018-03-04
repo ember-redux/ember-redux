@@ -38,26 +38,29 @@ import Ember from 'ember';
 import hbs from 'htmlbars-inline-precompile';
 import { connect } from 'ember-redux';
 
-var stateToComputed = (state) => {
+const stateToComputed = (state) => {
   return {
     number: state.number
   };
 };
 
-var dispatchToActions = (dispatch) => {
+const dispatchToActions = (dispatch) => {
   return {
     add: () => dispatch({type: 'ADD'})
   };
 };
 
-var NumbersComponent = Ember.Component.extend({
+const NumbersComponent = Ember.Component.extend({
   layout: hbs`
     {{number}}
     <button onclick={{action "add"}}>add</button>
   `
 });
 
-export default connect(stateToComputed, dispatchToActions)(NumbersComponent);
+export default connect(
+  stateToComputed,
+  dispatchToActions
+)(NumbersComponent);
 ```
 
 And finally you will notice we use a new helper called `connect` to return a new component given the 2 functions that map the computed and actions.

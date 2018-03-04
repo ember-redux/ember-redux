@@ -28,7 +28,10 @@ const sagaMiddleware = createSagaMiddleWare();
 
 const makeStoreInstance = ({reducers, enhancers}) => {
   const middleware = applyMiddleware(sagaMiddleware);
-  const createStoreWithMiddleware = compose(middleware, enhancers)(createStore);
+  const createStoreWithMiddleware = compose(
+    middleware,
+    enhancers
+  )(createStore);
   const store = createStoreWithMiddleware(reducers);
   sagaMiddleware.run(root);
   return store;
@@ -49,7 +52,9 @@ In redux [enhancers][] allow you to write a function that produces a "new and im
 //app/enhancers/index.js
 import { compose } from 'redux';
 
-var devtools = window.devToolsExtension ? window.devToolsExtension() : f => f;
+const devtools = window.devToolsExtension ?
+  window.devToolsExtension() :
+  f => f;
 
 export default compose(devtools);
 ```
@@ -62,9 +67,9 @@ In redux [middleware][] allows you to write a function that produces a "new and 
 //app/middleware/index.js
 import thunk from 'redux-thunk';
 
-var resolved = thunk.default ? thunk.default : thunk;
+const resolved = thunk.default ? thunk.default : thunk;
 
-var warnz = function({dispatch, getState}) {
+const warnz = function({dispatch, getState}) {
   console.warn('wait!');
   return next => action => {
     if (typeof action === 'function') {
@@ -85,7 +90,9 @@ If the middleware you are using requires some additional setup after the store i
 import createSagaMiddleWare from 'redux-saga';
 import addAsync from '../sagas/counter';
 
-const createSaga = createSagaMiddleWare.default ? createSagaMiddleWare.default : createSagaMiddleWare;
+const createSaga = createSagaMiddleWare.default ?
+  createSagaMiddleWare.default :
+  createSagaMiddleWare;
 
 const sagaMiddleware = createSaga();
 

@@ -54,8 +54,13 @@ With the route in place we now need to fire an async network request to fetch th
 import { route } from 'ember-redux';
 import ajax from 'example/utilities/ajax';
 
-var model = (dispatch) => {
-  return ajax('/api/users', 'GET').then(response => dispatch({type: 'DESERIALIZE_USERS', response: response}));
+const model = (dispatch) => {
+  return ajax('/api/users', 'GET').then((response) => {
+    dispatch({
+      type: 'DESERIALIZE_USERS',
+      response
+    }));
+  }
 };
 
 export default route({model})();
@@ -120,25 +125,35 @@ import hbs from 'htmlbars-inline-precompile';
 import { connect } from 'ember-redux';
 import fetch from 'fetch';
 
-var stateToComputed = (state) => {
+const stateToComputed = (state) => {
   return {
     users: state.users.all
   };
 };
 
-var dispatchToActions = (dispatch) => {
+const dispatchToActions = (dispatch) => {
   return {
-    remove: (id) => fetch(`/api/users/${id}`, {method: 'DELETE'}).then(fetched => fetched.json()).then(response => dispatch({type: 'REMOVE_USER', id: id}))
+    remove: (id) => fetch(
+      `/api/users/${id}`,
+      { method: 'DELETE' }
+    ).then((fetched) => {
+      fetched.json()).then((response) => {
+        dispatch({ type: 'REMOVE_USER', id }));
+      } 
+    }
   };
 };
 
-var UserListComponent = Ember.Component.extend({
+const UserListComponent = Ember.Component.extend({
   layout: hbs`
     {{users-table users=users remove=(action "remove")}}
   `
 });
 
-export default connect(stateToComputed, dispatchToActions)(UserListComponent);
+export default connect(
+  stateToComputed,
+  dispatchToActions
+)(UserListComponent);
 ```
 
 The component itself maps the state of redux to a computed called `users` and the remove function to an action. Notice we don't use that array or action directly in this component. Instead we pass the data and closure action down to a `Presentational Component` that will be responsible for rendering the html.
@@ -149,11 +164,13 @@ The component itself maps the state of redux to a computed called `users` and th
 import Ember from 'ember';
 import hbs from 'htmlbars-inline-precompile';
 
-var UserTableComponent = Ember.Component.extend({
+const UserTableComponent = Ember.Component.extend({
   layout: hbs`
     {{#each users as |user|}}
       <div>{{user.name}}</div>
-      <button onclick={{action remove user.id}}>remove</button>
+      <button onclick={{action remove user.id}}>
+        remove
+      </button>
     {{/each}}
   `
 });
@@ -172,7 +189,7 @@ First remove the hard coded `users-table` component from the layout of `users-li
 ```js
 //app/components/users-list/component.js
 
-var UserListComponent = Ember.Component.extend({
+const UserListComponent = Ember.Component.extend({
   layout: hbs`
     {{yield users (action "remove")}}
   `

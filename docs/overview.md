@@ -17,15 +17,15 @@ To better understand ember-redux we first need to break down the essential conce
 ```js
 import Redux from 'redux';
 
-var { createStore } = Redux;
+const { createStore } = Redux;
 
-var store = createStore();
+const store = createStore();
 ```
 
 If you ran the code above you likely hit a runtime error in redux. This error occurs because I failed to pass `createStore` a required argument. The argument is a function that takes the current state of the application plus an action and returns the next state of the application. If that description sounded a bit terse let me explain with an example.
 
 ```js
-var reducer = ((state, action) => {
+const reducer = ((state, action) => {
   if(action.type === 'ADD') {
     return state + 1;
   }
@@ -42,16 +42,16 @@ We can now update the `createStore` function above to take this new reducer func
 ```js
 import Redux from 'redux';
 
-var { createStore } = Redux;
+const { createStore } = Redux;
 
-var reducer = ((state, action) => {
+const reducer = ((state, action) => {
   if(action.type === 'ADD') {
     return state + 1;
   }
   return state || 0;
 });
 
-var store = createStore(reducer);
+const store = createStore(reducer);
 ```
 
 Now that we have the store itself, we can use it to get the state and send actions. First we will create a computed property to wrap the state returned from the store. In the example below we can get the state of the function by invoking `getState` directly on the store.
@@ -61,16 +61,16 @@ import Ember from 'ember';
 import hbs from 'htmlbars-inline-precompile';
 import Redux from 'redux';
 
-var { createStore } = Redux;
+const { createStore } = Redux;
 
-var reducer = ((state, action) => {
+const reducer = ((state, action) => {
   if(action.type === 'ADD') {
     return state + 1;
   }
   return state || 0;
 });
 
-var store = createStore(reducer);
+const store = createStore(reducer);
 
 export default Ember.Component.extend({
   number: Ember.computed(function() {
@@ -89,16 +89,16 @@ import Ember from 'ember';
 import hbs from 'htmlbars-inline-precompile';
 import Redux from 'redux';
 
-var { createStore } = Redux;
+const { createStore } = Redux;
 
-var reducer = ((state, action) => {
+const reducer = ((state, action) => {
   if(action.type === 'ADD') {
     return state + 1;
   }
   return state || 0;
 });
 
-var store = createStore(reducer);
+const store = createStore(reducer);
 
 export default Ember.Component.extend({
   number: Ember.computed(function() {
@@ -125,16 +125,16 @@ import Ember from 'ember';
 import hbs from 'htmlbars-inline-precompile';
 import Redux from 'redux';
 
-var { createStore } = Redux;
+const { createStore } = Redux;
 
-var reducer = ((state, action) => {
+const reducer = ((state, action) => {
   if(action.type === 'ADD') {
     return state + 1;
   }
   return state || 0;
 });
 
-var store = createStore(reducer);
+const store = createStore(reducer);
 
 export default Ember.Component.extend({
   init: function() {
