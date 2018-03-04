@@ -1,9 +1,8 @@
-import { run } from '@ember/runloop';
 import { connect } from 'ember-redux';
 import hbs from 'htmlbars-inline-precompile';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, click, find } from '@ember/test-helpers';
 import Component from '@ember/component';
 
 var redux;
@@ -17,42 +16,44 @@ module('integration: connect test', function(hooks) {
 
   test('should render parent component with one state and child component with another', async function(assert) {
     await render(hbs`{{count-list}}`);
-    let $parent = this.$('.parent-state');
-    let $child = this.$('.child-state');
-    assert.equal($parent.text(), 0);
-    assert.equal($child.text(), 9);
-    run(() => {
-      this.$('.btn-up').trigger('click');
-    });
-    assert.equal($parent.text(), 1);
-    assert.equal($child.text(), 9);
-    run(() => {
-      this.$('.btn-up').trigger('click');
-    });
-    assert.equal($parent.text(), 2);
-    assert.equal($child.text(), 9);
-    run(() => {
-      this.$('.btn-down').trigger('click');
-    });
-    assert.equal($parent.text(), 2);
-    assert.equal($child.text(), 8);
-    run(() => {
-      this.$('.btn-down').trigger('click');
-    });
-    assert.equal($parent.text(), 2);
-    assert.equal($child.text(), 7);
+
+    let $parent = find('.parent-state');
+    let $child = find('.child-state');
+    assert.equal($parent.textContent, 0);
+    assert.equal($child.textContent, 9);
+
+    await click('.btn-up');
+
+    assert.equal($parent.textContent, 1);
+    assert.equal($child.textContent, 9);
+
+    await click('.btn-up');
+
+    assert.equal($parent.textContent, 2);
+    assert.equal($child.textContent, 9);
+
+    await click('.btn-down');
+
+    assert.equal($parent.textContent, 2);
+    assert.equal($child.textContent, 8);
+
+    await click('.btn-down');
+
+    assert.equal($parent.textContent, 2);
+    assert.equal($child.textContent, 7);
   });
 
   test('should render attrs', async function(assert) {
     assert.expect(2);
+
     this.set('myName', 'Dustin');
     await render(hbs`{{count-list name=myName}}`);
 
-    assert.equal(this.$('.greeting').text(), 'Welcome back, Dustin!', 'should render attrs provided to component');
+    assert.equal(find('.greeting').textContent, 'Welcome back, Dustin!', 'should render attrs provided to component');
 
     this.set('myName', 'Toran');
 
-    assert.equal(this.$('.greeting').text(), 'Welcome back, Toran!', 'should rerender component if attrs change');
+    assert.equal(find('.greeting').textContent, 'Welcome back, Toran!', 'should rerender component if attrs change');
   });
 
   test('stateToComputed will provide `this` context that is the component instance (when not using [phat]Arrow function)', async function(assert) {
@@ -60,7 +61,7 @@ module('integration: connect test', function(hooks) {
 
     await render(hbs`{{count-list}}`);
 
-    assert.equal(this.$('.serviced').text(), 'true', 'should render the prop provided by component instance');
+    assert.equal(find('.serviced').textContent, 'true', 'should render the prop provided by component instance');
   });
 
   test('stateToComputed can be used with component level CP if notifyPropertyChange invoked during didUpdateAttrs', async function(assert) {
@@ -69,11 +70,11 @@ module('integration: connect test', function(hooks) {
     this.set('dynoNameValue', 'Toran');
     await render(hbs`{{count-list dynoNameValue=dynoNameValue}}`);
 
-    assert.equal(this.$('.dyno').text(), 'name: Toran', 'should render the local component value');
+    assert.equal(find('.dyno').textContent, 'name: Toran', 'should render the local component value');
 
     this.set('dynoNameValue', 'Tom');
 
-    assert.equal(this.$('.dyno').text(), 'name: Tom', 'should render new value when local component CP changed and notifyPropertyChange invoked');
+    assert.equal(find('.dyno').textContent, 'name: Tom', 'should render new value when local component CP changed and notifyPropertyChange invoked');
   });
 
   test('stateToComputed is not invoked extraneously', async function(assert) {
@@ -87,31 +88,34 @@ module('integration: connect test', function(hooks) {
     })));
 
     await render(hbs`{{test-component attr=attr}}`);
-    assert.equal(this.$().text(), '1');
+    assert.equal(this.element.textContent, '1');
     assert.equal(callCount, 1);
 
     this.set('attr', 'some-change');
-    assert.equal(this.$().text(), '2');
+    assert.equal(this.element.textContent, '2');
     assert.equal(callCount, 2);
 
     redux.dispatch({ type: 'FAKE-ACTION' });
-    assert.equal(this.$().text(), '3');
+    assert.equal(this.element.textContent, '3');
     assert.equal(callCount, 3);
   });
 
   test('the component should truly be extended meaning actions map over as you would expect', async function(assert) {
     await render(hbs`{{count-list}}`);
-    let $random = this.$('.random-state');
-    assert.equal($random.text(), '');
-    run(() => {
-      this.$('.btn-random').trigger('click');
-    });
-    assert.equal($random.text(), 'blue');
+
+    let $random = find('.random-state');
+    assert.equal($random.textContent, '');
+
+    await click('.btn-random');
+
+    assert.equal($random.textContent, 'blue');
   });
 
   test('each computed is truly readonly', async function(assert) {
     assert.expect(1);
+
     await render(hbs`{{count-list}}`);
+
     assert.expectAssertion(() => {
       this.$('.btn-alter').trigger('click');
     }, 'Assertion Failed: Cannot set redux property "low". Try dispatching a redux action instead.');
@@ -119,6 +123,7 @@ module('integration: connect test', function(hooks) {
 
   test('lifecycle hooks are still invoked', async function(assert) {
     assert.expect(3);
+
     this.owner.register('component:test-component', connect()(Component.extend({
       init() {
         assert.ok(true, 'init is invoked');
@@ -172,10 +177,10 @@ module('integration: connect test', function(hooks) {
     this.owner.register('component:test-clazz', connect(stateToComputed)(FakeClazz));
 
     await render(hbs`{{test-clazz name=name}}`);
-    assert.equal(this.$('.name').text(), '');
+    assert.equal(find('.name').textContent, '');
 
     this.set('name', 'Toran');
-    assert.equal(this.$('.name').text(), 'Toran');
+    assert.equal(find('.name').textContent, 'Toran');
   });
 
   test('without didUpdateAttrs lifecycle defined connect will not throw runtime error', async function(assert) {
@@ -194,14 +199,15 @@ module('integration: connect test', function(hooks) {
     this.owner.register('component:test-clazz', connect(stateToComputed)(FakeClazz));
 
     await render(hbs`{{test-clazz name=name}}`);
-    assert.equal(this.$('.name').text(), '');
+    assert.equal(find('.name').textContent, '');
 
     this.set('name', 'Christopher');
-    assert.equal(this.$('.name').text(), 'Christopher');
+    assert.equal(find('.name').textContent, 'Christopher');
   });
 
   test('connecting dispatchToActions only', async function(assert) {
     assert.expect(2);
+
     const dispatchToActions = () => {};
 
     this.owner.register('component:test-component-1', connect(null, dispatchToActions)(Component.extend({
@@ -251,10 +257,9 @@ module('integration: connect test', function(hooks) {
     })));
 
     await render(hbs`{{test-dispatch-action-object}}`);
-    run(() => {
-      this.$('.btn-up').trigger('click');
-      this.$('.btn-down').trigger('click');
-    });
+
+    await click('.btn-up');
+    await click('.btn-down');
   });
 
   test('connect provides an Ember Component for you by default', async function(assert) {
@@ -266,7 +271,7 @@ module('integration: connect test', function(hooks) {
 
     await render(hbs`{{foo-bar}}`);
 
-    assert.equal(this.$().text(), 'byDefault?');
+    assert.equal(this.element.textContent, 'byDefault?');
   });
 
   test('stateToComputed supports a static function', async function(assert) {
@@ -278,7 +283,7 @@ module('integration: connect test', function(hooks) {
 
     await render(hbs`{{component-with-static-selector}}`);
 
-    assert.equal(this.$().text(), 'static-selector');
+    assert.equal(this.element.textContent, 'static-selector');
   });
 
   test('stateToComputed supports a factory function', async function(assert) {
@@ -295,6 +300,6 @@ module('integration: connect test', function(hooks) {
     await render(hbs`{{component-with-selector-factory}} {{component-with-selector-factory}}`);
 
     assert.equal(createdCount, 2);
-    assert.equal(this.$().text(), 'selector-1 selector-2');
+    assert.equal(this.element.textContent, 'selector-1 selector-2');
   });
 });
