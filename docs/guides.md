@@ -22,7 +22,7 @@ To begin we define a route for the restaurants listing
 ```js
 //app/router.js
 Router.map(function() {
-  this.route('restaurants', {path: '/'});
+  this.route('restaurants', { path: '/' });
 });
 ```
 
@@ -33,7 +33,7 @@ In the route itself we use ember-fetch to make the network call. When this has c
 import fetch from 'fetch';
 import { route } from 'ember-redux';
 
-var model = dispatch => {
+const model = dispatch => {
   return fetch('/api/restaurants')
     .then(fetched => fetched.json())
     .then(response => dispatch({
@@ -71,7 +71,10 @@ const initialState = {
 export default ((state, action) => {
   switch(action.type) {
     case 'RESTAURANTS:TRANSFORM_LIST': {
-      const restaurants = _.keyBy(action.response, restaurant => restaurant.id);
+      const restaurants = _.keyBy(
+        action.response,
+        restaurant => restaurant.id
+      );
       const merged = _.extend({}, state.all, restaurants);
       return Object.assign({}, state, {all: merged});
     }
@@ -98,7 +101,7 @@ Because the restaurant-list component is html only we need a parent component th
 import Ember from 'ember';
 import { connect } from 'ember-redux';
 
-var stateToComputed = (state) => {
+const stateToComputed = (state) => {
   return {
     restaurants: state.restaurants.all
   };
@@ -144,7 +147,7 @@ Next we define the detail route itself. Similar to the list route in part 1, we 
 import fetch from 'fetch';
 import { route } from 'ember-redux';
 
-var model = (dispatch, params) => {
+const model = (dispatch, params) => {
   return fetch(`/api/restaurants/${params.id}`)
     .then(fetched => fetched.json())
     .then(response => dispatch({
@@ -162,7 +165,9 @@ export default ((state, action) => {
   switch(action.type) {
     // other reducer code from part 1
     case 'RESTAURANTS:TRANSFORM_DETAIL': {
-      const restaurant = {[action.response.id]: action.response};
+      const restaurant = {
+        [action.response.id]: action.response
+      };
       const merge = _.extend({}, state.all, restaurant);
       return Object.assign({}, state, {
         all: merge,
@@ -178,9 +183,27 @@ We want to show the reviews for a given restaurant when the detail route is acti
 ```js
 //mirage/fixtures/restaurants.js
 export default [
-  {id: 1, name: 'Tacopocalypse', reviews: [{id: 9, rating: 5}]},
-  {id: 2, name: 'Fuzzy’s Taco Shop', reviews: [{id: 8, rating: 3}]},
-  {id: 3, name: 'El Bait Shop', reviews: []}
+  {
+    id: 1,
+    name: 'Tacopocalypse',
+    reviews: [{
+      id: 9,
+      rating: 5
+    }]
+  },
+  {
+    id: 2,
+    name: 'Fuzzy’s Taco Shop',
+    reviews: [{
+      id: 8,
+      rating: 3
+      }]
+    },
+  {
+    id: 3,
+    name: 'El Bait Shop',
+    reviews: []
+  }
 ];
 ```
 
@@ -190,7 +213,11 @@ Next the user needs a link to activate the detail route so in our restaurant-lis
 //app/templates/components/restaurant-list.hbs
 <ul>
   {{#each-in restaurants as |key restaurant|}}
-    <li>{{#link-to "restaurants.detail" restaurant.id}}{{restaurant.name}}{{/link-to}}</li>
+    <li>
+      {{#link-to "restaurants.detail" restaurant.id}}
+        {{restaurant.name}}
+      {{/link-to}}
+    </li>
   {{/each-in}}
 </ul>
 ```
@@ -216,9 +243,12 @@ import Ember from 'ember';
 import { connect } from 'ember-redux';
 import _ from 'lodash';
 
-var stateToComputed = (state) => {
+const stateToComputed = (state) => {
   return {
-    restaurant: _.get(state.restaurants.all, state.restaurants.selectedId)
+    restaurant: _.get(
+      state.restaurants.all,
+      state.restaurants.selectedId
+    )
   };
 };
 
@@ -281,9 +311,11 @@ Now in the detail component we use the getSelectedRestaurant selector
 //app/components/restaurant-item.js
 import Ember from 'ember';
 import { connect } from 'ember-redux';
-import { getSelectedRestaurant } from '../reducers/restaurants';
+import {
+  getSelectedRestaurant
+} from '../reducers/restaurants';
 
-var stateToComputed = (state) => {
+const stateToComputed = (state) => {
   return {
     restaurant: getSelectedRestaurant(state)
   };
@@ -300,7 +332,7 @@ import Ember from 'ember';
 import { connect } from 'ember-redux';
 import { getRestaurants } from '../reducers/restaurants';
 
-var stateToComputed = (state) => {
+const stateToComputed = (state) => {
   return {
     restaurants: getRestaurants(state)
   };
@@ -352,10 +384,24 @@ The real work involved here is that now we need to normalize the data in each re
 export default ((state, action) => {
   switch(action.type) {
     case 'RESTAURANTS:TRANSFORM_LIST': {
-      const normalized = normalize(action.response, [restaurantSchema]);
-      const { restaurants, reviews } = normalized.entities;
-      const merged = _.extend({}, state.all, _.keyBy(restaurants, r => r.id));
-      const mergedReviews = _.extend({}, state.reviews, _.keyBy(reviews, r => r.id));
+      const normalized = normalize(
+        action.response,
+        [restaurantSchema]
+      );
+      const {
+        restaurants,
+        reviews
+      } = normalized.entities;
+      const merged = _.extend(
+        {},
+        state.all,
+        _.keyBy(restaurants, r => r.id)
+      );
+      const mergedReviews = _.extend(
+        {},
+        state.reviews,
+        _.keyBy(reviews, r => r.id)
+      );
       return Object.assign({}, state, {
         all: merged,
         reviews: mergedReviews
@@ -428,7 +474,7 @@ import Ember from 'ember';
 import { connect } from 'ember-redux';
 import { getReviews } from '../reducers/restaurants';
 
-var stateToComputed = (state) => {
+const stateToComputed = (state) => {
   return {
     reviews: getReviews(state)
   };
@@ -507,18 +553,21 @@ One important point to note in this example is that because we want to ask for a
 import Ember from 'ember';
 import fetch from 'fetch';
 import { connect } from 'ember-redux';
-import { getReviews, getSelectedId } from '../reducers/restaurants';
+import {
+  getReviews,
+  getSelectedId
+} from '../reducers/restaurants';
 
 const { get } = Ember;
 
-var stateToComputed = (state) => {
+const stateToComputed = (state) => {
   return {
     reviews: getReviews(state),
     selectedId: getSelectedId(state)
   };
 };
 
-var dispatchToActions = function(dispatch) {
+const dispatchToActions = function(dispatch) {
   return {
     rate: rating => {
       let selectedId = get(this, 'selectedId');
@@ -536,7 +585,10 @@ var dispatchToActions = function(dispatch) {
   };
 };
 
-export default connect(stateToComputed, dispatchToActions)(Ember.Component);
+export default connect(
+  stateToComputed,
+  dispatchToActions
+)(Ember.Component);
 ```
 Now in the reducer we need to add that new selector
 
@@ -558,11 +610,27 @@ export default ((state, action) => {
   switch(action.type) {
     // other reducer code from parts 1-4
     case 'RESTAURANTS:RATE': {
-      const restaurant = {[action.response.id]: action.response};
-      const normalized = normalize(restaurant, [restaurantSchema]);
-      const { restaurants, reviews } = normalized.entities;
-      const rateMerge = _.extend({}, state.all, restaurants);
-      const rateReviews = _.extend({}, state.reviews, _.keyBy(reviews, r => r.id));
+      const restaurant = {
+        [action.response.id]: action.response
+      };
+      const normalized = normalize(
+        restaurant,
+        [restaurantSchema]
+      );
+      const {
+        restaurants,
+        reviews
+      } = normalized.entities;
+      const rateMerge = _.extend(
+        {},
+        state.all,
+        restaurants
+      );
+      const rateReviews = _.extend(
+        {},
+        state.reviews,
+        _.keyBy(reviews, r => r.id)
+      );
       return Object.assign({}, state, {
         all: rateMerge,
         reviews: rateReviews

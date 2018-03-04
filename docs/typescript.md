@@ -58,7 +58,10 @@ In the route itself we use ember-fetch to make the network call. When this has c
 import fetch from 'fetch';
 import { route } from 'ember-redux';
 import { Restaurants } from '../types/restaurants';
-import { ListDispatch, TRANSFORM_LIST } from '../actions/restaurants';
+import {
+  ListDispatch,
+  TRANSFORM_LIST
+} from '../actions/restaurants';
 
 const model = (dispatch: ListDispatch) => {
   return fetch('/api/restaurants')
@@ -283,13 +286,19 @@ Next we define the detail route itself. Similar to the list route in part 1, we 
 import fetch from 'fetch';
 import { route } from 'ember-redux';
 import { RestaurantHash } from '../../types/restaurants';
-import { DetailDispatch, TRANSFORM_DETAIL } from '../../actions/restaurants';
+import {
+  DetailDispatch,
+  TRANSFORM_DETAIL
+} from '../../actions/restaurants';
 
 type ParamsObject = {
   id: string
 }
 
-const model = (dispatch: DetailDispatch, params: ParamsObject) => {
+const model = (
+  dispatch: DetailDispatch,
+  params: ParamsObject
+) => {
   return fetch(`/api/restaurants/${params.id}`)
     .then((fetched: Response) => fetched.json())
     .then((response: RestaurantHash) => dispatch({
@@ -344,8 +353,16 @@ Next we need to handle this event in the reducer. We start by creating an object
 ```ts
 //app/reducers/restaurants.ts
 import _ from 'lodash';
-import { Restaurant, RestaurantState } from '../types/restaurants';
-import { TRANSFORM_LIST, TRANSFORM_DETAIL, DetailAction, ListAction } from '../actions/restaurants';
+import {
+  Restaurant,
+  RestaurantState
+} from '../types/restaurants';
+import {
+  TRANSFORM_LIST,
+  TRANSFORM_DETAIL,
+  DetailAction,
+  ListAction
+} from '../actions/restaurants';
 
 const initialState = {
   all: undefined,
@@ -357,13 +374,30 @@ type Action = ListAction | DetailAction;
 export default ((state: RestaurantState, action: Action): RestaurantState => {
   switch(action.type) {
     case TRANSFORM_LIST: {
-      const restaurants = _.keyBy(action.response, (restaurant: Restaurant) => restaurant.id);
-      const merged = _.extend({}, state.all, restaurants);
-      return Object.assign({}, state, {all: merged});
+      const restaurants = _.keyBy(
+        action.response,
+        (restaurant: Restaurant) => restaurant.id
+      );
+      const merged = _.extend(
+        {},
+        state.all,
+        restaurants
+      );
+      return Object.assign(
+        {},
+        state,
+        { all: merged }
+      );
     }
     case TRANSFORM_DETAIL: {
-      const restaurant = {[action.response.id]: action.response};
-      const merge = _.extend({}, state.all, restaurant);
+      const restaurant = {
+        [action.response.id]: action.response
+      };
+      const merge = _.extend(
+        {},
+        state.all,
+        restaurant
+      );
       return Object.assign({}, state, {
         all: merge,
         selectedId: action.response.id
