@@ -1,13 +1,13 @@
 <div class="list-item-one">
   {{#list-one as |items fake contextt filter|}}
-    {{filter-list filter=filter value="5"}}
+    <button class="filter-list-one" onclick={{action filter "5"}}>filter</button>
     {{list-html items=items fake=fake}}
   {{/list-one}}
 </div>
 
 <div class="list-item-two">
   {{#list-two as |items filter|}}
-    {{filter-list filter=filter value=""}}
+    <button class="filter-list-two" onclick={{action filter ""}}>filter</button>
     {{list-html items=items}}
   {{/list-two}}
 </div>

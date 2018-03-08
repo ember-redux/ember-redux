@@ -1,5 +1,5 @@
 import { test, module } from 'qunit';
-import { visit, click, currentURL } from '@ember/test-helpers';
+import { visit, click, findAll, currentURL } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import ajax from '../helpers/ajax';
 
@@ -15,14 +15,14 @@ module('Acceptance | thunk dispatch test', function(hooks) {
   });
 
   test('route loads data with Ember loading state', async function(assert) {
-    assert.expect(3);
+    assert.expect(4);
     const usersData = [{id: 1, name: 'one'}, {id: 2, name: 'two'}];
-    await ajax('/api/users', 'GET', 200, usersData, 500);
+    ajax('/api/users', 'GET', 200, usersData, 200);
     await visit('/');
     assert.equal(currentURL(), '/');
     await click('.thunk-link');
     assert.equal(currentURL(), '/thunk');
-    // assert.equal(findAll('.user-name').length, 2);
+    assert.equal(findAll('.user-name').length, 2);
     assert.equal(window.loadingInvoked, true, 'Ember model loading hook is invoked.');
   });
 });
