@@ -16,15 +16,6 @@ ember install ember-redux
 
 http://www.ember-redux.com
 
-
-Docs can be found in `./docs/` 
-
-```
-gem install jekyll bundler 
-echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf; sudo sysctl -p; 
-bundle exec jekyllserve --watch --baseurl ''
-```
-
 ## Demo
 
 Counter
