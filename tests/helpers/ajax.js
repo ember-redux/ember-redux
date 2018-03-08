@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import { run, later } from '@ember/runloop';
-import wait from 'ember-test-helpers/wait';
+import { settled } from '@ember/test-helpers';
 
 let unhandled = {};
 
@@ -20,7 +20,7 @@ const patchAjax = function patchAjax(url, method, status, response, responseTime
     unhandled[url] = {response: response, responseTime: responseTime};
   });
 
-  return wait();
+  return settled();
 }
 
 export default function ajax(url, method, status, response, responseTime) {
