@@ -9,6 +9,7 @@ var SuperRoute = Route.extend({
   invoked: null,
   init: function() {
     this.set('invoked', true);
+    this._super(...arguments);
   }
 });
 

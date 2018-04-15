@@ -7,13 +7,14 @@ module.exports = {
   plugins: [
     'ember'
   ],
-  extends: 'eslint:recommended',
+  extends: [
+    'eslint:recommended',
+    'plugin:ember/recommended'
+  ],
   env: {
     browser: true
   },
   rules: {
-    'ember/no-old-shims': 'error',
-    'ember/new-module-imports': 'error'
   },
   overrides: [
     // node files
@@ -28,6 +29,7 @@ module.exports = {
       excludedFiles: [
         'app/**',
         'addon/**',
+        'addon-test-support/**',
         'tests/dummy/app/**'
       ],
       parserOptions: {
