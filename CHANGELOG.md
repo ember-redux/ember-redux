@@ -1,6 +1,12 @@
 ember-redux Changelog
 ==============================
 
+3.1.1
+-----
+
+* [BUG]: WrappedComponent prototype injection now plays nice w/ ember 3.1
+  ([#159](https://github.com/ember-redux/ember-redux/pull/159))
+
 3.1.0
 -----
 
