@@ -1,9 +1,10 @@
+import { defineProperty } from '@ember/object';
 import { core, update, destroy } from './core';
 import { inject } from '@ember/service';
 
 export default function wrapEs2015Class(stateToComputed, dispatchToActions, WrappedComponent) {
 
-  WrappedComponent.prototype.redux = inject('redux');
+  defineProperty(WrappedComponent.prototype, 'redux', inject('redux'));
 
   return class Connect extends WrappedComponent {
 
