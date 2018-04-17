@@ -14,7 +14,7 @@ ember install ember-redux
 
 ## Documentation and Examples
 
-http://www.ember-redux.com
+https://ember-redux.com
 
 ## Demo
 

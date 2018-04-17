@@ -219,7 +219,7 @@ Next learn about the different extension points by reading the [configuration](/
 [Dan Abramov]: https://twitter.com/dan_abramov
 [blog]: https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0
 [react-redux]: http://redux.js.org/docs/basics/UsageWithReact.html
-[Sandi Metz]: http://www.sandimetz.com/blog/
+[Sandi Metz]: https://www.sandimetz.com/blog/
 [ajax]: https://gist.github.com/toranb/0b4023a181ccc5869ac740894c9d2d63
 [array]: https://gist.github.com/toranb/b661b53f9ab277ef8d4041cebe770414
 [idiomatic]: https://gist.github.com/toranb/8bf0b62841051dc64f1fa81299526a0a
