@@ -4,6 +4,7 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, click, find } from '@ember/test-helpers';
 import Component from '@ember/component';
+import { combineReducers } from 'redux';
 
 var redux;
 
@@ -203,6 +204,46 @@ module('integration: connect test', function(hooks) {
 
     this.set('name', 'Christopher');
     assert.equal(find('.name').textContent, 'Christopher');
+  });
+
+  test('replaceReducer will update reducer for any connected component', async function(assert) {
+    assert.expect(3);
+
+    const stateToComputed = (state) => ({
+      number: state.low
+    });
+
+    const dispatchToActions = (dispatch) => ({
+      up: () => dispatch({type: 'UP'})
+    });
+
+    class FakeClazz extends Component {
+      get layout() {
+        return hbs`<button class="number" onclick={{action "up"}}>{{number}}</button>`;
+      }
+    }
+
+    this.owner.register('component:test-clazz', connect(stateToComputed, dispatchToActions)(FakeClazz));
+
+    await render(hbs`{{test-clazz}}`);
+    assert.equal(find('.number').textContent, '0');
+
+    await click('.number');
+    assert.equal(find('.number').textContent, '1');
+
+    const newReducer = (state, action) => {
+      if (action.type === 'UP') {
+        return state + 92;
+      }
+      return state || 0;
+    }
+
+    redux.replaceReducer(combineReducers({
+      low: newReducer
+    }));
+
+    await click('.number');
+    assert.equal(find('.number').textContent, '93');
   });
 
   test('connecting dispatchToActions only', async function(assert) {
