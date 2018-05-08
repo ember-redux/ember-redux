@@ -15,17 +15,4 @@ module('Unit | Service | redux', function(hooks) {
     assert.deepEqual(dispatchResult, { type: 'DUMMY' });
   });
 
-  test('should replace the store\'s reducer', function(assert) {
-    const service = this.owner.lookup('service:redux');
-
-    service.replaceReducer(() => {
-      return 'DUMMY_REDUCER_1';
-    });
-    assert.equal(service.getState(), 'DUMMY_REDUCER_1');
-
-    service.replaceReducer(() => {
-      return 'DUMMY_REDUCER_2';
-    });
-    assert.equal(service.getState(), 'DUMMY_REDUCER_2');
-  });
 });
