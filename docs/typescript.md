@@ -16,6 +16,7 @@ Before we start writing any code we need to install a few dependencies
 ember install ember-redux
 ember install ember-fetch
 ember install ember-cli-typescript
+ember install ember-angle-bracket-invocation-polyfill
 ```
 
 To begin we define a route for the restaurants listing
@@ -27,26 +28,41 @@ Router.map(function() {
 });
 ```
 
-Before we start writing any TypeScript we need to first update the tsconfig.json file to turn on strict mode. This strict setting will help us ensure we get the most from TypeScript by turning on strictNullChecks, noImplicitThis, noImplicitAny. To read more about the strict option please checkout the TypeScript 2.3 <a href="https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-3.html">release notes</a>
+Before we start writing any TypeScript we need to first update the tsconfig.json file to turn on strict mode. This strict setting will help us ensure we get the most from TypeScript by turning on strictNullChecks, noImplicitThis, noImplicitAny. To read more about the strict option please checkout the TypeScript 2.9 <a href="http://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-9.html">release notes</a>
 
 ```json
 {
   "compilerOptions": {
-    "target": "es2015",
-    "module": "es2015",
+    "target": "es2017",
+    "allowJs": true,
     "moduleResolution": "node",
-    "strict": true,
-    "suppressImplicitAnyIndexErrors": true,
     "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
     "noEmitOnError": false,
     "noEmit": true,
+    "inlineSourceMap": true,
+    "inlineSources": true,
     "baseUrl": ".",
+    "module": "es6",
     "paths": {
-      "guides/*": ["app/*"]
+      "guides/*": [
+        "app/*"
+      ],
+      "*": [
+        "types/*"
+      ]
     }
   },
   "include": [
-    "**/*.ts"
+    "app"
   ]
 }
 ```
@@ -112,24 +128,39 @@ One last compiler error for this route is a result of ember-cli-typescript looki
 ```json
 {
   "compilerOptions": {
-    "target": "es2015",
-    "module": "es2015",
+    "target": "es2017",
+    "allowJs": true,
     "moduleResolution": "node",
-    "strict": true,
-    "suppressImplicitAnyIndexErrors": true,
     "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
     "noEmitOnError": false,
     "noEmit": true,
+    "inlineSourceMap": true,
+    "inlineSources": true,
     "baseUrl": ".",
+    "module": "es6",
     "paths": {
-      "guides/*": ["app/*"],
       "ember-redux": ["node_modules/ember-redux/index.d.ts"],
       "redux": ["node_modules/redux/index.d.ts"],
-      "fetch": ["node_modules/ember-fetch/index.d.ts"]
+      "fetch": ["node_modules/ember-fetch/index.d.ts"],
+      "guides/*": [
+        "app/*"
+      ],
+      "*": [
+        "types/*"
+      ]
     }
   },
   "include": [
-    "**/*.ts"
+    "app"
   ]
 }
 ```
@@ -211,7 +242,7 @@ Next we add a presentation component to loop over this object and display each r
 ```js
 //app/templates/components/restaurant-list.hbs
 <ul>
-  {{#each-in restaurants as |key restaurant|}}
+  {{#each-in @restaurants as |key restaurant|}}
     <li>{{restaurant.name}}</li>
   {{/each-in}}
 </ul>
@@ -224,11 +255,9 @@ Because the restaurant-list component is html only we need a parent component th
 import { connect } from 'ember-redux';
 import { RootState } from '../types/index';
 
-const stateToComputed = (state: RootState) => {
-  return {
-    restaurants: state.restaurants.all
-  };
-};
+const stateToComputed = (state: RootState) => ({
+  restaurants: state.restaurants.all
+});
 
 export default connect(stateToComputed)();
 ```
@@ -259,12 +288,12 @@ The last step is to wire up both components in the routes controller template
 
 ```js
 //app/templates/restaurants.hbs
-{{#restaurant-items as |restaurants|}}
-  {{restaurant-list restaurants=restaurants}}
-{{/restaurant-items}}
+<RestaurantItems as |restaurants|>
+  <RestaurantList @restaurants={{restaurants}} />
+</RestaurantItems>
 ```
 
-<p>Want the source code for part 1? You can find this commit up on <a href="https://github.com/ember-redux/guides/commit/6fa784ead8ff258ec35eeab09230c59652ce6a9a">github</a></p>
+<p>Want the source code for part 1? You can find this commit up on <a href="https://github.com/ember-redux/guides/commit/27dc1c5d5e85aca082c80394eaa841229ae3db52">github</a></p>
 
 **Feature 2: Display restaurant details**
 
@@ -428,7 +457,7 @@ Next the user needs a link to activate the detail route so in our restaurant-lis
 ```js
 //app/templates/components/restaurant-list.hbs
 <ul>
-  {{#each-in restaurants as |key restaurant|}}
+  {{#each-in @restaurants as |key restaurant|}}
     <li>{{#link-to "restaurants.detail" restaurant.id}}{{restaurant.name}}{{/link-to}}</li>
   {{/each-in}}
 </ul>
@@ -439,7 +468,7 @@ Now we add a presentation component that will display the reviews
 ```js
 //app/templates/components/restaurant-detail.hbs
 <ul>
-  {{#each restaurant.reviews as |review|}}
+  {{#each @restaurant.reviews as |review|}}
     <li>{{review.rating}} ★</li>
   {{else}}
     <li>no reviews</li>
@@ -455,11 +484,9 @@ import { connect } from 'ember-redux';
 import { RootState } from '../types/index';
 import _ from 'lodash';
 
-const stateToComputed = (state: RootState) => {
-  return {
-    restaurant: _.get(state.restaurants.all, state.restaurants.selectedId)
-  };
-};
+const stateToComputed = (state: RootState) => ({
+  restaurant: _.get(state.restaurants.all, state.restaurants.selectedId)
+});
 
 export default connect(stateToComputed)();
 ```
@@ -486,12 +513,12 @@ And finally we add a detail controller template and wire up the parent and child
 
 ```js
 //app/templates/restaurants/detail.hbs
-{{#restaurant-item as |restaurant|}}
-  {{restaurant-detail restaurant=restaurant}}
-{{/restaurant-item}}
+<RestaurantItem as |restaurant|>
+  <RestaurantDetail @restaurant={{restaurant}} />
+</RestaurantItem>
 ```
 
-<p>Want the source code for part 2? You can find this commit up on <a href="https://github.com/ember-redux/guides/commit/a90a8471a2694448f84bab9a6457b2e9e246e7">github</a></p>
+<p>Want the source code for part 2? You can find this commit up on <a href="https://github.com/ember-redux/guides/commit/0fac0e8af66de392d28bc114ace6cf31ebef122f">github</a></p>
 
 **Refactor: Use reselect to encapsulate**
 
@@ -535,25 +562,40 @@ To clear up any compiler error regarding reselect open the tsconfig.json file an
 ```json
 {
   "compilerOptions": {
-    "target": "es2015",
-    "module": "es2015",
+    "target": "es2017",
+    "allowJs": true,
     "moduleResolution": "node",
-    "strict": true,
-    "suppressImplicitAnyIndexErrors": true,
     "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
     "noEmitOnError": false,
     "noEmit": true,
+    "inlineSourceMap": true,
+    "inlineSources": true,
     "baseUrl": ".",
+    "module": "es6",
     "paths": {
-      "guides/*": ["app/*"],
       "ember-redux": ["node_modules/ember-redux/index.d.ts"],
       "redux": ["node_modules/redux/index.d.ts"],
       "fetch": ["node_modules/ember-fetch/index.d.ts"],
-      "reselect": ["node_modules/reselect/lib/index.d.ts"]
+      "reselect": ["node_modules/reselect/lib/index.d.ts"],
+      "guides/*": [
+        "app/*"
+      ],
+      "*": [
+        "types/*"
+      ]
     }
   },
   "include": [
-    "**/*.ts"
+    "app"
   ]
 }
 ```
@@ -566,11 +608,9 @@ import { connect } from 'ember-redux';
 import { RootState } from '../types/index';
 import { getSelectedRestaurant } from '../reducers/restaurants';
 
-const stateToComputed = (state: RootState) => {
-  return {
-    restaurant: getSelectedRestaurant(state)
-  };
-};
+const stateToComputed = (state: RootState) => ({
+  restaurant: getSelectedRestaurant(state)
+});
 
 export default connect(stateToComputed)();
 ```
@@ -583,11 +623,9 @@ import { connect } from 'ember-redux';
 import { RootState } from '../types/index';
 import { getRestaurants } from '../reducers/restaurants';
 
-const stateToComputed = (state: RootState) => {
-  return {
-    restaurants: getRestaurants(state)
-  };
-};
+const stateToComputed = (state: RootState) => ({
+  restaurants: getRestaurants(state)
+});
 
 export default connect(stateToComputed)();
 ```
@@ -603,7 +641,7 @@ One problem with the reducer is that we have a nested relationship between resta
 ```js
 //app/templates/components/restaurant-detail.hbs
 <ul>
-  {{#each restaurant.reviews as |review|}}
+  {{#each @restaurant.reviews as |review|}}
     <li>{{review.rating}} ★</li>
   {{else}}
     <li>no reviews</li>
@@ -748,26 +786,41 @@ The last compiler error requires we add the normalizr typedefs to the tsconfig.j
 ```json
 {
   "compilerOptions": {
-    "target": "es2015",
-    "module": "es2015",
+    "target": "es2017",
+    "allowJs": true,
     "moduleResolution": "node",
-    "strict": true,
-    "suppressImplicitAnyIndexErrors": true,
     "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
     "noEmitOnError": false,
     "noEmit": true,
+    "inlineSourceMap": true,
+    "inlineSources": true,
     "baseUrl": ".",
+    "module": "es6",
     "paths": {
-      "guides/*": ["app/*"],
       "ember-redux": ["node_modules/ember-redux/index.d.ts"],
       "redux": ["node_modules/redux/index.d.ts"],
       "fetch": ["node_modules/ember-fetch/index.d.ts"],
       "reselect": ["node_modules/reselect/lib/index.d.ts"],
-      "normalizr": ["node_modules/normalizr/index.d.ts"]
+      "normalizr": ["node_modules/normalizr/index.d.ts"],
+      "guides/*": [
+        "app/*"
+      ],
+      "*": [
+        "types/*"
+      ]
     }
   },
   "include": [
-    "**/*.ts"
+    "app"
   ]
 }
 ```
@@ -797,11 +850,9 @@ import { connect } from 'ember-redux';
 import { RootState } from '../types/index';
 import { getReviews } from '../reducers/restaurants';
 
-const stateToComputed = (state: RootState) => {
-  return {
-    reviews: getReviews(state)
-  };
-};
+const stateToComputed = (state: RootState) => ({
+  reviews: getReviews(state)
+});
 
 export default connect(stateToComputed)();
 ```
@@ -815,7 +866,7 @@ This update does require we alter the yield and the detail controller template
 ```js
 //app/templates/components/restaurant-detail.hbs
 <ul>
-  {{#each reviews as |review|}}
+  {{#each @reviews as |review|}}
     <li>{{review.rating}} ★</li>
   {{else}}
     <li>no reviews</li>
@@ -825,12 +876,12 @@ This update does require we alter the yield and the detail controller template
 
 ```js
 //app/templates/restaurants/detail.hbs
-{{#restaurant-item as |reviews|}}
-  {{restaurant-detail reviews=reviews}}
-{{/restaurant-item}}
+<RestaurantItem as |reviews|>
+  <RestaurantDetail @reviews={{reviews}} />
+</RestaurantItem>
 ```
 
-<p>Want the source code for part 4? You can find this commit up on <a href="https://github.com/ember-redux/guides/commit/047ec9fce66d2d3ca4387323fefd4b3543325d31">github</a></p>
+<p>Want the source code for part 4? You can find this commit up on <a href="https://github.com/ember-redux/guides/commit/ed929eb1eef56a1e16b57c31b30fbc2fb55aa082">github</a></p>
 
 **Feature 3: Add rate action to add/update review**
 
@@ -839,15 +890,15 @@ The next feature allows us to create or update a rating for a given restaurant. 
 ```js
 //app/templates/components/restaurant-detail.hbs
 <div class="star-rating">
-  <span onclick={{action rate 1}}>★</span>
-  <span onclick={{action rate 2}}>★</span>
-  <span onclick={{action rate 3}}>★</span>
-  <span onclick={{action rate 4}}>★</span>
-  <span onclick={{action rate 5}}>★</span>
+  <span onclick={{action @rate 1}}>★</span>
+  <span onclick={{action @rate 2}}>★</span>
+  <span onclick={{action @rate 3}}>★</span>
+  <span onclick={{action @rate 4}}>★</span>
+  <span onclick={{action @rate 5}}>★</span>
 </div>
 
 <ul>
-  {{#each reviews as |review|}}
+  {{#each @reviews as |review|}}
     <li>{{review.rating}} ★</li>
   {{else}}
     <li>no reviews</li>
@@ -863,9 +914,9 @@ To pass the "rate" closure action down we need to modify both the restaurant-ite
 
 ```js
 //app/templates/restaurants/detail.hbs
-{{#restaurant-item as |reviews rate|}}
-  {{restaurant-detail reviews=reviews rate=rate}}
-{{/restaurant-item}}
+<RestaurantItem as |reviews rate|>
+  <RestaurantDetail @reviews={{reviews}} @rate={{rate}} />
+</RestaurantItem>
 ```
 Next open the restaurant-item component and add the function dispatchToActions. This function is where we define closure actions that will interact with redux. The "rate" action requires the id of the restaurant we are planning to add a review for. We don't have this in the template itself but redux is tracking the active restaurant with a "selectedId" property. We can create a selector to expose this and add that to our stateToComputed function.
 
@@ -878,12 +929,10 @@ import { RestaurantHash } from '../types/restaurants';
 import { RateDispatch, RATE_ITEM } from '../actions/restaurants';
 import { getReviews, getSelectedId } from '../reducers/restaurants';
 
-const stateToComputed = (state: RootState) => {
-  return {
-    reviews: getReviews(state),
-    selectedId: getSelectedId(state)
-  };
-};
+const stateToComputed = (state: RootState) => ({
+  reviews: getReviews(state),
+  selectedId: getSelectedId(state)
+});
 
 const dispatchToActions = (dispatch: RateDispatch) => {
   return {
@@ -973,15 +1022,15 @@ Before we can boot up the app we need to alter the templates to pass through the
 ```js
 //app/templates/components/restaurant-detail.hbs
 <div class="star-rating">
-  <span onclick={{action rate 1 selectedId}}>★</span>
-  <span onclick={{action rate 2 selectedId}}>★</span>
-  <span onclick={{action rate 3 selectedId}}>★</span>
-  <span onclick={{action rate 4 selectedId}}>★</span>
-  <span onclick={{action rate 5 selectedId}}>★</span>
+  <span onclick={{action @rate 1 @selectedId}}>★</span>
+  <span onclick={{action @rate 2 @selectedId}}>★</span>
+  <span onclick={{action @rate 3 @selectedId}}>★</span>
+  <span onclick={{action @rate 4 @selectedId}}>★</span>
+  <span onclick={{action @rate 5 @selectedId}}>★</span>
 </div>
 
 <ul>
-  {{#each reviews as |review|}}
+  {{#each @reviews as |review|}}
     <li>{{review.rating}} ★</li>
   {{else}}
     <li>no reviews</li>
@@ -997,9 +1046,9 @@ Next we need to yield the "selectedId" and plug that value into the restaurant-d
 
 ```js
 //app/templates/restaurants/detail.hbs
-{{#restaurant-item as |reviews selectedId rate|}}
-  {{restaurant-detail reviews=reviews selectedId=selectedId rate=rate}}
-{{/restaurant-item}}
+<RestaurantItem as |reviews selectedId rate|>
+  <RestaurantDetail @reviews={{reviews}} @selectedId={{selectedId}} @rate={{rate}} />
+</RestaurantItem>
 ```
 
 <p>Want the source code for the entire TypeScript application? You can find it on <a href="https://github.com/ember-redux/guides/commits/typescript">github</a></p>
