@@ -15,6 +15,7 @@ Before we start writing any code we need to install a few dependencies
 ```bash
 ember install ember-redux
 ember install ember-fetch
+ember install ember-angle-bracket-invocation-polyfill
 ```
 
 To begin we define a route for the restaurants listing
@@ -88,7 +89,7 @@ Next we add a presentation component to loop over this object and display each r
 ```js
 //app/templates/components/restaurant-list.hbs
 <ul>
-  {{#each-in restaurants as |key restaurant|}}
+  {{#each-in @restaurants as |key restaurant|}}
     <li>{{restaurant.name}}</li>
   {{/each-in}}
 </ul>
@@ -98,16 +99,13 @@ Because the restaurant-list component is html only we need a parent component th
 
 ```js
 //app/components/restaurant-items.js
-import Ember from 'ember';
 import { connect } from 'ember-redux';
 
-const stateToComputed = (state) => {
-  return {
-    restaurants: state.restaurants.all
-  };
-};
+const stateToComputed = (state) => ({
+  restaurants: state.restaurants.all
+});
 
-export default connect(stateToComputed)(Ember.Component);
+export default connect(stateToComputed)();
 ```
 Because we want to expose the restaurants we need to yield that data in the template
 
@@ -120,12 +118,12 @@ The last step is to wire up both components in the routes controller template
 
 ```js
 //app/templates/restaurants.hbs
-{{#restaurant-items as |restaurants|}}
-  {{restaurant-list restaurants=restaurants}}
-{{/restaurant-items}}
+<RestaurantItems as |restaurants|>
+  <RestaurantList @restaurants={{restaurants}} />
+</RestaurantItems>
 ```
 
-<p>Want the source code for part 1? You can find this commit up on <a href="https://github.com/ember-redux/guides/commit/59126b6a227c2c8d080f2e687fbb4f411b7dedb8">github</a></p>
+<p>Want the source code for part 1? You can find this commit up on <a href="https://github.com/ember-redux/guides/commit/a379ca73c3b3391a0e477ee0f7164c2319ed216e">github</a></p>
 
 **Feature 2: Display restaurant details**
 
@@ -212,7 +210,7 @@ Next the user needs a link to activate the detail route so in our restaurant-lis
 ```js
 //app/templates/components/restaurant-list.hbs
 <ul>
-  {{#each-in restaurants as |key restaurant|}}
+  {{#each-in @restaurants as |key restaurant|}}
     <li>
       {{#link-to "restaurants.detail" restaurant.id}}
         {{restaurant.name}}
@@ -227,7 +225,7 @@ Now we add a presentation component that will display the reviews
 ```js
 //app/templates/components/restaurant-detail.hbs
 <ul>
-  {{#each restaurant.reviews as |review|}}
+  {{#each @restaurant.reviews as |review|}}
     <li>{{review.rating}} ★</li>
   {{else}}
     <li>no reviews</li>
@@ -239,20 +237,17 @@ And to provide the reviews for this presentation component we will add another p
 
 ```js
 //app/components/restaurant-item.js
-import Ember from 'ember';
 import { connect } from 'ember-redux';
 import _ from 'lodash';
 
-const stateToComputed = (state) => {
-  return {
-    restaurant: _.get(
-      state.restaurants.all,
-      state.restaurants.selectedId
-    )
-  };
-};
+const stateToComputed = (state) => ({
+  restaurant: _.get(
+    state.restaurants.all,
+    state.restaurants.selectedId
+  )
+});
 
-export default connect(stateToComputed)(Ember.Component);
+export default connect(stateToComputed)();
 ```
 
 We then yield this restaurant from the template
@@ -266,12 +261,12 @@ And finally we add a detail controller template and wire up the parent and child
 
 ```js
 //app/templates/restaurants/detail.hbs
-{{#restaurant-item as |restaurant|}}
-  {{restaurant-detail restaurant=restaurant}}
-{{/restaurant-item}}
+<RestaurantItem as |restaurant|>
+  <RestaurantDetail @restaurant={{restaurant}} />
+</RestaurantItem>
 ```
 
-<p>Want the source code for part 2? You can find this commit up on <a href="https://github.com/ember-redux/guides/commit/b4e29f597ed5b29fc47968e6632e8ced023bd25f">github</a></p>
+<p>Want the source code for part 2? You can find this commit up on <a href="https://github.com/ember-redux/guides/commit/aba560b5c8091686db93428e8c1496666d711480">github</a></p>
 
 **Refactor: Use reselect to encapsulate**
 
@@ -309,41 +304,35 @@ Now in the detail component we use the getSelectedRestaurant selector
 
 ```js
 //app/components/restaurant-item.js
-import Ember from 'ember';
 import { connect } from 'ember-redux';
 import {
   getSelectedRestaurant
 } from '../reducers/restaurants';
 
-const stateToComputed = (state) => {
-  return {
-    restaurant: getSelectedRestaurant(state)
-  };
-};
+const stateToComputed = (state) => ({
+  restaurant: getSelectedRestaurant(state)
+});
 
-export default connect(stateToComputed)(Ember.Component);
+export default connect(stateToComputed)();
 ```
 
 And in the list component we can use the getRestaurants selector
 
 ```js
 //app/components/restaurant-items.js
-import Ember from 'ember';
 import { connect } from 'ember-redux';
 import { getRestaurants } from '../reducers/restaurants';
 
-const stateToComputed = (state) => {
-  return {
-    restaurants: getRestaurants(state)
-  };
-};
+const stateToComputed = (state) => ({
+  restaurants: getRestaurants(state)
+});
 
-export default connect(stateToComputed)(Ember.Component);
+export default connect(stateToComputed)();
 ```
 
 If this feels a little silly at first glance just keep in mind that as your application grows you will be thankful you didn't expose any implementation details about the store because of the freedom this contract affords you at refactor time
 
-<p>Want the source code for part 3? You can find this commit up on <a href="https://github.com/ember-redux/guides/commit/6e5286cd2ac04d4219e15effa8824f1753854e2f">github</a></p>
+<p>Want the source code for part 3? You can find this commit up on <a href="https://github.com/ember-redux/guides/commit/114e3a9fdd988a2a68b0a743f11a0ec31d7f07d9">github</a></p>
 
 **Refactor: Use normalizr to expose reviews**
 
@@ -352,7 +341,7 @@ One problem with the reducer is that we have a nested relationship between resta
 ```js
 //app/templates/components/restaurant-detail.hbs
 <ul>
-  {{#each restaurant.reviews as |review|}}
+  {{#each @restaurant.reviews as |review|}}
     <li>{{review.rating}} ★</li>
   {{else}}
     <li>no reviews</li>
@@ -470,17 +459,14 @@ Now we can update the selector used in the detail parent component
 
 ```js
 //app/components/restaurant-item.js
-import Ember from 'ember';
 import { connect } from 'ember-redux';
 import { getReviews } from '../reducers/restaurants';
 
-const stateToComputed = (state) => {
-  return {
-    reviews: getReviews(state)
-  };
-};
+const stateToComputed = (state) => ({
+  reviews: getReviews(state)
+});
 
-export default connect(stateToComputed)(Ember.Component);
+export default connect(stateToComputed)();
 ```
 
 This update does require we alter the yield and the detail controller template
@@ -492,7 +478,7 @@ This update does require we alter the yield and the detail controller template
 ```js
 //app/templates/components/restaurant-detail.hbs
 <ul>
-  {{#each reviews as |review|}}
+  {{#each @reviews as |review|}}
     <li>{{review.rating}} ★</li>
   {{else}}
     <li>no reviews</li>
@@ -502,12 +488,12 @@ This update does require we alter the yield and the detail controller template
 
 ```js
 //app/templates/restaurants/detail.hbs
-{{#restaurant-item as |reviews|}}
-  {{restaurant-detail reviews=reviews}}
-{{/restaurant-item}}
+<RestaurantItem as |reviews|>
+  <RestaurantDetail @reviews={{reviews}} />
+</RestaurantItem>
 ```
 
-<p>Want the source code for part 4? You can find this commit up on <a href="https://github.com/ember-redux/guides/commit/226bd28e6cde904e09d6358d10d4332c2dab3573">github</a></p>
+<p>Want the source code for part 4? You can find this commit up on <a href="https://github.com/ember-redux/guides/commit/3e16c5ef3b7b334d8e158943e86b31fd8dff9ce5">github</a></p>
 
 **Feature 3: Add rate action to add/update review**
 
@@ -516,15 +502,15 @@ The next feature allows us to create or update a rating for a given restaurant. 
 ```js
 //app/templates/components/restaurant-detail.hbs
 <div class="star-rating">
-  <span onclick={{action rate 1}}>★</span>
-  <span onclick={{action rate 2}}>★</span>
-  <span onclick={{action rate 3}}>★</span>
-  <span onclick={{action rate 4}}>★</span>
-  <span onclick={{action rate 5}}>★</span>
+  <span onclick={{action @rate 1}}>★</span>
+  <span onclick={{action @rate 2}}>★</span>
+  <span onclick={{action @rate 3}}>★</span>
+  <span onclick={{action @rate 4}}>★</span>
+  <span onclick={{action @rate 5}}>★</span>
 </div>
 
 <ul>
-  {{#each reviews as |review|}}
+  {{#each @reviews as |review|}}
     <li>{{review.rating}} ★</li>
   {{else}}
     <li>no reviews</li>
@@ -540,9 +526,9 @@ To pass the "rate" closure action down we need to modify both the restaurant-ite
 
 ```js
 //app/templates/restaurants/detail.hbs
-{{#restaurant-item as |reviews rate|}}
-  {{restaurant-detail reviews=reviews rate=rate}}
-{{/restaurant-item}}
+<RestaurantItem as |reviews rate|>
+  <RestaurantDetail @reviews={{reviews}} @rate={{rate}} />
+</RestaurantItem>
 ```
 Next open the restaurant-item component and add the function dispatchToActions. This function is where we define closure actions that will interact with redux. The "rate" action requires the id of the restaurant we are planning to add a review for. We don't have this in the template itself but redux is tracking the active restaurant with a "selectedId" property. We can create a selector to expose this and add that to our stateToComputed function.
 
@@ -550,7 +536,6 @@ One important point to note in this example is that because we want to ask for a
 
 ```js
 //app/components/restaurant-item.js
-import Ember from 'ember';
 import fetch from 'fetch';
 import { connect } from 'ember-redux';
 import {
@@ -558,20 +543,16 @@ import {
   getSelectedId
 } from '../reducers/restaurants';
 
-const { get } = Ember;
-
-const stateToComputed = (state) => {
-  return {
-    reviews: getReviews(state),
-    selectedId: getSelectedId(state)
-  };
-};
+const stateToComputed = (state) => ({
+  reviews: getReviews(state),
+  selectedId: getSelectedId(state)
+});
 
 const dispatchToActions = function(dispatch) {
   return {
     rate: rating => {
-      let selectedId = get(this, 'selectedId');
-      let params = {
+      const selectedId = this.selectedId;
+      const params = {
         method: 'POST',
         body: JSON.stringify({rating: rating})
       };
@@ -585,10 +566,7 @@ const dispatchToActions = function(dispatch) {
   };
 };
 
-export default connect(
-  stateToComputed,
-  dispatchToActions
-)(Ember.Component);
+export default connect(stateToComputed, dispatchToActions)();
 ```
 Now in the reducer we need to add that new selector
 
