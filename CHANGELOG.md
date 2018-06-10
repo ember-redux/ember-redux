@@ -1,6 +1,18 @@
 ember-redux Changelog
 ==============================
 
+4.0.0
+-----
+
+* [REDUX]: updated to redux v4.0.0
+  ([#165](https://github.com/ember-redux/ember-redux/pull/165))
+
+* [DOCS]: updated guides to ember v3.2 + angle bracket syntax
+  ([#164](https://github.com/ember-redux/ember-redux/pull/164))
+
+* [TESTS]: add component integration test for replaceReducer
+  ([#162](https://github.com/ember-redux/ember-redux/pull/162))
+
 3.1.1
 -----
 
