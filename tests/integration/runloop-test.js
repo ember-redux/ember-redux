@@ -2,7 +2,7 @@ import { run } from '@ember/runloop';
 import hbs from 'htmlbars-inline-precompile';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, find } from '@ember/test-helpers';
+import { settled, render, find } from '@ember/test-helpers';
 
 var original, joined, redux;
 
@@ -32,6 +32,8 @@ module('integration: runloop test', function(hooks) {
     assert.equal($parent.textContent, 0);
 
     redux.dispatch({type: 'UP'});
+
+    await settled();
 
     assert.equal($parent.textContent, 1);
   });

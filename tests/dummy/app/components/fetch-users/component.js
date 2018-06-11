@@ -16,8 +16,7 @@ var dispatchToActions = (dispatch) => {
 };
 
 var UserListComponent = Component.extend({
-  init() {
-    this._super(...arguments);
+  willRender() {
     this.triggerAction({action: 'fetch', target: this});
   },
   layout: hbs`
