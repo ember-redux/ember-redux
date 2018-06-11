@@ -14,23 +14,15 @@ module.exports = {
       name: 'ember-3.1.X',
       npm: {
         devDependencies: {
-          'ember-source': '~3.1.0'
+          'ember-source': '~3.1.1'
         }
       }
     },
     {
-      name: 'ember-beta',
-      bower: {
-        dependencies: {
-          'ember': 'components/ember#beta'
-        },
-        resolutions: {
-          'ember': 'beta'
-        }
-      },
+      name: 'ember-3.2.X',
       npm: {
         devDependencies: {
-          'ember-source': null
+          'ember-source': '~3.2.0'
         }
       }
     }
