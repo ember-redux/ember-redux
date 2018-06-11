@@ -6,6 +6,9 @@ let unhandled = {};
 
 function interceptAjax(hash) {
   let request = unhandled[hash.url];
+  if (!request) {
+    return;
+  }
   let delay = request.responseTime || 0;
   later(() => {
     delete unhandled[hash.url];
