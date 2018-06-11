@@ -15,7 +15,7 @@ cache:
 env:
   - EMBER_TRY_SCENARIO=ember-2.18.X
   - EMBER_TRY_SCENARIO=ember-3.1.X
-  - EMBER_TRY_SCENARIO=ember-beta
+  - EMBER_TRY_SCENARIO=ember-3.2.X
 
 before_install:
   - curl -o- -L https://yarnpkg.com/install.sh | bash
