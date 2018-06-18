@@ -130,14 +130,6 @@ aot-test-generators@^0.1.0:
   dependencies:
     jsesc "^2.5.0"
 
-applause@1.2.2:
-  version "1.2.2"
-  resolved "https://registry.npmjs.org/applause/-/applause-1.2.2.tgz#a8468579e81f67397bb5634c29953bedcd0f56c0"
-  dependencies:
-    cson-parser "^1.1.0"
-    js-yaml "^3.3.0"
-    lodash "^3.10.0"
-
 aproba@^1.0.3:
   version "1.2.0"
   resolved "https://registry.npmjs.org/aproba/-/aproba-1.2.0.tgz#6802e6264efd18c790a1b0d517f0f2627bf2c94a"
@@ -1138,7 +1130,7 @@ broccoli-node-info@^1.1.0:
   version "1.1.0"
   resolved "https://registry.npmjs.org/broccoli-node-info/-/broccoli-node-info-1.1.0.tgz#3aa2e31e07e5bdb516dd25214f7c45ba1c459412"
 
-broccoli-persistent-filter@^1.0.3, broccoli-persistent-filter@^1.1.6, broccoli-persistent-filter@^1.2.0, broccoli-persistent-filter@^1.4.3:
+broccoli-persistent-filter@^1.0.3, broccoli-persistent-filter@^1.1.5, broccoli-persistent-filter@^1.1.6, broccoli-persistent-filter@^1.4.3:
   version "1.4.3"
   resolved "https://registry.npmjs.org/broccoli-persistent-filter/-/broccoli-persistent-filter-1.4.3.tgz#3511bc52fc53740cda51621f58a28152d9911bc1"
   dependencies:
@@ -1173,14 +1165,6 @@ broccoli-plugin@^1.0.0, broccoli-plugin@^1.1.0, broccoli-plugin@^1.2.0, broccoli
     quick-temp "^0.1.3"
     rimraf "^2.3.4"
     symlink-or-copy "^1.1.8"
-
-broccoli-replace@^0.12.0:
-  version "0.12.0"
-  resolved "https://registry.npmjs.org/broccoli-replace/-/broccoli-replace-0.12.0.tgz#36460a984c45c61731638c53068b0ab12ea8fdb7"
-  dependencies:
-    applause "1.2.2"
-    broccoli-persistent-filter "^1.2.0"
-    minimatch "^3.0.0"
 
 broccoli-slow-trees@^3.0.1:
   version "3.0.1"
@@ -1220,6 +1204,13 @@ broccoli-stew@^1.2.0, broccoli-stew@^1.3.3:
     rsvp "^3.0.16"
     symlink-or-copy "^1.1.8"
     walk-sync "^0.3.0"
+
+broccoli-string-replace@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.npmjs.org/broccoli-string-replace/-/broccoli-string-replace-0.1.2.tgz#1ed92f85680af8d503023925e754e4e33676b91f"
+  dependencies:
+    broccoli-persistent-filter "^1.1.5"
+    minimatch "^3.0.3"
 
 broccoli-uglify-sourcemap@^2.1.1:
   version "2.2.0"
@@ -1487,10 +1478,6 @@ code-point-at@^1.0.0:
   version "1.1.0"
   resolved "https://registry.npmjs.org/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
 
-coffee-script@^1.10.0:
-  version "1.12.7"
-  resolved "https://registry.npmjs.org/coffee-script/-/coffee-script-1.12.7.tgz#c05dae0cb79591d05b3070a8433a98c9a89ccc53"
-
 collection-visit@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/collection-visit/-/collection-visit-1.0.0.tgz#4bc0373c164bc3291b4d368c829cf1a80a59dca0"
@@ -1684,12 +1671,6 @@ cross-spawn@^6.0.0:
 crypto-random-string@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/crypto-random-string/-/crypto-random-string-1.0.0.tgz#a230f64f568310e1498009940790ec99545bca7e"
-
-cson-parser@^1.1.0:
-  version "1.3.5"
-  resolved "https://registry.npmjs.org/cson-parser/-/cson-parser-1.3.5.tgz#7ec675e039145533bf2a6a856073f1599d9c2d24"
-  dependencies:
-    coffee-script "^1.10.0"
 
 currently-unhandled@^0.4.1:
   version "0.4.1"
@@ -2122,23 +2103,23 @@ ember-qunit@^3.3.2:
     ember-cli-test-loader "^2.2.0"
     qunit "^2.5.0"
 
-ember-redux-saga-shim@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.npmjs.org/ember-redux-saga-shim/-/ember-redux-saga-shim-2.0.1.tgz#9bf245371c49e9c9f40506ceffb0a2e9b52728fc"
+ember-redux-saga-shim@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.npmjs.org/ember-redux-saga-shim/-/ember-redux-saga-shim-2.0.2.tgz#a9763b0d96b54a0388b532dedb5301e117d10d4f"
   dependencies:
     babel-plugin-transform-object-rest-spread "^6.23.0"
     broccoli-funnel "^1.0.4"
     broccoli-merge-trees "^1.1.4"
-    broccoli-replace "^0.12.0"
+    broccoli-string-replace "^0.1.2"
     ember-cli-babel "^6.6.0"
 
-ember-redux-shim@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.npmjs.org/ember-redux-shim/-/ember-redux-shim-4.0.0.tgz#53e3d53dda2b6d5137c168db4b3c98b13336dc06"
+ember-redux-shim@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.npmjs.org/ember-redux-shim/-/ember-redux-shim-4.0.1.tgz#8177e65a5f9578468c4303cabf17ca10aa6ab5a7"
   dependencies:
     babel-plugin-transform-object-rest-spread "^6.19.0"
     broccoli-merge-trees "^1.1.4"
-    broccoli-replace "^0.12.0"
+    broccoli-string-replace "^0.1.2"
     ember-cli-babel "^6.8.2"
 
 ember-redux-thunk-shim@^2.5.0:
@@ -2189,12 +2170,12 @@ ember-source@3.2.0:
     jquery "^3.3.1"
     resolve "^1.6.0"
 
-ember-symbol-observable@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.npmjs.org/ember-symbol-observable/-/ember-symbol-observable-1.0.1.tgz#70ea5209ff171c474765457ee8cd7c385c23f67a"
+ember-symbol-observable@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/ember-symbol-observable/-/ember-symbol-observable-1.0.2.tgz#1bc4febad8cb4e367eaee434ccb2f939f75bc201"
   dependencies:
     broccoli-merge-trees "^2.0.0"
-    broccoli-replace "^0.12.0"
+    broccoli-string-replace "^0.1.2"
     ember-cli-babel "^6.1.0"
     symbol-observable "^1.0.4"
 
@@ -3483,7 +3464,7 @@ js-tokens@^3.0.0, js-tokens@^3.0.2:
   version "3.0.2"
   resolved "https://registry.npmjs.org/js-tokens/-/js-tokens-3.0.2.tgz#9866df395102130e38f7f996bceb65443209c25b"
 
-js-yaml@^3.2.5, js-yaml@^3.2.7, js-yaml@^3.3.0, js-yaml@^3.6.1, js-yaml@^3.9.1:
+js-yaml@^3.2.5, js-yaml@^3.2.7, js-yaml@^3.6.1, js-yaml@^3.9.1:
   version "3.12.0"
   resolved "https://registry.npmjs.org/js-yaml/-/js-yaml-3.12.0.tgz#eaed656ec8344f10f527c6bfa1b6e2244de167d1"
   dependencies:
@@ -3935,7 +3916,7 @@ lodash.values@~2.3.0:
   dependencies:
     lodash.keys "~2.3.0"
 
-lodash@^3.10.0, lodash@^3.10.1:
+lodash@^3.10.1:
   version "3.10.1"
   resolved "https://registry.npmjs.org/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
 
@@ -4153,7 +4134,7 @@ mimic-fn@^1.0.0:
   version "1.2.0"
   resolved "https://registry.npmjs.org/mimic-fn/-/mimic-fn-1.2.0.tgz#820c86a39334640e99516928bd03fca88057d022"
 
-"minimatch@2 || 3", minimatch@^3.0.0, minimatch@^3.0.2, minimatch@^3.0.4:
+"minimatch@2 || 3", minimatch@^3.0.0, minimatch@^3.0.2, minimatch@^3.0.3, minimatch@^3.0.4:
   version "3.0.4"
   resolved "https://registry.npmjs.org/minimatch/-/minimatch-3.0.4.tgz#5166e286457f03306064be5497e8dbb0c3d32083"
   dependencies:
