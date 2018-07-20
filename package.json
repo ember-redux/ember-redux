@@ -2,13 +2,9 @@
   "name": "ember-redux",
   "version": "4.0.0",
   "description": "ember-cli addon that provides simple redux bindings for ember.js",
-  "directories": {
-    "doc": "doc",
-    "test": "tests"
-  },
   "scripts": {
     "build": "ember build",
-    "lint:js": "eslint ./*.js addon addon-test-support app config lib server test-support tests",
+    "lint:js": "eslint .",
     "start": "ember serve",
     "test": "ember try:each"
   },
@@ -16,37 +12,31 @@
   "bugs": {
     "url": "https://github.com/ember-redux/ember-redux/issues"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ember-redux/ember-redux"
-  },
   "engines": {
     "node": ">= 6"
   },
-  "author": "Toran Billups toranb@gmail.com",
-  "license": "MIT",
   "devDependencies": {
-    "broccoli-asset-rev": "^2.4.5",
-    "ember-cli": "3.1.2",
+    "broccoli-asset-rev": "^2.7.0",
+    "ember-cli": "~3.3.0",
     "ember-cli-dependency-checker": "^2.0.0",
     "ember-cli-eslint": "^4.2.1",
     "ember-cli-htmlbars": "^2.0.1",
     "ember-cli-htmlbars-inline-precompile": "^1.0.0",
     "ember-cli-inject-live-reload": "^1.4.1",
-    "ember-cli-qunit": "^4.1.1",
+    "ember-cli-qunit": "^4.3.2",
     "ember-cli-shims": "^1.2.0",
     "ember-cli-sri": "^2.1.0",
     "ember-cli-uglify": "^2.0.0",
     "ember-disable-prototype-extensions": "^1.1.2",
     "ember-export-application-global": "^2.0.0",
-    "ember-load-initializers": "^1.0.0",
+    "ember-load-initializers": "^1.1.0",
     "ember-maybe-import-regenerator": "0.1.6",
     "ember-qunit-assert-helpers": "^0.2.0",
     "ember-redux-saga-shim": "^2.0.2",
     "ember-redux-shim": "^4.0.1",
     "ember-redux-thunk-shim": "^2.5.0",
     "ember-resolver": "^4.0.0",
-    "ember-source": "3.2.0",
+    "ember-source": "~3.3.0",
     "ember-symbol-observable": "^1.0.2",
     "ember-try": "^0.2.23",
     "eslint-plugin-ember": "^5.0.0",
@@ -63,6 +53,16 @@
     "ember",
     "redux"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ember-redux/ember-redux"
+  },
+  "license": "MIT",
+  "author": "Toran Billups toranb@gmail.com",
+  "directories": {
+    "doc": "doc",
+    "test": "tests"
+  },
   "dependencies": {
     "ember-cli-babel": "^6.8.2"
   },
