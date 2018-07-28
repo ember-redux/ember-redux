@@ -35,19 +35,15 @@ import { connect } from 'ember-redux';
 import getUsersByAccountId from '../reducers';
 import fetch from 'fetch';
 
-var stateToComputed = (state, attrs) => {
-  return {
-    users: getUsersByAccountId(state, attrs.accountId)
-  };
-};
+const stateToComputed = (state, attrs) => ({
+  users: getUsersByAccountId(state, attrs.accountId)
+});
 
-var dispatchToActions = (dispatch) => {
-  return {
-    remove: (id) => fetch(`/api/users/${id}`, {method: 'DELETE'}).then(fetched => fetched.json()).then(response => dispatch({type: 'REMOVE_USER', id: id}))
-  };
-};
+const dispatchToActions = (dispatch) => ({
+  remove: (id) => fetch(`/api/users/${id}`, {method: 'DELETE'}).then(fetched => fetched.json()).then(response => dispatch({type: 'REMOVE_USER', id: id}))
+});
 
-var UserListComponent = Ember.Component.extend({
+const UserListComponent = Ember.Component.extend({
   layout: hbs`
     {{yield users (action "remove")}}
   `
@@ -62,7 +58,7 @@ export default connect(stateToComputed, dispatchToActions)(UserListComponent);
 import Ember from 'ember';
 import hbs from 'htmlbars-inline-precompile';
 
-var UserTableComponent = Ember.Component.extend({
+const UserTableComponent = Ember.Component.extend({
   layout: hbs`
     {{#each users as |user|}}
       <div>{{user.name}}</div>
@@ -95,7 +91,7 @@ export default UserTableComponent;
 
 ## License
 
-Copyright © 2017 Toran Billups http://toranbillups.com
+Copyright © 2018 Toran Billups http://toranbillups.com
 
 Licensed under the MIT License
 
@@ -108,8 +104,8 @@ Licensed under the MIT License
 [climate-badge]: https://codeclimate.com/github/ember-redux/ember-redux/badges/gpa.svg
 [climate]: https://codeclimate.com/github/ember-redux/ember-redux
 
-[score-badge]: http://emberobserver.com/badges/ember-redux.svg
-[score]: http://emberobserver.com/addons/ember-redux
+[score-badge]: https://emberobserver.com/badges/ember-redux.svg
+[score]: https://emberobserver.com/addons/ember-redux
 
 [redux]: https://github.com/reactjs/redux
 
