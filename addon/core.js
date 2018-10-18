@@ -73,7 +73,7 @@ function wrapStateToComputed(stateToComputed) {
 }
 
 export function core(stateToComputed, dispatchToActions) {
-  const redux = this.get('redux');
+  const redux = this.redux;
 
   if (stateToComputed) {
     const wrappedStateToComputed = wrapStateToComputed(stateToComputed);
