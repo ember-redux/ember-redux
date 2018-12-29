@@ -91,7 +91,7 @@ export default UserTableComponent;
 
 ## License
 
-Copyright © 2018 Toran Billups http://toranbillups.com
+Copyright © 2019 Toran Billups https://toranbillups.com
 
 Licensed under the MIT License
 
