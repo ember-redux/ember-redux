@@ -5,6 +5,7 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render, click, find } from '@ember/test-helpers';
 import Component from '@ember/component';
 import { combineReducers } from 'redux';
+import { gte } from 'ember-compatibility-helpers';
 
 var redux;
 
@@ -159,11 +160,6 @@ module('integration: connect test', function(hooks) {
         return hbs`<span class="name">{{number}}</span>`;
       }
 
-      constructor() {
-        assert.ok(true, 'constructor is invoked');
-        super(...arguments);
-      }
-
       didUpdateAttrs() {
         assert.ok(true, 'didUpdateAttrs should be invoked');
         // super.didUpdateAttrs(...arguments);
@@ -175,7 +171,23 @@ module('integration: connect test', function(hooks) {
       }
     }
 
-    this.owner.register('component:test-clazz', connect(stateToComputed)(FakeClazz));
+    if (gte('3.6.0')) {
+      class FakeClazzz extends FakeClazz {
+        init() {
+          assert.ok(true, 'init is invoked');
+          super.init(...arguments);
+        }
+      }
+      this.owner.register('component:test-clazz', connect(stateToComputed)(FakeClazzz));
+    } else {
+      class FakeClazzzz extends FakeClazz {
+        constructor() {
+          assert.ok(true, 'constructor is invoked');
+          super(...arguments);
+        }
+      }
+      this.owner.register('component:test-clazz', connect(stateToComputed)(FakeClazzzz));
+    }
 
     await render(hbs`{{test-clazz name=name}}`);
     assert.equal(find('.name').textContent, '');
