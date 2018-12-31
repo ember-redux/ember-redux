@@ -29,7 +29,7 @@ https://ember-twiddle.com/4bb9c326a7e54c739b1f5a5023ccc805
 ### Container Component
 
 ```js
-import Ember from 'ember';
+import Component from '@ember/component';
 import hbs from 'htmlbars-inline-precompile';
 import { connect } from 'ember-redux';
 import getUsersByAccountId from '../reducers';
@@ -43,7 +43,7 @@ const dispatchToActions = (dispatch) => ({
   remove: (id) => fetch(`/api/users/${id}`, {method: 'DELETE'}).then(fetched => fetched.json()).then(response => dispatch({type: 'REMOVE_USER', id: id}))
 });
 
-const UserListComponent = Ember.Component.extend({
+const UserListComponent = Component.extend({
   layout: hbs`
     {{yield users (action "remove")}}
   `
@@ -55,10 +55,10 @@ export default connect(stateToComputed, dispatchToActions)(UserListComponent);
 ### Presentation Component
 
 ```js
-import Ember from 'ember';
+import Component from '@ember/component';
 import hbs from 'htmlbars-inline-precompile';
 
-const UserTableComponent = Ember.Component.extend({
+const UserTableComponent = Component.extend({
   layout: hbs`
     {{#each users as |user|}}
       <div>{{user.name}}</div>

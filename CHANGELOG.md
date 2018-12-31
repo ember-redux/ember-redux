@@ -1,6 +1,12 @@
 ember-redux Changelog
 ==============================
 
+4.0.1
+-----
+
+* [COMPATIBILITY]: added new shim for ember 3.6 class implementation
+  ([#179](https://github.com/ember-redux/ember-redux/pull/179))
+
 4.0.0
 -----
 
