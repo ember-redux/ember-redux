@@ -1,6 +1,6 @@
 # Ember Redux
 
-[![Travis][build-badge]][build] [![Code Climate][climate-badge]][climate] [![Score][score-badge]][score] [![npm package][npm-badge]][npm]
+[![Travis][build-badge]][build] [![Code Climate][climate-badge]][climate] [![Score][score-badge]][score] [![Downloads][downloads-badge]][npm] [![npm package][npm-badge]][npm]
 
 Predictable state management for ember apps
 
@@ -106,6 +106,8 @@ Licensed under the MIT License
 
 [score-badge]: https://emberobserver.com/badges/ember-redux.svg
 [score]: https://emberobserver.com/addons/ember-redux
+
+[downloads-badge]: https://img.shields.io/npm/dm/ember-redux.svg
 
 [redux]: https://github.com/reactjs/redux
 
