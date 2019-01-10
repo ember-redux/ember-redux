@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "broccoli-asset-rev": "^2.7.0",
-    "ember-cli": "~3.6.0",
+    "ember-cli": "~3.7.0",
     "ember-cli-dependency-checker": "^2.0.0",
     "ember-cli-eslint": "^4.2.1",
     "ember-cli-htmlbars": "^2.0.1",
@@ -36,7 +36,7 @@
     "ember-redux-shim": "^4.0.1",
     "ember-redux-thunk-shim": "^2.5.0",
     "ember-resolver": "^4.0.0",
-    "ember-source": "~3.6.0",
+    "ember-source": "~3.7.0",
     "ember-symbol-observable": "^1.0.2",
     "ember-try": "^0.2.23",
     "eslint-plugin-ember": "^5.0.0",
