@@ -2751,9 +2751,9 @@ ember-maybe-import-regenerator@0.1.6:
     ember-cli-babel "^6.0.0-beta.4"
     regenerator-runtime "^0.9.5"
 
-ember-qunit-assert-helpers@^0.2.0:
-  version "0.2.1"
-  resolved "https://registry.npmjs.org/ember-qunit-assert-helpers/-/ember-qunit-assert-helpers-0.2.1.tgz#4a77f8ff252e47cc53db6fa7fb4becb426de8d29"
+ember-qunit-assert-helpers@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.npmjs.org/ember-qunit-assert-helpers/-/ember-qunit-assert-helpers-0.2.2.tgz#6fec8a33fd0d2c3fb6202f849291a309581727a4"
   dependencies:
     broccoli-filter "^1.0.1"
     ember-cli-babel "^6.9.0"
