@@ -11,6 +11,7 @@ Router.map(function() {
   this.route('saga', { path: '/saga' });
   this.route('dashboard', { path: '/dashboard' });
   this.route('empty', { path: '/empty' });
+  this.route('init', { path: '/init' });
   this.route('users', function() {
     this.route('detail', {path: '/:user_id'});
   });

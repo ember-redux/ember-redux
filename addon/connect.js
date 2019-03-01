@@ -8,7 +8,21 @@ export default (stateToComputed, dispatchToActions=() => ({})) => {
   return IncomingComponent => {
     const WrappedComponent = IncomingComponent || Component;
 
-    if (WrappedComponent.hasOwnProperty('extend')) {
+    let emberObject = true;
+
+    if (gte('3.6.0')) {
+      emberObject = WrappedComponent.extend;
+    } else {
+      try {
+        WrappedComponent();
+      } catch(e) {
+        if (e && e.message.indexOf('constructor') > 0) {
+          emberObject = false;
+        }
+      }
+    }
+
+    if(WrappedComponent.hasOwnProperty('extend') || emberObject) {
       return wrapEmberObject(stateToComputed, dispatchToActions, WrappedComponent);
     } else {
       if (gte('3.6.0')) {
