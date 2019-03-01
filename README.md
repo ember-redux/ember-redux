@@ -82,7 +82,7 @@ export default UserTableComponent;
 
 1. Install the [redux dev tools extension].
 
-2. Enjoy!
+2. Enjoy!!
 
 ## Running Tests
 
