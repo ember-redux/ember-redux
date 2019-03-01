@@ -73,4 +73,11 @@ module('Acceptance | subscribe e2e test', function(hooks) {
     assert.equal(subscribed, 2);
     assert.equal(unsubscribed, 1);
   });
+
+  test('init for EmberObject based components will render', async function(assert) {
+    await visit('/init');
+    assert.equal(currentURL(), '/init');
+    assert.equal(find('.init-low').textContent, '0');
+    assert.equal(find('.init-hello').textContent, '0');
+  });
 });
