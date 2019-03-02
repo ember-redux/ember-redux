@@ -13,7 +13,6 @@ cache:
   yarn: true
 
 env:
-  - EMBER_TRY_SCENARIO=ember-2.18.X
   - EMBER_TRY_SCENARIO=ember-3.4.X
   - EMBER_TRY_SCENARIO=ember-3.5.X
   - EMBER_TRY_SCENARIO=ember-3.6.X
