@@ -1,6 +1,15 @@
 ember-redux Changelog
 ==============================
 
+4.0.2
+-----
+
+* [SECURITY]: updated merge to v1.2.1
+  ([#183](https://github.com/ember-redux/ember-redux/pull/183))
+
+* [COMPATIBILITY]: better support for EmberObject
+  ([commit](https://github.com/ember-redux/ember-redux/commit/32c94ca20ce8cacb5886ae0b0d629cfd47ac1cf1))
+
 4.0.1
 -----
 
