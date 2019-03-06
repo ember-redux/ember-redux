@@ -1,6 +1,9 @@
 /* eslint-env node */
 module.exports = {
   useYarn: true,
+
+  command: "ember test -e=production",
+
   scenarios: [
     {
       name: 'ember-3.4.X',
