@@ -14,6 +14,11 @@ class MyClazz extends Component {
     super(...arguments);
     this.color = 'orange';
   }
+
+  init() {
+    super.init(...arguments);
+    this.hello = this.low;
+  }
 }
 
 export default connect(stateToComputed, dispatchToActions)(MyClazz);

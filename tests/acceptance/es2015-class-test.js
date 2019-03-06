@@ -43,4 +43,12 @@ module('Acceptance | es2015 class e2e test', function(hooks) {
     assert.equal(find('.clazz-color').textContent, 'white');
     assert.equal(find('.uppp-low').textContent, '1');
   });
+
+  test('es2015 class based components will render', async function(assert) {
+    await visit('/clazz');
+    assert.equal(currentURL(), '/clazz');
+
+    assert.equal(find('.init-low').textContent, '0');
+    assert.equal(find('.init-hello').textContent, '0');
+  });
 });
