@@ -10,7 +10,11 @@ export default function wrapEs2015Class(stateToComputed, dispatchToActions, Wrap
 
     constructor() {
       super(...arguments);
+    }
+
+    init() {
       core.call(this, stateToComputed, dispatchToActions);
+      super.init(...arguments)
     }
 
     didUpdateAttrs() {
