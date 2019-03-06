@@ -9,8 +9,8 @@ export default function wrapEs2019Class(stateToComputed, dispatchToActions, Wrap
   return class Connect extends WrappedComponent {
 
     init() {
-      super.init(...arguments);
       core.call(this, stateToComputed, dispatchToActions);
+      super.init(...arguments);
     }
 
     didUpdateAttrs() {
