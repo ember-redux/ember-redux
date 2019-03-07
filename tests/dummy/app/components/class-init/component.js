@@ -1,15 +1,17 @@
 import Component from '@ember/component';
 import { connect } from 'ember-redux';
 
-const stateToComputed = state => ({
+var stateToComputed = state => ({
   low: state.low
 });
 
-class MyEs19 extends Component {
+class MyClazz extends Component {
+
   init() {
     super.init(...arguments);
     this.hello = this.low;
   }
+
 }
 
-export default connect(stateToComputed)(MyEs19);
+export default connect(stateToComputed)(MyClazz);
