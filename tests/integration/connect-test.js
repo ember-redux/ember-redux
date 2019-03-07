@@ -5,7 +5,6 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render, click, find } from '@ember/test-helpers';
 import Component from '@ember/component';
 import { combineReducers } from 'redux';
-import { gte } from 'ember-compatibility-helpers';
 
 var redux;
 
@@ -149,7 +148,7 @@ module('integration: connect test', function(hooks) {
   });
 
   test('lifecycle hooks are still invoked for es2015 class based components', async function(assert) {
-    assert.expect(5);
+    assert.expect(6);
 
     const stateToComputed = (state, attrs) => ({
       number: attrs.name
@@ -171,23 +170,19 @@ module('integration: connect test', function(hooks) {
       }
     }
 
-    if (gte('3.6.0')) {
-      class FakeClazzz extends FakeClazz {
-        init() {
-          assert.ok(true, 'init is invoked');
-          super.init(...arguments);
-        }
+    class FakeClazzz extends FakeClazz {
+      init() {
+        assert.ok(true, 'init is invoked');
+        super.init(...arguments);
       }
-      this.owner.register('component:test-clazz', connect(stateToComputed)(FakeClazzz));
-    } else {
-      class FakeClazzzz extends FakeClazz {
-        constructor() {
-          assert.ok(true, 'constructor is invoked');
-          super(...arguments);
-        }
+
+      constructor() {
+        assert.ok(true, 'constructor is invoked');
+        super(...arguments);
       }
-      this.owner.register('component:test-clazz', connect(stateToComputed)(FakeClazzzz));
     }
+
+    this.owner.register('component:test-clazz', connect(stateToComputed)(FakeClazzz));
 
     await render(hbs`{{test-clazz name=name}}`);
     assert.equal(find('.name').textContent, '');

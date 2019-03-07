@@ -64,8 +64,7 @@
     "test": "tests"
   },
   "dependencies": {
-    "ember-cli-babel": "^6.18.0",
-    "ember-compatibility-helpers": "^1.1.2"
+    "ember-cli-babel": "^6.18.0"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
