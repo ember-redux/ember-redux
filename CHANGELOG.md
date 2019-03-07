@@ -1,6 +1,15 @@
 ember-redux Changelog
 ==============================
 
+4.0.3
+-----
+
+* [REFACTOR]: rename es2019 to es2015 & removed ember-compatibility-helpers
+  ([#185](https://github.com/ember-redux/ember-redux/pull/185))
+
+* [REFACTOR]: Move state calls up, add init for es-2015 class
+  ([#184](https://github.com/ember-redux/ember-redux/pull/184))
+
 4.0.2
 -----
 
