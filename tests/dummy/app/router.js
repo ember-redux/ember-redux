@@ -12,7 +12,7 @@ Router.map(function() {
   this.route('dashboard', { path: '/dashboard' });
   this.route('empty', { path: '/empty' });
   this.route('init', { path: '/init' });
-  this.route('es19', { path: '/es19' });
+  this.route('es2015', { path: '/es2015' });
   this.route('users', function() {
     this.route('detail', {path: '/:user_id'});
   });

@@ -80,4 +80,11 @@ module('Acceptance | subscribe e2e test', function(hooks) {
     assert.equal(find('.init-low').textContent, '0');
     assert.equal(find('.init-hello').textContent, '0');
   });
+
+  test('init for es2015 class based components will render', async function(assert) {
+    await visit('/es2015');
+    assert.equal(currentURL(), '/es2015');
+    assert.equal(find('.init-low').textContent, '0');
+    assert.equal(find('.init-hello').textContent, '0');
+  });
 });
