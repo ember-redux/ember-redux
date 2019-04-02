@@ -1,4 +1,4 @@
-import $ from 'jquery';
+import jQuery from 'jquery';
 import { run, join } from '@ember/runloop';
 import RSVP from 'rsvp';
 
@@ -31,6 +31,6 @@ export default function(url, method, hash) {
       run(self, "onError", json, textStatus, errorThrown);
       return join(null, reject, json);
     };
-    $.ajax(hash);
+    jQuery.ajax(hash);
   });
 }
