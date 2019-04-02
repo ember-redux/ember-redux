@@ -1,4 +1,4 @@
-import $ from 'jquery';
+import jQuery from 'jquery';
 import { run, later } from '@ember/runloop';
 import { settled } from '@ember/test-helpers';
 
@@ -16,7 +16,7 @@ function interceptAjax(hash) {
   }, delay);
 }
 
-$.ajax = interceptAjax;
+jQuery.ajax = interceptAjax;
 
 const patchAjax = function patchAjax(url, method, status, response, responseTime) {
   run(function() {
