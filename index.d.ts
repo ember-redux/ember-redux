@@ -8,11 +8,11 @@ import * as Redux from 'redux';
 export = EmberRedux;
 
 declare namespace EmberRedux {
-  type Dispatch<S> = Redux.Dispatch<S>;
+  type Dispatch = Redux.Dispatch;
   type ActionCreator<A> = Redux.ActionCreator<A>;
 
   export interface DispatchProp<T> {
-    dispatch: Dispatch<T>
+    dispatch: Dispatch
   }
 
   export function connect<TStateProps>(
@@ -40,7 +40,7 @@ declare namespace EmberRedux {
   type MapStateToPropsParam<TStateProps> = MapStateToProps<TStateProps> | MapStateToPropsFactory<TStateProps>;
 
   interface MapDispatchToPropsFunction<TDispatchProps> {
-      (dispatch: Dispatch<any>): TDispatchProps;
+      (dispatch: Dispatch): TDispatchProps;
   }
 
   interface MapDispatchToPropsObject {
@@ -51,7 +51,7 @@ declare namespace EmberRedux {
       MapDispatchToPropsFunction<TDispatchProps> | MapDispatchToPropsObject;
 
   interface MapDispatchToPropsFactory<TDispatchProps> {
-      (dispatch: Dispatch<any>): MapDispatchToProps<TDispatchProps>;
+      (dispatch: Dispatch): MapDispatchToProps<TDispatchProps>;
   }
 
   type MapDispatchToPropsParam<TDispatchProps> = MapDispatchToProps<TDispatchProps> | MapDispatchToPropsFactory<TDispatchProps>;
