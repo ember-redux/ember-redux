@@ -1,6 +1,12 @@
 ember-redux Changelog
 ==============================
 
+4.0.4
+-----
+
+* [TYPESCRIPT]: Fix declaration file for newer versions of typescript
+  ([#188](https://github.com/ember-redux/ember-redux/pull/188))
+
 4.0.3
 -----
 
