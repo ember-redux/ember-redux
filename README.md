@@ -6,7 +6,7 @@ Predictable state management for ember apps
 
 ## Installation
 
-ember redux requires ember-cli v2.4+ and node 6+
+ember redux requires ember-cli v2.4+ and node 8+
 
 ```
 ember install ember-redux

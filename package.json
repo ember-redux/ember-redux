@@ -13,7 +13,7 @@
     "url": "https://github.com/ember-redux/ember-redux/issues"
   },
   "engines": {
-    "node": ">= 6"
+    "node": ">= 8"
   },
   "devDependencies": {
     "@ember/jquery": "^0.6.0",
