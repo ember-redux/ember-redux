@@ -34,8 +34,6 @@
     "ember-maybe-import-regenerator": "0.1.6",
     "ember-qunit": "^3.4.1",
     "ember-qunit-assert-helpers": "^0.2.2",
-    "ember-redux-saga-shim": "^2.0.2",
-    "ember-redux-shim": "^4.0.1",
     "ember-redux-thunk-shim": "^2.5.0",
     "ember-resolver": "^4.0.0",
     "ember-source": "~3.11.1",
@@ -44,7 +42,6 @@
     "eslint-plugin-ember": "^5.0.0",
     "eslint-plugin-node": "^6.0.1",
     "loader.js": "^4.2.3",
-    "redux": "^4.0.0",
     "redux-saga": "^0.16.0",
     "redux-thunk": "^2.3.0"
   },
@@ -66,7 +63,9 @@
     "test": "tests"
   },
   "dependencies": {
-    "ember-cli-babel": "^6.18.0"
+    "ember-auto-import": "^1.5.2",
+    "ember-cli-babel": "^6.18.0",
+    "redux": "^4.0.0"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
