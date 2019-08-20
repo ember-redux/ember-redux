@@ -1,6 +1,15 @@
 ember-redux Changelog
 ==============================
 
+5.0.0
+-----
+
+Additional details and the upgrade guide can be found here:
+https://github.com/ember-redux/ember-redux/releases
+
+* [DEPENDENCY]: Replace redux shims with ember-auto-import
+  ([#191](https://github.com/ember-redux/ember-redux/pull/191))
+
 4.0.4
 -----
 
