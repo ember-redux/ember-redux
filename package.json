@@ -1,6 +1,6 @@
 {
   "name": "ember-redux",
-  "version": "4.0.4",
+  "version": "5.0.0",
   "description": "ember-cli addon that provides simple redux bindings for ember.js",
   "scripts": {
     "build": "ember build",
