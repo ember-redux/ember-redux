@@ -1,3 +1,1 @@
-import thunk from 'redux-thunk';
-
-export default [thunk];
+export {default} from 'ember-redux/middleware/index';

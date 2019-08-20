@@ -61,7 +61,7 @@ export default compose(devtools);
 
 **Middleware**
 
-In redux [middleware][] allows you to write a function that produces a "new and improved" dispatch. By default we include [redux-thunk][] to enable async actions. If you want to override this just add a new directory named `middleware` and inside it a single file `index.js`
+In redux [middleware][] allows you to write a function that produces a "new and improved" dispatch. If you want to configure custom middleware, just add a new directory named `middleware` and inside it a single file `index.js`
 
 ```js
 //app/middleware/index.js
@@ -106,6 +106,20 @@ export default {
 };
 ```
 
+Redux middleware libraries can be installed directly when using [ember-auto-import][].
+
+redux-thunk:
+```bash 
+$ ember install ember-auto-import
+$ npm install --save-dev redux-thunk 
+```
+
+redux-saga:
+```bash
+$ ember install ember-auto-import
+$ npm install --save-dev redux-saga
+```
+
 **Reducers**
 
 In redux [reducers][] take the current state along with some action and return a new state. In the example below you can see we return the previous state + 1 when the explicit action 'ADD' is triggered.
@@ -132,5 +146,6 @@ export default combineReducers({
 [middleware]: https://github.com/reactjs/redux/blob/master/docs/Glossary.md#middleware
 [reducers]: https://github.com/reactjs/redux/blob/master/docs/Glossary.md#reducer
 [redux-thunk]: https://github.com/gaearon/redux-thunk
+[ember-auto-import]: https://github.com/ef4/ember-auto-import
 
 {% endraw %}
