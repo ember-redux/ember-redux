@@ -1,36 +1,52 @@
-import $ from 'jquery';
 import { run, join } from '@ember/runloop';
 import RSVP from 'rsvp';
 
 const { Promise } = RSVP;
 
+// jQuery compat
+window.$ = {};
+window.$.ajax = (hash) => fetch(hash.url, hash);
+
 var configureAjaxDefaults = function(hash) {
-  hash.method = hash.method || "GET";
-  hash.dataType = hash.dataType || "json";
-  hash.cache = hash.cache || false;
-  if(!hash.contentType && hash.data) {
-    hash.contentType = "application/json";
+  let options = {};
+
+  options = {
+    method: hash.method || 'GET', // default
+    cache: hash.cache || 'no-cache', // default
   }
-  return hash;
+
+  if (hash.data) {
+    options.body = JSON.stringify(hash.data);
+  }
+
+  if (!hash.contentType && hash.data) {
+    options.headers['Content-Type'] = 'application/json';
+  }
+
+  return options;
 };
 
 export default function(url, method, hash) {
   var self = this;
+
   hash = hash || {};
-  hash.url = url;
   hash.method = method;
-  hash = configureAjaxDefaults(hash);
+
+  let options = configureAjaxDefaults(hash);
+
   return new Promise(function(resolve, reject) {
-    hash.success = function(json) {
-      return join(null, resolve, json); //try w/ integration
-    };
-    hash.error = function(json, textStatus, errorThrown) {
-      if (json && json.then) {
-        json.then = null;
+    (async () => {
+      let response;
+      let json;
+      try {
+        response = await fetch(url, options);
+        json = await response.json();
+
+        return join(null, resolve, json);
+      } catch (e) {
+        run(self, "onError", json, response.textStatus, e);
+        return join(null, reject, json);
       }
-      run(self, "onError", json, textStatus, errorThrown);
-      return join(null, reject, json);
-    };
-    $.ajax(hash);
+    })();
   });
 }
