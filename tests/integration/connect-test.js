@@ -2,7 +2,7 @@ import { connect } from 'ember-redux';
 import hbs from 'htmlbars-inline-precompile';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, click, find } from '@ember/test-helpers';
+import { render, click, find, triggerEvent } from '@ember/test-helpers';
 import Component from '@ember/component';
 import { combineReducers } from 'redux';
 
@@ -117,8 +117,8 @@ module('integration: connect test', function(hooks) {
 
     await render(hbs`{{count-list}}`);
 
-    assert.expectAssertion(() => {
-      this.$('.btn-alter').trigger('click');
+    assert.expectAssertion(async () => {
+      await click('.btn-alter');
     }, 'Assertion Failed: Cannot set redux property "low". Try dispatching a redux action instead.');
   });
 
