@@ -1,7 +1,5 @@
 import { next } from '@ember/runloop';
-import { effects, takeEvery } from 'redux-saga';
-
-const { call, put } = effects;
+import { takeEvery, put, call } from 'redux-saga/effects';
 
 const delay = ms => next(resolve => setTimeout(resolve, ms));
 
