@@ -66,7 +66,7 @@ module('Integration | Component | octane-clazz', function(hooks) {
     await render(hbs`{{test-component-1}}`);
   });
 
-  test('raghs the component should truly be extended meaning actions map over as you would expect', async function(assert) {
+  test('the component should truly be extended meaning actions map over as you would expect', async function(assert) {
     await render(hbs`<OctaneClazz @name={{this.myName}} />`);
 
     let $random = find('.color');
