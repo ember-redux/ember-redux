@@ -6,6 +6,22 @@ module.exports = {
 
   scenarios: [
     {
+      name: 'ember-3.6.X',
+      npm: {
+        devDependencies: {
+          'ember-source': '~3.6.0'
+        }
+      }
+    },
+    {
+      name: 'ember-3.8.X',
+      npm: {
+        devDependencies: {
+          'ember-source': '~3.8.0'
+        }
+      }
+    },
+    {
       name: 'ember-3.15.X',
       npm: {
         devDependencies: {
