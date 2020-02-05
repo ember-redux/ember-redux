@@ -53,3 +53,5 @@ class MyClazz extends Component {
 
 export default connect(stateToComputed, dispatchToActions)(MyClazz);
 ```
+
+{% endraw %}
