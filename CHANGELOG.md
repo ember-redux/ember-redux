@@ -1,6 +1,39 @@
 ember-redux Changelog
 ==============================
 
+6.0.0
+-----
+
+Additional details and the upgrade guide can be found here:
+https://github.com/ember-redux/ember-redux/releases
+
+* [DOCS]: added missing end tag for octane docs
+  ([commit](https://github.com/ember-redux/ember-redux/commit/48e49072527f172b36016f63ad0c0163a22058d5))
+
+* [DOCS]: updated the readme to reflect new 3.6+ requirement
+  ([commit](https://github.com/ember-redux/ember-redux/commit/65f61953426b3c8dc2d0aa790bad75218b54de43))
+
+* [DOCS]: DEPENDENCY: upgrade to ember 3.16.1
+  ([commit](https://github.com/ember-redux/ember-redux/commit/1ba043dfff22bbc1ed7ac082dc13eb2de2dd71bf))
+
+* [DOCS]: added octane example to the docs site
+  ([commit](https://github.com/ember-redux/ember-redux/commit/aab8510809450c63fd0d366d92527bf25a16d1c9))
+
+* [DOCS]: update to the docs to reflect new imports
+  ([commit](https://github.com/ember-redux/ember-redux/commit/c2349154db0a5a0f8dc0ce9be256851b295e7a86))
+
+* [FEATURE]: Adding support for glimmer component
+  ([#198](https://github.com/ember-redux/ember-redux/pull/198))
+
+* [DEPENDENCY]: ember-cli-update to v3.15
+  ([commit](https://github.com/ember-redux/ember-redux/commit/aeacec1324e3c89720ea6837599a2fdb330a878a))
+
+* [REMOVE]: dropped support for ember lt 3.6
+  ([commit](https://github.com/ember-redux/ember-redux/commit/4d1026f6f71f53d9847e67b95777a5727ffbe686))
+
+* [DEPENDENCY]: ember-cli-update to v3.14.3
+  ([commit](https://github.com/ember-redux/ember-redux/commit/bb3faf64ec29e633b8380c604eb92c08fbdd15c8))
+
 5.0.0
 -----
 
