@@ -57,7 +57,8 @@ const store = createStore(reducer);
 Now that we have the store itself, we can use it to get the state and send actions. First we will create a computed property to wrap the state returned from the store. In the example below we can get the state of the function by invoking `getState` directly on the store.
 
 ```js
-import Ember from 'ember';
+import Component from '@ember/component';
+import { computed } from '@ember/object';
 import hbs from 'htmlbars-inline-precompile';
 import Redux from 'redux';
 
@@ -72,8 +73,8 @@ const reducer = ((state, action) => {
 
 const store = createStore(reducer);
 
-export default Ember.Component.extend({
-  number: Ember.computed(function() {
+export default Component.extend({
+  number: computed(function() {
     return store.getState();
   }),
   layout: hbs`
@@ -85,7 +86,8 @@ export default Ember.Component.extend({
 The initial render now shows the default state of `0` as we expect. To modify that number (and fire that reducer function above with an action) we need to wire up a button in this component that can `dispatch` to the store. We are required to give this dispatch function at minimum one argument of type object with a `type` attribute that describes the intent so the reducer function knows what it should do.
 
 ```js
-import Ember from 'ember';
+import Component from '@ember/component';
+import { computed } from '@ember/object';
 import hbs from 'htmlbars-inline-precompile';
 import Redux from 'redux';
 
@@ -100,8 +102,8 @@ const reducer = ((state, action) => {
 
 const store = createStore(reducer);
 
-export default Ember.Component.extend({
-  number: Ember.computed(function() {
+export default Component.extend({
+  number: computed(function() {
     return store.getState();
   }),
   actions: {
@@ -121,7 +123,8 @@ If you run this in the browser you will notice one last problem ... the number n
 To break the cache on the computed property we need to notify the component that it has changed. This brings about the last redux method we need to learn about called `subscribe`. This method will be fired when the store returns the next state of our application. We can wire it up in the `init` function so it will break the cache correctly allowing us to re-render the number.
 
 ```js
-import Ember from 'ember';
+import Component from '@ember/component';
+import { computed } from '@ember/object';
 import hbs from 'htmlbars-inline-precompile';
 import Redux from 'redux';
 
@@ -136,14 +139,14 @@ const reducer = ((state, action) => {
 
 const store = createStore(reducer);
 
-export default Ember.Component.extend({
+export default Component.extend({
   init: function() {
     this._super(...arguments);
     store.subscribe(() => {
       this.notifyPropertyChange('number');
     });
   },
-  number: Ember.computed(function() {
+  number: computed(function() {
     return store.getState();
   }),
   actions: {

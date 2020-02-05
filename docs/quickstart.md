@@ -34,7 +34,7 @@ After we've got our reducer setup we need to remove the computed and action we c
 ```js
 //app/components/number-count.js
 
-import Ember from 'ember';
+import Component from '@ember/component';
 import hbs from 'htmlbars-inline-precompile';
 import { connect } from 'ember-redux';
 
@@ -50,7 +50,7 @@ const dispatchToActions = (dispatch) => {
   };
 };
 
-const NumbersComponent = Ember.Component.extend({
+const NumbersComponent = Component.extend({
   layout: hbs`
     {{number}}
     <button onclick={{action "add"}}>add</button>

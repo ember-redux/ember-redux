@@ -32,18 +32,17 @@ Like any modern ember application we always start by defining a route.
 
 ```js
 //app/router.js
-import Ember from 'ember';
+import EmberRouter from '@ember/routing/router';
 import config from './config/environment';
 
-const Router = Ember.Router.extend({
-  location: config.locationType
-});
+export default class Router extends EmberRouter {
+  location = config.locationType;
+  rootURL = config.rootURL;
+}
 
 Router.map(function() {
   this.route('users', { path: '/' });
 });
-
-export default Router;
 ```
 
 With the route in place we now need to fire an async network request to fetch the list of user data. In classic ember we would use the identity map or "store" abstraction (ember-data/ember-model/ember-cli-simple-store) but in this example we are using redux and want to send an action up with the response upon success so the reducer can do it's work. I'm using a very simple [ajax][] helper but you can use anything you like here so long as it's "then-able".
@@ -120,7 +119,7 @@ Now that we have fetched the data we declare the `Container Component` that will
 ```js
 //app/components/users-list/component.js
 
-import Ember from 'ember';
+import Component from '@ember/component';
 import hbs from 'htmlbars-inline-precompile';
 import { connect } from 'ember-redux';
 import fetch from 'fetch';
@@ -139,12 +138,12 @@ const dispatchToActions = (dispatch) => {
     ).then((fetched) => {
       fetched.json()).then((response) => {
         dispatch({ type: 'REMOVE_USER', id }));
-      } 
+      }
     }
   };
 };
 
-const UserListComponent = Ember.Component.extend({
+const UserListComponent = Component.extend({
   layout: hbs`
     {{users-table users=users remove=(action "remove")}}
   `
@@ -161,10 +160,10 @@ The component itself maps the state of redux to a computed called `users` and th
 ```js
 //app/components/users-table/component.js
 
-import Ember from 'ember';
+import Component from '@ember/component';
 import hbs from 'htmlbars-inline-precompile';
 
-const UserTableComponent = Ember.Component.extend({
+const UserTableComponent = Component.extend({
   layout: hbs`
     {{#each users as |user|}}
       <div>{{user.name}}</div>
@@ -189,7 +188,7 @@ First remove the hard coded `users-table` component from the layout of `users-li
 ```js
 //app/components/users-list/component.js
 
-const UserListComponent = Ember.Component.extend({
+const UserListComponent = Component.extend({
   layout: hbs`
     {{yield users (action "remove")}}
   `
