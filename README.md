@@ -6,7 +6,7 @@ Predictable state management for ember apps
 
 ## Installation
 
-ember redux requires ember-cli v2.4+ and node 8+
+ember redux requires ember v3.6+ and node >= 8. If you need support for an older version of ember use the v5 release
 
 ```
 ember install ember-redux
@@ -76,6 +76,35 @@ export default UserTableComponent;
 {{#user-list accountId=accountId as |users remove|}}
   {{user-table users=users remove=remove}}
 {{/user-list}}
+```
+
+## Octane Support?
+
+As of version 6 ember-redux now supports both ember component and glimmer component. One brief example of glimmer components and ember redux below.
+
+```js
+import Component from '@glimmer/component';
+import { action } from '@ember/object';
+import { connect } from 'ember-redux';
+import getUsersByAccountId from '../reducers';
+import fetch from 'fetch';
+
+const stateToComputed = (state, attrs) => ({
+  users: getUsersByAccountId(state, attrs.accountId)
+});
+
+const dispatchToActions = (dispatch) => ({
+  remove: (id) => fetch(`/api/users/${id}`, {method: 'DELETE'}).then(fetched => fetched.json()).then(response => dispatch({type: 'REMOVE_USER', id: id}))
+});
+
+class MyClazz extends Component {
+  @action
+  example() {
+    this.actions.remove();
+  }
+}
+
+export default connect(stateToComputed, dispatchToActions)(MyClazz);
 ```
 
 ## How do I enable time travel debugging?
