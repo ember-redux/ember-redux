@@ -29,4 +29,6 @@ Router.map(function() {
   this.route('query-params');
   this.route('clazz-actionz');
   this.route('clazz-factorie');
+  this.route('octane-factorie');
+  this.route('octane-actionz');
 });
