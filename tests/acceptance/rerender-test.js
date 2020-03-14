@@ -37,11 +37,13 @@ module('Acceptance | rerender test', function(hooks) {
     var componentTwo = this.owner.lookup('component:list-two');
     var componentFour = this.owner.lookup('component:unrelated-one');
     var componentFive = this.owner.lookup('component:random-one');
+    /* eslint-disable ember/no-observers */
     componentOne.addObserver('items', function() { this.get('items'); oneUpdated++; });
     componentOne.addObserver('fake', function() { this.get('fake'); oneFakeUpdated++; });
     componentTwo.addObserver('items', function() { this.get('items'); twoUpdated++; });
     componentFour.addObserver('unrelated', function() { this.get('unrelated'); fourUpdated++; });
     componentFive.addObserver('random', function() { this.get('random'); fiveUpdated++; });
+    /* eslint-disable ember/no-observers */
     await click('.filter-list-one');
     assert.equal(currentURL(), '/lists');
     assert.equal(findAll('.list-item-one .item-name').length, 1);
