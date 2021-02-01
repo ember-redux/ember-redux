@@ -15,9 +15,7 @@ ember install ember-redux
 To better understand ember-redux we first need to break down the essential concepts in redux itself. Because redux revolves around a central store we first need to create it using the `createStore` function.
 
 ```js
-import Redux from 'redux';
-
-const { createStore } = Redux;
+import { createStore } from 'redux';
 
 const store = createStore();
 ```
@@ -40,9 +38,7 @@ The action represents some intent of the program to help us know what operation 
 We can now update the `createStore` function above to take this new reducer function as it's the required argument we were missing earlier.
 
 ```js
-import Redux from 'redux';
-
-const { createStore } = Redux;
+import { createStore } from 'redux';
 
 const reducer = ((state, action) => {
   if(action.type === 'ADD') {
@@ -60,9 +56,7 @@ Now that we have the store itself, we can use it to get the state and send actio
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import hbs from 'htmlbars-inline-precompile';
-import Redux from 'redux';
-
-const { createStore } = Redux;
+import { createStore } from 'redux';
 
 const reducer = ((state, action) => {
   if(action.type === 'ADD') {
@@ -89,9 +83,7 @@ The initial render now shows the default state of `0` as we expect. To modify th
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import hbs from 'htmlbars-inline-precompile';
-import Redux from 'redux';
-
-const { createStore } = Redux;
+import { createStore } from 'redux';
 
 const reducer = ((state, action) => {
   if(action.type === 'ADD') {
@@ -126,9 +118,7 @@ To break the cache on the computed property we need to notify the component that
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import hbs from 'htmlbars-inline-precompile';
-import Redux from 'redux';
-
-const { createStore } = Redux;
+import { createStore } from 'redux';
 
 const reducer = ((state, action) => {
   if(action.type === 'ADD') {
