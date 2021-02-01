@@ -15,14 +15,13 @@ If you need to customize how the redux store is created you can override the exi
 
 ```js
 //app/services/redux.js
-import redux from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import ReduxService from 'ember-redux/services/redux';
 import createSagaMiddleWare from 'redux-saga';
 import reducers from '../reducers/index';
 import enhancers from '../enhancers/index';
 import root from '../sagas/index';
 
-const { createStore, applyMiddleware, compose } = redux;
 
 const sagaMiddleware = createSagaMiddleWare();
 
