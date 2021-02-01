@@ -2,7 +2,7 @@ import { get } from '@ember/object';
 import { assert } from '@ember/debug';
 import { isArray } from '@ember/array';
 import Service from '@ember/service';
-import redux from 'redux';
+import { createStore, applyMiddleware, compose }  from 'redux';
 import reducers from '../reducers/index';
 import enhancers from '../enhancers/index';
 import middlewares from '../middleware/index';
@@ -15,8 +15,6 @@ const extractMiddlewareConfig = (mc) => {
   );
   return isArray(mc) ? { middleware: mc } : mc;
 }
-
-const { createStore, applyMiddleware, compose } = redux;
 
 const makeStoreInstance = ({middlewares, reducers, enhancers}) => {
   const { middleware, setup = () => {} } = extractMiddlewareConfig(middlewares);
