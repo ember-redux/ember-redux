@@ -117,9 +117,13 @@ module('integration: connect test', function(hooks) {
 
     await render(hbs`{{count-list}}`);
 
-    assert.expectAssertion(() => {
-      this.$('.btn-alter').trigger('click');
-    }, 'Assertion Failed: Cannot set redux property "low". Try dispatching a redux action instead.');
+    try {
+      // Execute click immediately instead of clicking using the DOM since the
+      // error can not be caught in that case due to the fact that it runs async.
+      find('.btn-alter').onclick();
+    } catch (err) {
+      assert.strictEqual(err.toString(), 'Error: Cannot set redux property "low". Try dispatching a redux action instead.');
+    }
   });
 
   test('lifecycle hooks are still invoked', async function(assert) {

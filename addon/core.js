@@ -1,5 +1,4 @@
 import { join } from '@ember/runloop';
-import { assert } from '@ember/debug';
 import { computed, getProperties, defineProperty } from '@ember/object';
 import { bindActionCreators } from 'redux';
 
@@ -26,7 +25,7 @@ function changedKeys(props, newProps) {
 function computedReduxProperty(key, getProps) {
   return computed({
     get: () => getProps()[key],
-    set: () => { assert(`Cannot set redux property "${key}". Try dispatching a redux action instead.`); }
+    set: () => { throw new Error(`Cannot set redux property "${key}". Try dispatching a redux action instead.`); }
   });
 }
 

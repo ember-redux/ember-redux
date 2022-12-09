@@ -16,7 +16,6 @@
     "node": ">= 8"
   },
   "devDependencies": {
-    "@ember/jquery": "^0.6.0",
     "@ember/optional-features": "^1.1.0",
     "@glimmer/component": "^1.0.0",
     "babel-eslint": "^10.0.3",
@@ -33,9 +32,8 @@
     "ember-disable-prototype-extensions": "^1.1.2",
     "ember-export-application-global": "^2.0.1",
     "ember-load-initializers": "^2.1.1",
-    "ember-maybe-import-regenerator": "0.1.6",
+    "ember-maybe-import-regenerator": "^1.0.0",
     "ember-qunit": "^4.6.0",
-    "ember-qunit-assert-helpers": "^0.2.2",
     "ember-redux-thunk-shim": "^2.5.0",
     "ember-resolver": "^7.0.0",
     "ember-source": "^3.28.10",
