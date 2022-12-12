@@ -12,7 +12,7 @@ var UserListComponent = Component.extend({
   layout: hbs`
     {{#each users as |user|}}
       <div class="user-name">{{user.name}}</div>
-      {{#link-to 'users.detail' user.id class='user-detail-link'}}details{{/link-to}}
+      <LinkTo @route="users.detail" @model={{user.id}} class="user-detail-link">details</LinkTo>
     {{/each}}
     {{outlet}}
   `

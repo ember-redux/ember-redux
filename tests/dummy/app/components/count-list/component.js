@@ -33,7 +33,7 @@ var CountListComponent = Component.extend({
   layout: hbs`
     <span class="parent-state">{{this.low}}</span>
     <button class="btn-up" onclick={{action "up"}}>up</button>
-    {{count-detail high=high down=(action "down")}}
+    <CountDetail @high={{this.high}} @down={{action "down"}} />
     <button class="btn-combine" onclick={{action "combine"}}>combine</button>
     <button class="btn-random" onclick={{action "random"}}>random</button>
     <button class="btn-alter" onclick={{action "alter"}}>alter</button>
