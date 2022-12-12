@@ -27,7 +27,7 @@ var dispatchToActions = function(dispatch) {
 var ListOneComponent = Component.extend({
   valuee: 'abc123',
   layout: hbs`
-    {{yield items fake contextt (action "filter") (action "refresh") (action "update") (action "random") (action "faked") (action "context")}}
+    {{yield this.items this.fake this.contextt (action "filter") (action "refresh") (action "update") (action "random") (action "faked") (action "context")}}
   `
 });
 

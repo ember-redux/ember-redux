@@ -18,7 +18,7 @@ var dispatchToActions = (dispatch) => {
 
 var ListTwoComponent = Component.extend({
   layout: hbs`
-    {{yield items (action "filter")}}
+    {{yield this.items (action "filter")}}
   `
 });
 

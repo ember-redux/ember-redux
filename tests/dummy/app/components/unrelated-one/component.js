@@ -10,7 +10,7 @@ var stateToComputed = (state) => {
 
 var UnrelatedComponent = Component.extend({
   layout: hbs`
-    {{yield unrelated}}
+    {{yield this.unrelated}}
   `
 });
 

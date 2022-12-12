@@ -16,7 +16,7 @@ var dispatchToActions = (dispatch) => {
 
 var SagaComponent = Component.extend({
     layout: hbs`
-      <span class="saga-number">{{low}}</span>
+      <span class="saga-number">{{this.low}}</span>
       <button class="btn-saga" onclick={{action "add"}}>add with saga</button>
     `
 });

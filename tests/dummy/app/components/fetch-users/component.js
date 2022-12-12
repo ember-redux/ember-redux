@@ -20,7 +20,7 @@ var UserListComponent = Component.extend({
     this.triggerAction({action: 'fetch', target: this});
   },
   layout: hbs`
-    {{#each users as |user|}}
+    {{#each this.users as |user|}}
       <div class="user-name">{{user.name}}</div>
     {{/each}}
   `

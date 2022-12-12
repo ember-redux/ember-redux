@@ -16,7 +16,7 @@ module('integration: connect test', function(hooks) {
   });
 
   test('should render parent component with one state and child component with another', async function(assert) {
-    await render(hbs`{{count-list}}`);
+    await render(hbs`<CountList />`);
 
     let $parent = find('.parent-state');
     let $child = find('.child-state');
@@ -48,7 +48,7 @@ module('integration: connect test', function(hooks) {
     assert.expect(2);
 
     this.set('myName', 'Dustin');
-    await render(hbs`{{count-list name=myName}}`);
+    await render(hbs`<CountList @name={{this.myName}} />`);
 
     assert.equal(find('.greeting').textContent, 'Welcome back, Dustin!', 'should render attrs provided to component');
 
@@ -60,7 +60,7 @@ module('integration: connect test', function(hooks) {
   test('stateToComputed will provide `this` context that is the component instance (when not using [phat]Arrow function)', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`{{count-list}}`);
+    await render(hbs`<CountList />`);
 
     assert.equal(find('.serviced').textContent, 'true', 'should render the prop provided by component instance');
   });
@@ -69,7 +69,7 @@ module('integration: connect test', function(hooks) {
     assert.expect(2);
 
     this.set('dynoNameValue', 'Toran');
-    await render(hbs`{{count-list dynoNameValue=dynoNameValue}}`);
+    await render(hbs`<CountList @dynoNameValue={{this.dynoNameValue}} />`);
 
     assert.equal(find('.dyno').textContent, 'name: Toran', 'should render the local component value');
 
@@ -85,10 +85,10 @@ module('integration: connect test', function(hooks) {
       return { callCount };
     }
     this.owner.register('component:test-component', connect(stateToComputed)(Component.extend({
-      layout: hbs`{{callCount}}`
+      layout: hbs`{{this.callCount}}`
     })));
 
-    await render(hbs`{{test-component attr=attr}}`);
+    await render(hbs`<TestComponent @attr={{this.attr}} />`);
     assert.equal(this.element.textContent, '1');
     assert.equal(callCount, 1);
 
@@ -102,7 +102,7 @@ module('integration: connect test', function(hooks) {
   });
 
   test('the component should truly be extended meaning actions map over as you would expect', async function(assert) {
-    await render(hbs`{{count-list}}`);
+    await render(hbs`<CountList />`);
 
     let $random = find('.random-state');
     assert.equal($random.textContent, '');
@@ -115,7 +115,7 @@ module('integration: connect test', function(hooks) {
   test('each computed is truly readonly', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`{{count-list}}`);
+    await render(hbs`<CountList />`);
 
     try {
       // Execute click immediately instead of clicking using the DOM since the
@@ -146,7 +146,7 @@ module('integration: connect test', function(hooks) {
       }
     })));
 
-    await render(hbs`{{test-component name=name}}`);
+    await render(hbs`<TestComponent @name={{this.name}} />`);
 
     this.set('name', 'Dustin');
   });
@@ -160,7 +160,7 @@ module('integration: connect test', function(hooks) {
 
     class FakeClazz extends Component {
       get layout() {
-        return hbs`<span class="name">{{number}}</span>`;
+        return hbs`<span class="name">{{this.number}}</span>`;
       }
 
       didUpdateAttrs() {
@@ -188,7 +188,7 @@ module('integration: connect test', function(hooks) {
 
     this.owner.register('component:test-clazz', connect(stateToComputed)(FakeClazzz));
 
-    await render(hbs`{{test-clazz name=name}}`);
+    await render(hbs`<TestClazz @name={{this.name}} />`);
     assert.equal(find('.name').textContent, '');
 
     this.set('name', 'Toran');
@@ -204,13 +204,13 @@ module('integration: connect test', function(hooks) {
 
     class FakeClazz extends Component {
       get layout() {
-        return hbs`<span class="name">{{number}}</span>`;
+        return hbs`<span class="name">{{this.number}}</span>`;
       }
     }
 
     this.owner.register('component:test-clazz', connect(stateToComputed)(FakeClazz));
 
-    await render(hbs`{{test-clazz name=name}}`);
+    await render(hbs`<TestClazz @name={{this.name}} />`);
     assert.equal(find('.name').textContent, '');
 
     this.set('name', 'Christopher');
@@ -230,13 +230,13 @@ module('integration: connect test', function(hooks) {
 
     class FakeClazz extends Component {
       get layout() {
-        return hbs`<button class="number" onclick={{action "up"}}>{{number}}</button>`;
+        return hbs`<button class="number" onclick={{action "up"}}>{{this.number}}</button>`;
       }
     }
 
     this.owner.register('component:test-clazz', connect(stateToComputed, dispatchToActions)(FakeClazz));
 
-    await render(hbs`{{test-clazz}}`);
+    await render(hbs`<TestClazz />`);
     assert.equal(find('.number').textContent, '0');
 
     await click('.number');
@@ -276,8 +276,8 @@ module('integration: connect test', function(hooks) {
       }
     })));
 
-    await render(hbs`{{test-component-1}}`);
-    await render(hbs`{{test-component-2}}`);
+    await render(hbs`<TestComponent-1 />`);
+    await render(hbs`<TestComponent-2 />`);
   });
 
   test('connecting dispatchToActions as object should dispatch action', async function(assert) {
@@ -308,20 +308,20 @@ module('integration: connect test', function(hooks) {
       `
     })));
 
-    await render(hbs`{{test-dispatch-action-object}}`);
+    await render(hbs`<TestDispatchActionObject />`);
 
     await click('.btn-up');
     await click('.btn-down');
   });
 
   test('connect provides an Ember Component for you by default', async function(assert) {
-    this.owner.register('template:components/foo-bar', hbs`{{name}}`);
+    this.owner.register('template:components/foo-bar', hbs`{{this.name}}`);
 
     const stateToComputed = () => ({ name: 'byDefault?' });
 
     this.owner.register('component:foo-bar', connect(stateToComputed)());
 
-    await render(hbs`{{foo-bar}}`);
+    await render(hbs`<FooBar />`);
 
     assert.equal(this.element.textContent, 'byDefault?');
   });
@@ -330,10 +330,10 @@ module('integration: connect test', function(hooks) {
     const stateToComputed = () => ({ id: 'static-selector' });
 
     this.owner.register('component:component-with-static-selector', connect(stateToComputed)(Component.extend({
-      layout: hbs`{{id}}`
+      layout: hbs`{{this.id}}`
     })));
 
-    await render(hbs`{{component-with-static-selector}}`);
+    await render(hbs`<ComponentWithStaticSelector />`);
 
     assert.equal(this.element.textContent, 'static-selector');
   });
@@ -346,10 +346,10 @@ module('integration: connect test', function(hooks) {
     }
 
     this.owner.register('component:component-with-selector-factory', connect(stateToComputedFactory)(Component.extend({
-      layout: hbs`{{id}}`
+      layout: hbs`{{this.id}}`
     })));
 
-    await render(hbs`{{component-with-selector-factory}} {{component-with-selector-factory}}`);
+    await render(hbs`<ComponentWithSelectorFactory /> <ComponentWithSelectorFactory />`);
 
     assert.equal(createdCount, 2);
     assert.equal(this.element.textContent, 'selector-1 selector-2');

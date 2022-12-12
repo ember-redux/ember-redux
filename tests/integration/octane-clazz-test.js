@@ -79,7 +79,7 @@ module('Integration | Component | octane-clazz', function(hooks) {
           assert.ok(true, 'should be able to connect components passing `null` to stateToComputed');
         }
       }));
-      await render(hbs`{{test-component-1}}`);
+      await render(hbs`<TestComponent-1 />`);
     } else {
       assert.ok(true, 'Tests are not executed and marked as passed');
     }
