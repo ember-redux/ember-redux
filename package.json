@@ -18,6 +18,7 @@
   "devDependencies": {
     "@ember/jquery": "2.0.0",
     "@ember/optional-features": "^1.1.0",
+    "@ember/test-helpers": "^2.8.1",
     "@glimmer/component": "^1.0.0",
     "babel-eslint": "^10.0.3",
     "broccoli-asset-rev": "^3.0.0",
@@ -34,7 +35,7 @@
     "ember-export-application-global": "^2.0.1",
     "ember-load-initializers": "^2.1.1",
     "ember-maybe-import-regenerator": "^1.0.0",
-    "ember-qunit": "^4.6.0",
+    "ember-qunit": "^6.0.0",
     "ember-resolver": "^7.0.0",
     "ember-source": "^3.28.10",
     "ember-symbol-observable": "^1.0.2",
@@ -42,6 +43,7 @@
     "eslint-plugin-ember": "^7.7.1",
     "eslint-plugin-node": "^10.0.0",
     "loader.js": "^4.2.3",
+    "qunit": "^2.19.3",
     "redux-saga": "^0.16.0",
     "redux-thunk": "^2.3.0",
     "webpack": "^5.61.0"
