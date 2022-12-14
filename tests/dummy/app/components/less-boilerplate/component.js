@@ -15,7 +15,7 @@ var mapDispatchToActions = {
 
 var LessBoilerplateComponent = Component.extend({
   layout: hbs`
-    <span class="upp-low">{{low}}</span>
+    <span class="upp-low">{{this.low}}</span>
     <button class="btn-upp" onclick={{action "bumpTwice" 1}}>upp</button>
   `
 });

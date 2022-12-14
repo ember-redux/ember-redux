@@ -31,17 +31,17 @@ var CountListComponent = Component.extend({
   }),
   fake: inject(),
   layout: hbs`
-    <span class="parent-state">{{low}}</span>
+    <span class="parent-state">{{this.low}}</span>
     <button class="btn-up" onclick={{action "up"}}>up</button>
-    {{count-detail high=high down=(action "down")}}
+    <CountDetail @high={{this.high}} @down={{action "down"}} />
     <button class="btn-combine" onclick={{action "combine"}}>combine</button>
     <button class="btn-random" onclick={{action "random"}}>random</button>
     <button class="btn-alter" onclick={{action "alter"}}>alter</button>
-    <span class="random-state">{{color}}</span>
-    <span class="greeting">{{greeting}}</span>
-    <span class="serviced">{{serviced}}</span>
-    <span class="dyno">{{dyno}}</span>
-    <span class="combined">{{combined}}</span>
+    <span class="random-state">{{this.color}}</span>
+    <span class="greeting">{{this.greeting}}</span>
+    <span class="serviced">{{this.serviced}}</span>
+    <span class="dyno">{{this.dyno}}</span>
+    <span class="combined">{{this.combined}}</span>
   `,
   actions: {
     alter() {

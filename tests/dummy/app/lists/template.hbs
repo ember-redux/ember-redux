@@ -1,7 +1,7 @@
 <div class="list-item-one">
   {{#list-one as |items fake contextt filter|}}
     <button class="filter-list-one" onclick={{action filter "5"}}>filter</button>
-    {{list-html items=items fake=fake}}
+    <ListHtml @items={{items}} @fake={{fake}} />
   {{/list-one}}
 </div>
 
@@ -14,10 +14,10 @@
 
 <div class="list-item-three">
   {{#list-one as |items fake contextt filter refresh update random faked context|}}
-    {{refresh-list refresh=refresh}}
-    {{unrelated-change update=update}}
-    {{random-change random=random}}
-    {{list-html items=items fake=fake}}
+    <RefreshList @refresh={{refresh}} />
+    <UnrelatedChange @update={{update}} />
+    <RandomChange @random={{random}} />
+    <ListHtml @items={{items}} @fake={{fake}} />
     <span class="fake-contextt">{{contextt}}</span>
     <button class="fake-change" onclick={{action faked}}>update fake</button>
     <button class="btn-contextt" onclick={{action context}}>test context</button>

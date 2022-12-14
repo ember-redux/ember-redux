@@ -16,7 +16,7 @@ var dispatchToActions = (dispatch) => {
 
 var ItemDetailComponent = Component.extend({
   layout: hbs`
-    <input class="item-detail-name" value={{item.name}} oninput={{action "nameUpdated" value="target.value"}} />
+    <input class="item-detail-name" value={{this.item.name}} oninput={{action "nameUpdated" value="target.value"}} />
   `
 });
 

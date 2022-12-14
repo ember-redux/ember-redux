@@ -10,7 +10,7 @@ var stateToComputed = (state) => {
 
 var RandomComponent = Component.extend({
   layout: hbs`
-    {{yield random}}
+    {{yield this.random}}
   `
 });
 

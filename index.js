@@ -1,5 +1,5 @@
 'use strict';
 
 module.exports = {
-  name: 'ember-redux'
+  name: require('./package').name,
 };

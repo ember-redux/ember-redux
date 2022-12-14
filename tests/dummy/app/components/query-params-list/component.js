@@ -11,7 +11,7 @@ var stateToComputed = (state) => {
 
 var QueryParamsListComponent = Component.extend({
   layout: hbs`
-    {{#each queryParams as |queryParam|}}
+    {{#each this.queryParams as |queryParam|}}
       <div class="query-param-name">{{queryParam}}</div>
     {{/each}}
     {{outlet}}

@@ -11,10 +11,10 @@ var stateToComputed = (state) => {
 
 var ItemListComponent = Component.extend({
   layout: hbs`
-    <div id="after-model-transition">{{transitionMsg}}</div>
-    {{#each items as |item|}}
+    <div id="after-model-transition">{{this.transitionMsg}}</div>
+    {{#each this.items as |item|}}
       <div class="item-name">{{item.name}}</div>
-      {{#link-to 'items.detail' item.id class='item-detail-link'}}details{{/link-to}}
+      <LinkTo @route="items.detail" @model={{item.id}} class="item-detail-link">details</LinkTo>
     {{/each}}
     {{outlet}}
   `

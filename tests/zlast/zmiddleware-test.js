@@ -15,6 +15,10 @@ module('Acceptance | middleware configuration test', function(hooks) {
     assert.equal(currentURL(), '/saga');
     assert.equal(find('.saga-number').textContent, '3');
     assert.equal(window.middlewareArgs.length, 1);
-    assert.deepEqual(Object.keys(window.middlewareArgs[0]), ['dispatch', 'subscribe', 'getState', 'replaceReducer']);
+    const expected = ['dispatch', 'subscribe', 'getState', 'replaceReducer'];
+    if (window.__REDUX_DEVTOOLS_EXTENSION__) {
+      expected.unshift('liftedStore');
+    }
+    assert.deepEqual(Object.keys(window.middlewareArgs[0]), expected);
   });
 });

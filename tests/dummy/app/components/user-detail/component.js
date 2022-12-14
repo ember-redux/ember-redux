@@ -10,7 +10,7 @@ var stateToComputed = (state) => {
 
 var UserDetailComponent = Component.extend({
   layout: hbs`
-    <span style="color: blue;" class="user-detail-name">{{user.name}}</span>
+    <span style="color: blue;" class="user-detail-name">{{this.user.name}}</span>
   `
 });
 
